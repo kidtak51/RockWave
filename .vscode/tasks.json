@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // iVerilogでテストを実行する
+            // testbenchを開いて、Ctrl-Shift-B "RUN iverilog"で実行
+            // エラーが発生したら、Ctrl-Shift-Mでエラーのリストを取得
+            // エラーをクリックかカーソルキーで選択するとエラー箇所にジャンプする
+            "label": "Run iVerilog",
+            "type": "shell",
+            "command": "cd ${fileDirname} ; make",
+            "group": "build",
+            "problemMatcher": [{
+                "owner": "verilog",
+                "fileLocation": ["relative", "${fileDirname}"],
+                "pattern": {
+                    // reg_rw_tb.v:41: error: Malformed event control expression.
+                    "regexp": "^(.*):(\\d+):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "message": 3
+                }
+            }]
+        }
+    ]
+}

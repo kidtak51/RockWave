@@ -1,0 +1,66 @@
+{
+    "psi-header.variables": [
+        ["projectCreationYear", "2018"],
+//        ["projectname", "RockWave"]
+    ],
+    "psi-header.changes-tracking": {
+        "isActive": true,
+    },
+    "psi-header.lang-config": [
+        {
+            "language": "makefile",
+            "begin": "",
+            "end":"",
+            "prefix": "#"
+        }
+    ],
+    "psi-header.templates": [
+        {
+            "language": "verilog",
+            "template": [
+                "*****************************************************************",
+                "File: <<filename>>",
+                "Category: <<projectname>>",
+                "File Created: <<dateformat('YYYY/MM/DD kk:mm')>>",
+                "Author: <<author>> ( <<authoremail>> )",
+                "*****",
+                "Last Modified: <<dateformat('YYYY/MM/DD kk:mm')>>",
+                "Modified By: <<author>> ( <<authoremail>> )",
+                "*****",
+                "Copyright <<projectCreationYear>> - <<year>>  Project RockWave",
+                "*****************************************************************",
+                "Description:",
+                "  ",
+                "*****************************************************************",
+                "HISTORY:",
+                "Date      \tBy        \tComments",
+                "----------\t----------\t----------------------------------------",
+                "<<dateformat('YYYY/MM/DD')>>\t<<author>>\tFirst Version",
+                "*****************************************************************"
+            ],
+            "changeLogCaption": "HISTORY:",
+            "changeLogHeaderLineCount": 2,
+            "changeLogEntryTemplate": [
+                "<<dateformat('YYYY/MM/DD')>>\t<<author>>\t"
+            ]
+        },
+        {
+            "language": "makefile",
+            "template": [
+                "#####################################################################",
+                " Project: <<projectname>>",
+                " File Created: <<dateformat('YYYY/MM/DD kk:mm')>>",
+                " Author: <<author>> ( <<authoremail>> )",
+                "#####",
+                " Last Modified: <<dateformat('YYYY/MM/DD kk:mm')>>",
+                " Modified By: <<author>> ( <<authoremail>> )",
+                "#####",
+                " Copyright <<projectCreationYear>> - <<year>>  Project <<projectname>>",
+                "#####################################################################",
+                " Description:",
+                " ",
+                "#####################################################################",
+            ]
+        }
+    ]
+}
