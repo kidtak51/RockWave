@@ -11,7 +11,8 @@ Icarus Verilogの[ホームページ](http://bleyer.org/icarus/ "Icarus Verilog"
 
 * Linux ( Ubuntu )  
 aptからインストール  
-    $ sudo apt-get install verilog gtkwave  
+
+        $ sudo apt-get install verilog gtkwave  
 
 ### Visual Studio Code
 * Windows  
@@ -20,13 +21,15 @@ Visual Studio Codeの[ホームページ](https://code.visualstudio.com/ "VS Cod
 * Linux ( Ubuntu )  
 Visual Sdutio Codeの[SETUP-Linux](https://code.visualstudio.com/docs/setup/linux "SETUP-Linux")に従って、インストールする  
 The repository and key can also be installed manually with the following script:  
-`curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg  `  
-`sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/`  
-`sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'  `  
+
+        $ curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+        $ sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+        $ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 Then update the package cache and install the package using:  
-`sudo apt-get install apt-transport-https`  
-`sudo apt-get update`  
-`sudo apt-get install code`  
+
+        $ sudo apt-get install apt-transport-https
+        $ sudo apt-get update
+        $ sudo apt-get install code
 
 ### GNU Make (Windowsのみ)
 Windowsには、makeが含まれていないため、GNU Makeを別途インストールします。  
@@ -59,6 +62,7 @@ Ver.1.25から英語だけが本体同梱のようです。
 User Settingに、`author`と`authoremail`を設定しておく  
 VS Codeで、「ファイル」→「基本設定」→「設定」  
 「拡張機能」→「Header Insert」→「Variables」 settings.jsonで編集を押す  
+
     {
         "psi-header.variables": [
             ["author","Masaru Aoki"],
@@ -74,17 +78,20 @@ VS Codeで、「ファイル」→「基本設定」→「設定」
 ### Git/GitHubの設定 ###
 * 公開鍵/秘密鍵の作成  
 * *Windows*  
-`> mkdir C:\Users\XXXX\.ssh`  
-`> cd C:\Users\XXX\.ssh`  
-`> "C:\Program Files(x86)\Git\usr\bin\ssh-keygen" -t rsa`  
+
+        > mkdir C:\Users\XXXX\.ssh
+        > cd C:\Users\XXX\.ssh`
+        > "C:\Program Files(x86)\Git\usr\bin\ssh-keygen" -t rsa 
 * *Linux*  
-`$ cd ~/.ssh`  
-`$ ssh-keygen -t rsa`  
+
+        $ cd ~/.ssh
+        $ ssh-keygen -t rsa
 
 id_rsa(秘密鍵)とid_rsa.pub(公開鍵)が作成されます  
 id_ras.pubの内容をGitHubに登録します。  
 [GitHubホームページ](https://github.com/settings/ssh "GitHub")で公開鍵の設定ができます。  
 画面右上の「New SSH Key」のボタンを押します
 「Title」に公開鍵名「key」に公開鍵の中身を入れます  
-`$ ssh -T git@github.com`  
+
+        $ ssh -T git@github.com
 で接続が確認できます。
