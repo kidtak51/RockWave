@@ -28,7 +28,7 @@ lakehipでは、構築済みなので、`/opt/riscv32i/bin`にパスを通して
 今回のプロジェクトでは、RV32Iコアなので、ビルドスクリプトを修正します。
 
     $ sed -e 's/rv32ima/rv32i/g' build-rv32ima.sh > build-rv32i.sh
-    $ chmod +x build.rv32i.sh
+    $ chmod +x build-rv32i.sh
 
 ホストPCに複数のコアがあるなら、並列ビルドを行うためにbuild.commonファイルを修正します。
 
