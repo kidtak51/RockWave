@@ -8,7 +8,7 @@
             // エラーをクリックかカーソルキーで選択するとエラー箇所にジャンプする
             "label": "Run iVerilog",
             "type": "shell",
-            "command": "cd ${fileDirname} ; make",
+            "command": "make -C \"${fileDirname}\"",
             "group": "build",
             "problemMatcher": [{
                 "owner": "verilog",
