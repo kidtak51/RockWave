@@ -14,12 +14,14 @@
 
 testbench = reg_rw_tb
 testmodule = ../../../HDL_SRC/CORE/RegisterFile/reg_rw.v
+INCDIR = ../../../HDL_SRC/CORE/
 
 all: iverilog wave
 
 iverilog:
-	iverilog -o $(testbench) $(testbench).v $(testmodule)
+	iverilog -o $(testbench) -I $(INCDIR) $(testbench).v $(testmodule)
 	vvp $(testbench)
+	rm  $(testbench)
 
 wave:
 	gtkwave *.vcd $(testbench).gtkw -a $(testbench).gtkw 
