@@ -15,6 +15,10 @@
 testbench = top_fetch_tb
 testmodule1 = ../../../HDL_SRC/CORE/Fetch/top_fetch.v
 testmodule2 = ../../../HDL_SRC/CORE/Fetch/rom.v
+
+# testbench = rom_tb
+# testmodule1 = ../../../HDL_SRC/CORE/Fetch/rom.v
+# testmodule2 = 
 INCDIR = ../../../HDL_SRC/CORE/
 
 all: iverilog wave

@@ -5,7 +5,7 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/20 04:25
+ * Last Modified: 2018/12/20 04:46
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -26,8 +26,12 @@
    /////////////////////////////////////////////
    // Instruction Memory
    /////////////////////////////////////////////
+   // InstMemory Data Width
+   parameter DWIDTH = XLEN;
    // InstMemory Address Width
    parameter AWIDTH = 12;
+   // InstMemory Words size
+   parameter WORDS = (2**AWIDTH);
    // Reset Vector
    parameter RESET_VECTOR = 32'h8000_0000;
 

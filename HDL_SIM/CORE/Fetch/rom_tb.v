@@ -5,7 +5,7 @@
  * File Created: 2018/12/16 07:28
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/16 08:10
+ * Last Modified: 2018/12/20 04:42
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -21,11 +21,14 @@
  */
 
 module rom_tb;
+
+`include "core_general.vh"
+
 reg clk;
 reg rst_n;
 reg wenble;
-reg [11:0] addr;
-wire [31:0] q;
+reg [AWIDTH-1:0] addr;
+wire [DWIDTH-1:0] q;
 
 ///////////////////////////////////////////////////////////////////
 // インスタンス

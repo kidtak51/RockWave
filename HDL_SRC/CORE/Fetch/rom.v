@@ -5,7 +5,7 @@
  * File Created: 2018/12/16 07:11
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/16 07:53
+ * Last Modified: 2018/12/20 04:48
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -27,9 +27,7 @@ module rom(
     input [AWIDTH-1:0] addr,    // Address
     output [DWIDTH-1:0] qout       // Read  Data
 );
-    parameter DWIDTH = 32;
-    parameter AWIDTH = 12;
-    parameter WORDS  = 4096;
+    `include "core_general.vh"
 
     reg [DWIDTH-1:0] qout;
     reg [DWIDTH-1:0] mem [WORDS-1:0];
