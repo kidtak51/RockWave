@@ -9,17 +9,20 @@
 # Copyright 2018 - 2018  Project RockWave
 ######################################################################
 # Description:
-#    TestBench for rom
+#    TestBench for top_fetch
 ######################################################################
 
-testbench = rom_tb
-testmodule = ../../../HDL_SRC/CORE/Fetch/rom.v
+testbench = top_fetch_tb
+testmodule1 = ../../../HDL_SRC/CORE/Fetch/top_fetch.v
+testmodule2 = ../../../HDL_SRC/CORE/Fetch/rom.v
+INCDIR = ../../../HDL_SRC/CORE/
 
 all: iverilog wave
 
 iverilog:
-	iverilog -o $(testbench) $(testbench).v $(testmodule)
+	iverilog -o $(testbench) -I $(INCDIR) $(testbench).v $(testmodule1) $(testmodule2)
 	vvp $(testbench)
+	rm $(testbench)
 
 wave:
 	gtkwave *.vcd $(testbench).gtkw -a $(testbench).gtkw 
