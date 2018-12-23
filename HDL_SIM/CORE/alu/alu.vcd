@@ -1,0 +1,90 @@
+$date
+	Mon Dec 24 00:43:48 2018
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module alu_tb $end
+$var wire 32 ! aluout [31:0] $end
+$var reg 32 " aluin1 [31:0] $end
+$var reg 32 # aluin2 [31:0] $end
+$var reg 3 $ funct3 [2:0] $end
+$scope module test $end
+$var wire 32 % aluin1 [31:0] $end
+$var wire 32 & aluin2 [31:0] $end
+$var wire 3 ' funct3 [2:0] $end
+$var wire 32 ( aluout [31:0] $end
+$scope function calc $end
+$var reg 32 ) aluin1 [31:0] $end
+$var reg 32 * aluin2 [31:0] $end
+$var reg 32 + calc [31:0] $end
+$var reg 3 , funct3 [2:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 ,
+b0 +
+b0 *
+b0 )
+b0 (
+b0 '
+b0 &
+b0 %
+b0 $
+b0 #
+b0 "
+b0 !
+$end
+#2
+b10001 !
+b10001 (
+b10001 +
+b1010 *
+b111 )
+b1010 #
+b1010 &
+b111 "
+b111 %
+#3
+b1 ,
+b1 $
+b1 '
+#4
+b10 ,
+b10 $
+b10 '
+#5
+b11 ,
+b11 $
+b11 '
+#6
+b1101 !
+b1101 (
+b1101 +
+b100 ,
+b100 $
+b100 '
+#7
+b101 ,
+b101 $
+b101 '
+#8
+b1111 !
+b1111 (
+b1111 +
+b110 ,
+b110 $
+b110 '
+#9
+b10 !
+b10 (
+b10 +
+b111 ,
+b111 $
+b111 '
