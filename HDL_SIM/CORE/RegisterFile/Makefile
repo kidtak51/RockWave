@@ -12,9 +12,10 @@
 #    TestBench for reg_rw
 ######################################################################
 
-testbench = reg_rw_tb
-testmodule = ../../../HDL_SRC/CORE/RegisterFile/reg_rw.v
 INCDIR = ../../../HDL_SRC/CORE/
+SRCDIR = ../../../HDL_SRC/CORE/RegisterFile
+testbench = register_file_tb
+testmodule = $(SRCDIR)/register_file.v $(SRCDIR)/reg_rw.v 
 
 all: iverilog wave
 
