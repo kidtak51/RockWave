@@ -5,7 +5,7 @@
  * File Created: 2018/11/25 06:43
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/11/27 05:16
+ * Last Modified: 2018/12/20 05:29
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -22,11 +22,13 @@
 
 module reg_rw_tb;
 
+`include "core_general.vh"
+
 reg clk;
 reg rst_n;
 reg wenble;
-reg [31:0] datain;
-wire [31:0] dataout;
+reg [XLEN-1:0] datain;
+wire [XLEN-1:0] dataout;
 
 reg_rw test(
     clk, rst_n,

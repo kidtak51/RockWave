@@ -5,7 +5,7 @@
  * File Created: 2018/11/25 06:54
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/11/27 04:19
+ * Last Modified: 2018/12/20 05:29
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -26,8 +26,7 @@ module reg_rw (
     datain, dataout
     );
 
-    parameter XLEN = 32;
-    parameter INIVAL = {XLEN{1'b0}};
+    `include "core_general.vh"
 
     input   clk;                    // Clock
     input   rst_n;                  // Reset
@@ -39,7 +38,7 @@ module reg_rw (
 
     always @(posedge clk or negedge rst_n) begin
         if(~rst_n)
-            data <= INIVAL;
+            data <= {XLEN{1'b0}};
         else if(wenble)
             data <= datain;
         else
