@@ -5,7 +5,7 @@
  * File Created: 2018/12/23 05:46
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/23 12:33
+ * Last Modified: 2018/12/28 12:39
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -29,8 +29,8 @@ module register_file_tb;
 
     reg   clk;                    // Clock
     reg   rst_n;                  // Reset
-    reg   [XLEN-1:0] rddata;      // 入力データ
-    reg   [4:0] rdsel;            // RD 選択
+    reg   [XLEN-1:0] rddata_wr;   // 入力データ
+    reg   [4:0] rdsel_wr;         // RD 選択
     reg   phase_fetch;            // Fetch Phase
     reg   phase_decode;           // Decode Phase
     reg   phase_execute;          // Execute Phase
@@ -39,8 +39,8 @@ module register_file_tb;
     reg   [4:0] rs1sel;           // RS1 選択
     reg   [4:0] rs2sel;           // RS2 選択
 
-    wire  [XLEN-1:0] rs1data;     // 出力データ (rs1)
-    wire  [XLEN-1:0] rs2data;     // 出力データ (rs2)
+    wire  [XLEN-1:0] rs1data_rd;  // 出力データ (rs1)
+    wire  [XLEN-1:0] rs2data_rd;  // 出力データ (rs2)
 
     integer i;
 
@@ -79,8 +79,8 @@ initial begin
 //    $monitor("%t: RD(en=%b sel=%h out=%4h) RS1(sel=%d,%4h) RS2(sel=%d,%4h)",$time,phase_writeback,rdsel,rddata,rs1sel,rs1data,rs2sel,rs2data);
 
     rst_n=0;
-    rddata =0;
-    rdsel =0;
+    rddata_wr =0;
+    rdsel_wr =0;
     rs1sel = 0;
     rs2sel = 0;
     phase_writeback = 0;
@@ -95,56 +95,56 @@ initial begin
     for(i = 0;i<32;i=i+1) begin
         rs1sel = i;
         @(posedge clk)
-        assert_eq (rs1data,0);
+        assert_eq (rs1data_rd,0);
     end
     $display("RS2 init check");
     for(i = 0;i<32;i=i+1) begin
         rs2sel = i;
         @(posedge clk)
-        assert_eq (rs2data,0);
+        assert_eq (rs2data_rd,0);
     end
 
     ////////////////////////////////////////////
     // RDチェック 
     $display("RD check");
     // X0は書き込めない
-    rdsel = 0;
+    rdsel_wr = 0;
     rs1sel = 0;
-    rddata = 32'h0000;
+    rddata_wr = 32'h0000;
     wait_reg_write();
-    assert_eq (rs1data,0);
+    assert_eq (rs1data_rd,0);
 
-    rddata = 32'hFFFF;
+    rddata_wr = 32'hFFFF;
     wait_reg_write();
-    assert_eq (rs1data,0);
+    assert_eq (rs1data_rd,0);
 
-    rddata = 32'hAAAA;
+    rddata_wr = 32'hAAAA;
     wait_reg_write();
-    assert_eq (rs1data,0);
+    assert_eq (rs1data_rd,0);
 
-    rddata = 32'h5555;
+    rddata_wr = 32'h5555;
     wait_reg_write();
-    assert_eq (rs1data,0);
+    assert_eq (rs1data_rd,0);
 
     // X1〜X31書き込み RS1から読み出す
     for(i = 1;i<32;i=i+1) begin
-        rdsel = i;
+        rdsel_wr = i;
         rs1sel = i;
-        rddata = 32'h0000;
+        rddata_wr = 32'h0000;
         wait_reg_write();
-        assert_eq (rs1data,rddata);
+        assert_eq (rs1data_rd,rddata_wr);
 
-        rddata = 32'hFFFF;
+        rddata_wr = 32'hFFFF;
         wait_reg_write();
-        assert_eq (rs1data,rddata);
+        assert_eq (rs1data_rd,rddata_wr);
 
-        rddata = 32'h5555;
+        rddata_wr = 32'h5555;
         wait_reg_write();
-        assert_eq (rs1data,rddata);
+        assert_eq (rs1data_rd,rddata_wr);
 
-        rddata = 32'hAAAA;
+        rddata_wr = 32'hAAAA;
         wait_reg_write();
-        assert_eq (rs1data,rddata);
+        assert_eq (rs1data_rd,rddata_wr);
     end
 
     ////////////////////////////////////////////
@@ -153,15 +153,15 @@ initial begin
     // X1〜X31に1〜31を書き込み RS1から読み出す
     // X0は常に0
     for(i = 1;i<32;i=i+1) begin
-        rdsel = i;
-        rddata = i;
+        rdsel_wr = i;
+        rddata_wr = i;
         wait_reg_write();
     end
 
     for(i = 0;i<32;i=i+1) begin
         rs1sel = i;
         @(posedge phase_execute)
-        assert_eq (rs1data,i);
+        assert_eq (rs1data_rd,i);
     end
 
     ////////////////////////////////////////////
@@ -170,7 +170,7 @@ initial begin
     for(i = 0;i<32;i=i+1) begin
         rs2sel = i;
         @(posedge phase_execute)
-        assert_eq (rs2data,i);
+        assert_eq (rs2data_rd,i);
     end
 
     $display("***** TEST OK! *****");
