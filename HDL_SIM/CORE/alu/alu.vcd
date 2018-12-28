@@ -1,5 +1,5 @@
 $date
-	Fri Dec 28 14:08:52 2018
+	Fri Dec 28 14:31:49 2018
 $end
 $version
 	Icarus Verilog
@@ -12,22 +12,27 @@ $var wire 32 ! aluout [31:0] $end
 $var reg 32 " aluin1 [31:0] $end
 $var reg 32 # aluin2 [31:0] $end
 $var reg 3 $ funct3 [2:0] $end
+$var reg 1 % funct7 $end
 $scope module test $end
-$var wire 32 % aluin1 [31:0] $end
-$var wire 32 & aluin2 [31:0] $end
-$var wire 3 ' funct3 [2:0] $end
-$var wire 32 ( aluout [31:0] $end
+$var wire 32 & aluin1 [31:0] $end
+$var wire 32 ' aluin2 [31:0] $end
+$var wire 3 ( funct3 [2:0] $end
+$var wire 1 % funct7 $end
+$var wire 4 ) funct73 [3:0] $end
+$var wire 32 * aluout [31:0] $end
 $scope function calc $end
-$var reg 32 ) aluin1 [31:0] $end
-$var reg 32 * aluin2 [31:0] $end
-$var reg 32 + calc [31:0] $end
-$var reg 3 , funct3 [2:0] $end
+$var reg 32 + aluin1 [31:0] $end
+$var reg 32 , aluin2 [31:0] $end
+$var reg 32 - calc [31:0] $end
+$var reg 4 . funct73 [3:0] $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
+b0 .
+b0 -
 b0 ,
 b0 +
 b0 *
@@ -35,7 +40,7 @@ b0 )
 b0 (
 b0 '
 b0 &
-b0 %
+0%
 b0 $
 b0 #
 b0 "
@@ -43,61 +48,129 @@ b0 !
 $end
 #2
 b10001 !
-b10001 (
-b10001 +
-b1010 *
-b111 )
+b10001 *
+b10001 -
+b1010 ,
+b111 +
 b1010 #
-b1010 &
+b1010 '
 b111 "
-b111 %
+b111 &
 #3
-bx !
-bx (
-bx +
-b1 ,
+b1110000000000 !
+b1110000000000 *
+b1110000000000 -
+b1 .
+b1 )
 b1 $
-b1 '
+b1 (
 #4
-b10 ,
+b10001 !
+b10001 *
+b10001 -
+b10 .
+b10 )
 b10 $
-b10 '
+b10 (
 #5
-b11 ,
+b11 .
+b11 )
 b11 $
-b11 '
+b11 (
 #6
 b1101 !
-b1101 (
-b1101 +
-b100 ,
+b1101 *
+b1101 -
+b100 .
+b100 )
 b100 $
-b100 '
+b100 (
 #7
-bx !
-bx (
-bx +
-b101 ,
+b10001 !
+b10001 *
+b10001 -
+b101 .
+b101 )
 b101 $
-b101 '
+b101 (
 #8
 b1111 !
-b1111 (
-b1111 +
-b110 ,
+b1111 *
+b1111 -
+b110 .
+b110 )
 b110 $
-b110 '
+b110 (
 #9
 b10 !
-b10 (
-b10 +
-b111 ,
+b10 *
+b10 -
+b111 .
+b111 )
 b111 $
-b111 '
+b111 (
 #10
 bx !
-bx (
-bx +
-bx ,
+bx *
+bx -
+b0xxx .
+b0xxx )
 bx $
-bx '
+bx (
+#11
+bx000 .
+x%
+bx000 )
+b0 $
+b0 (
+#12
+b1001 .
+1%
+b1001 )
+b1 $
+b1 (
+#13
+b1010 .
+b1010 )
+b10 $
+b10 (
+#14
+b1011 .
+b1011 )
+b11 $
+b11 (
+#15
+b1100 .
+b1100 )
+b100 $
+b100 (
+#16
+b10001 !
+b10001 *
+b10001 -
+b1101 .
+b1101 )
+b101 $
+b101 (
+#17
+bx !
+bx *
+bx -
+b1110 .
+b1110 )
+b110 $
+b110 (
+#18
+b1111 .
+b1111 )
+b111 $
+b111 (
+#19
+b1xxx .
+b1xxx )
+bx $
+bx (
+#20
+bx .
+bx )
+x%
