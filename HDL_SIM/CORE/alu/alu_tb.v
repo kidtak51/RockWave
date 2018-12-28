@@ -25,40 +25,55 @@ module alu_tb;
 reg [31:0] aluin1;
 reg [31:0] aluin2;
 reg [2:0] funct3;
+reg funct7;
 wire [31:0] aluout;
 
 //1周期1000unit
 parameter STEP = 1;
 
 alu test(
-   aluin1, aluin2, funct3, aluout
+   aluin1, aluin2, funct3, funct7, aluout
 );
 
 initial begin
 
     funct3 = 3'b000;
+    funct7 = 1'b0;
     aluin1 = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
     aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
 
     #STEP
     funct3 = 3'b000;
+    funct7 = 1'b0;
     aluin1 = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
     aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
 
     #STEP
     funct3 = 3'b000;
+    funct7 = 1'b0;
     aluin1 = 32'b0000_0000_0000_0000_0000_0000_0000_0111;
     aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_1010;
 
-    #STEP    funct3 = 3'b001;
-    #STEP    funct3 = 3'b010;
-    #STEP    funct3 = 3'b011;    
-    #STEP    funct3 = 3'b100;
-    #STEP    funct3 = 3'b101;
-    #STEP    funct3 = 3'b110;
-    #STEP    funct3 = 3'b111;
-    #STEP    funct3 = 3'bXXX;
+    #STEP    funct3 = 3'b001; funct7 = 1'b0;
+    #STEP    funct3 = 3'b010; funct7 = 1'b0;
+    #STEP    funct3 = 3'b011; funct7 = 1'b0;    
+    #STEP    funct3 = 3'b100; funct7 = 1'b0;
+    #STEP    funct3 = 3'b101; funct7 = 1'b0;
+    #STEP    funct3 = 3'b110; funct7 = 1'b0;
+    #STEP    funct3 = 3'b111; funct7 = 1'b0;
+    #STEP    funct3 = 3'bXXX; funct7 = 1'b0;
+    #STEP    funct3 = 3'b000; funct7 = 1'bX;
 
+    #STEP    funct3 = 3'b001; funct7 = 1'b1;
+    #STEP    funct3 = 3'b010; funct7 = 1'b1;
+    #STEP    funct3 = 3'b011; funct7 = 1'b1;    
+    #STEP    funct3 = 3'b100; funct7 = 1'b1;
+    #STEP    funct3 = 3'b101; funct7 = 1'b1;
+    #STEP    funct3 = 3'b110; funct7 = 1'b1;
+    #STEP    funct3 = 3'b111; funct7 = 1'b1;
+    #STEP    funct3 = 3'bXXX; funct7 = 1'b1;
+
+    #STEP    funct3 = 3'bXXX; funct7 = 1'bX;
 
 end
 
@@ -66,7 +81,7 @@ end
 initial begin
  $dumpfile("alu.vcd");
     $dumpvars(0,alu_tb);
-    $monitor(" STEP=%d funct3= %b aluin1=%b  aluin2=%b aluout=%b ",STEP,funct3,aluin1,aluin2,aluout);
+    $monitor(" STEP=%d funct3= %b funct7= %b aluin1=%b aluin2=%b aluout=%b ",STEP,funct3,funct7,aluin1,aluin2,aluout);
 end
 
 endmodule
