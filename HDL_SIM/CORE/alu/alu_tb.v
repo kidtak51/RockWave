@@ -57,6 +57,7 @@ initial begin
     #STEP    funct3 = 3'b101;
     #STEP    funct3 = 3'b110;
     #STEP    funct3 = 3'b111;
+    #STEP    funct3 = 3'bXXX;
 
 
 end

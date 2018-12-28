@@ -1,0 +1,25 @@
+[*]
+[*] GTKWave Analyzer v3.3.71 (w)1999-2016 BSI
+[*] Fri Dec 28 05:08:18 2018
+[*]
+[dumpfile] "C:\Users\plusone\Documents\GitHub\RockWave\HDL_SIM\CORE\alu\alu.vcd"
+[dumpfile_mtime] "Fri Dec 28 05:06:49 2018"
+[dumpfile_size] 1161
+[savefile] "C:\Users\plusone\Documents\GitHub\RockWave\HDL_SIM\CORE\alu\alu_tb.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-1.708825 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] alu_tb.
+[sst_width] 197
+[signals_width] 126
+[sst_expanded] 1
+[sst_vpaned_height] 153
+@22
+alu_tb.aluin1[31:0]
+alu_tb.aluin2[31:0]
+alu_tb.aluout[31:0]
+@29
+alu_tb.funct3[2:0]
+[pattern_trace] 1
+[pattern_trace] 0

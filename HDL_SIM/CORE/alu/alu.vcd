@@ -1,5 +1,5 @@
 $date
-	Mon Dec 24 00:43:48 2018
+	Fri Dec 28 14:08:52 2018
 $end
 $version
 	Icarus Verilog
@@ -52,6 +52,9 @@ b1010 &
 b111 "
 b111 %
 #3
+bx !
+bx (
+bx +
 b1 ,
 b1 $
 b1 '
@@ -71,6 +74,9 @@ b100 ,
 b100 $
 b100 '
 #7
+bx !
+bx (
+bx +
 b101 ,
 b101 $
 b101 '
@@ -88,3 +94,10 @@ b10 +
 b111 ,
 b111 $
 b111 '
+#10
+bx !
+bx (
+bx +
+bx ,
+bx $
+bx '
