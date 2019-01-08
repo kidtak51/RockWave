@@ -5,7 +5,7 @@
  * File Created: 2018/12/23 05:38
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/23 06:59
+ * Last Modified: 2018/12/28 12:38
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -23,14 +23,14 @@
 module register_file (
     input   clk,                    // Clock
     input   rst_n,                  // Reset
-    input   [XLEN-1:0] rddata,      // 入力データ
-    input   [4:0] rdsel,            // RD 選択
+    input   [XLEN-1:0] rddata_wr,   // 入力データ
+    input   [4:0] rdsel_wr,         // RD 選択
     input   phase_writeback,        // データ書き込み
     input   [4:0] rs1sel,           // RS1 選択
     input   [4:0] rs2sel,           // RS2 選択
 
-    output  [XLEN-1:0] rs1data,     // 出力データ (rs1)
-    output  [XLEN-1:0] rs2data      // 出力データ (rs2)
+    output  [XLEN-1:0] rs1data_rd,  // 出力データ (rs1)
+    output  [XLEN-1:0] rs2data_rd   // 出力データ (rs2)
     );
 
     `include "core_general.vh"
@@ -102,7 +102,7 @@ module register_file (
 
     ////////////////////////////////////////////////////////////////////////////
     // RS1
-     assign rs1data = selector(rs1sel,
+     assign rs1data_rd = selector(rs1sel,
                 {XLEN{1'b0}},x1out,x2out,x3out,x4out,x5out,x6out,x7out,
                  x8out ,x9out ,x10out,x11out,x12out,x13out,x14out,x15out,
                  x16out,x17out,x18out,x19out,x20out,x21out,x22out,x23out,
@@ -110,7 +110,7 @@ module register_file (
 
     ////////////////////////////////////////////////////////////////////////////
     // RS2
-     assign rs2data = selector(rs2sel,
+     assign rs2data_rd = selector(rs2sel,
                 {XLEN{1'b0}},x1out,x2out,x3out,x4out,x5out,x6out,x7out,
                  x8out ,x9out ,x10out,x11out,x12out,x13out,x14out,x15out,
                  x16out,x17out,x18out,x19out,x20out,x21out,x22out,x23out,
@@ -118,69 +118,69 @@ module register_file (
 
     ////////////////////////////////////////////////////////////////////////////
     // RD
-    assign selx1  = (rdsel == 5'b00001 ) & phase_writeback;
-    assign selx2  = (rdsel == 5'b00010 ) & phase_writeback;
-    assign selx3  = (rdsel == 5'b00011 ) & phase_writeback;
-    assign selx4  = (rdsel == 5'b00100 ) & phase_writeback;
-    assign selx5  = (rdsel == 5'b00101 ) & phase_writeback;
-    assign selx6  = (rdsel == 5'b00110 ) & phase_writeback;
-    assign selx7  = (rdsel == 5'b00111 ) & phase_writeback;
-    assign selx8  = (rdsel == 5'b01000 ) & phase_writeback;
-    assign selx9  = (rdsel == 5'b01001 ) & phase_writeback;
-    assign selx10 = (rdsel == 5'b01010 ) & phase_writeback;
-    assign selx11 = (rdsel == 5'b01011 ) & phase_writeback;
-    assign selx12 = (rdsel == 5'b01100 ) & phase_writeback;
-    assign selx13 = (rdsel == 5'b01101 ) & phase_writeback;
-    assign selx14 = (rdsel == 5'b01110 ) & phase_writeback;
-    assign selx15 = (rdsel == 5'b01111 ) & phase_writeback;
-    assign selx16 = (rdsel == 5'b10000 ) & phase_writeback;
-    assign selx17 = (rdsel == 5'b10001 ) & phase_writeback;
-    assign selx18 = (rdsel == 5'b10010 ) & phase_writeback;
-    assign selx19 = (rdsel == 5'b10011 ) & phase_writeback;
-    assign selx20 = (rdsel == 5'b10100 ) & phase_writeback;
-    assign selx21 = (rdsel == 5'b10101 ) & phase_writeback;
-    assign selx22 = (rdsel == 5'b10110 ) & phase_writeback;
-    assign selx23 = (rdsel == 5'b10111 ) & phase_writeback;
-    assign selx24 = (rdsel == 5'b11000 ) & phase_writeback;
-    assign selx25 = (rdsel == 5'b11001 ) & phase_writeback;
-    assign selx26 = (rdsel == 5'b11010 ) & phase_writeback;
-    assign selx27 = (rdsel == 5'b11011 ) & phase_writeback;
-    assign selx28 = (rdsel == 5'b11100 ) & phase_writeback;
-    assign selx29 = (rdsel == 5'b11101 ) & phase_writeback;
-    assign selx30 = (rdsel == 5'b11110 ) & phase_writeback;
-    assign selx31 = (rdsel == 5'b11111 ) & phase_writeback;
-    
-    reg_rw x1 (.clk(clk),.rst_n(rst_n),.wenble(selx1),.datain(rddata),.dataout(x1out));
-    reg_rw x2 (.clk(clk),.rst_n(rst_n),.wenble(selx2),.datain(rddata),.dataout(x2out));
-    reg_rw x3 (.clk(clk),.rst_n(rst_n),.wenble(selx3),.datain(rddata),.dataout(x3out));
-    reg_rw x4 (.clk(clk),.rst_n(rst_n),.wenble(selx4),.datain(rddata),.dataout(x4out));
-    reg_rw x5 (.clk(clk),.rst_n(rst_n),.wenble(selx5),.datain(rddata),.dataout(x5out));
-    reg_rw x6 (.clk(clk),.rst_n(rst_n),.wenble(selx6),.datain(rddata),.dataout(x6out));
-    reg_rw x7 (.clk(clk),.rst_n(rst_n),.wenble(selx7),.datain(rddata),.dataout(x7out));
-    reg_rw x8 (.clk(clk),.rst_n(rst_n),.wenble(selx8),.datain(rddata),.dataout(x8out));
-    reg_rw x9 (.clk(clk),.rst_n(rst_n),.wenble(selx9),.datain(rddata),.dataout(x9out));
-    reg_rw x10(.clk(clk),.rst_n(rst_n),.wenble(selx10),.datain(rddata),.dataout(x10out));
-    reg_rw x11(.clk(clk),.rst_n(rst_n),.wenble(selx11),.datain(rddata),.dataout(x11out));
-    reg_rw x12(.clk(clk),.rst_n(rst_n),.wenble(selx12),.datain(rddata),.dataout(x12out));
-    reg_rw x13(.clk(clk),.rst_n(rst_n),.wenble(selx13),.datain(rddata),.dataout(x13out));
-    reg_rw x14(.clk(clk),.rst_n(rst_n),.wenble(selx14),.datain(rddata),.dataout(x14out));
-    reg_rw x15(.clk(clk),.rst_n(rst_n),.wenble(selx15),.datain(rddata),.dataout(x15out));
-    reg_rw x16(.clk(clk),.rst_n(rst_n),.wenble(selx16),.datain(rddata),.dataout(x16out));
-    reg_rw x17(.clk(clk),.rst_n(rst_n),.wenble(selx17),.datain(rddata),.dataout(x17out));
-    reg_rw x18(.clk(clk),.rst_n(rst_n),.wenble(selx18),.datain(rddata),.dataout(x18out));
-    reg_rw x19(.clk(clk),.rst_n(rst_n),.wenble(selx19),.datain(rddata),.dataout(x19out));
-    reg_rw x20(.clk(clk),.rst_n(rst_n),.wenble(selx20),.datain(rddata),.dataout(x20out));
-    reg_rw x21(.clk(clk),.rst_n(rst_n),.wenble(selx21),.datain(rddata),.dataout(x21out));
-    reg_rw x22(.clk(clk),.rst_n(rst_n),.wenble(selx22),.datain(rddata),.dataout(x22out));
-    reg_rw x23(.clk(clk),.rst_n(rst_n),.wenble(selx23),.datain(rddata),.dataout(x23out));
-    reg_rw x24(.clk(clk),.rst_n(rst_n),.wenble(selx24),.datain(rddata),.dataout(x24out));
-    reg_rw x25(.clk(clk),.rst_n(rst_n),.wenble(selx25),.datain(rddata),.dataout(x25out));
-    reg_rw x26(.clk(clk),.rst_n(rst_n),.wenble(selx26),.datain(rddata),.dataout(x26out));
-    reg_rw x27(.clk(clk),.rst_n(rst_n),.wenble(selx27),.datain(rddata),.dataout(x27out));
-    reg_rw x28(.clk(clk),.rst_n(rst_n),.wenble(selx28),.datain(rddata),.dataout(x28out));
-    reg_rw x29(.clk(clk),.rst_n(rst_n),.wenble(selx29),.datain(rddata),.dataout(x29out));
-    reg_rw x30(.clk(clk),.rst_n(rst_n),.wenble(selx30),.datain(rddata),.dataout(x30out));
-    reg_rw x31(.clk(clk),.rst_n(rst_n),.wenble(selx31),.datain(rddata),.dataout(x31out));
+    assign selx1  = (rdsel_wr == 5'b00001 ) & phase_writeback;
+    assign selx2  = (rdsel_wr == 5'b00010 ) & phase_writeback;
+    assign selx3  = (rdsel_wr == 5'b00011 ) & phase_writeback;
+    assign selx4  = (rdsel_wr == 5'b00100 ) & phase_writeback;
+    assign selx5  = (rdsel_wr == 5'b00101 ) & phase_writeback;
+    assign selx6  = (rdsel_wr == 5'b00110 ) & phase_writeback;
+    assign selx7  = (rdsel_wr == 5'b00111 ) & phase_writeback;
+    assign selx8  = (rdsel_wr == 5'b01000 ) & phase_writeback;
+    assign selx9  = (rdsel_wr == 5'b01001 ) & phase_writeback;
+    assign selx10 = (rdsel_wr == 5'b01010 ) & phase_writeback;
+    assign selx11 = (rdsel_wr == 5'b01011 ) & phase_writeback;
+    assign selx12 = (rdsel_wr == 5'b01100 ) & phase_writeback;
+    assign selx13 = (rdsel_wr == 5'b01101 ) & phase_writeback;
+    assign selx14 = (rdsel_wr == 5'b01110 ) & phase_writeback;
+    assign selx15 = (rdsel_wr == 5'b01111 ) & phase_writeback;
+    assign selx16 = (rdsel_wr == 5'b10000 ) & phase_writeback;
+    assign selx17 = (rdsel_wr == 5'b10001 ) & phase_writeback;
+    assign selx18 = (rdsel_wr == 5'b10010 ) & phase_writeback;
+    assign selx19 = (rdsel_wr == 5'b10011 ) & phase_writeback;
+    assign selx20 = (rdsel_wr == 5'b10100 ) & phase_writeback;
+    assign selx21 = (rdsel_wr == 5'b10101 ) & phase_writeback;
+    assign selx22 = (rdsel_wr == 5'b10110 ) & phase_writeback;
+    assign selx23 = (rdsel_wr == 5'b10111 ) & phase_writeback;
+    assign selx24 = (rdsel_wr == 5'b11000 ) & phase_writeback;
+    assign selx25 = (rdsel_wr == 5'b11001 ) & phase_writeback;
+    assign selx26 = (rdsel_wr == 5'b11010 ) & phase_writeback;
+    assign selx27 = (rdsel_wr == 5'b11011 ) & phase_writeback;
+    assign selx28 = (rdsel_wr == 5'b11100 ) & phase_writeback;
+    assign selx29 = (rdsel_wr == 5'b11101 ) & phase_writeback;
+    assign selx30 = (rdsel_wr == 5'b11110 ) & phase_writeback;
+    assign selx31 = (rdsel_wr == 5'b11111 ) & phase_writeback;
+
+    reg_rw x1 (.clk(clk),.rst_n(rst_n),.wenble(selx1),.datain(rddata_wr),.dataout(x1out));
+    reg_rw x2 (.clk(clk),.rst_n(rst_n),.wenble(selx2),.datain(rddata_wr),.dataout(x2out));
+    reg_rw x3 (.clk(clk),.rst_n(rst_n),.wenble(selx3),.datain(rddata_wr),.dataout(x3out));
+    reg_rw x4 (.clk(clk),.rst_n(rst_n),.wenble(selx4),.datain(rddata_wr),.dataout(x4out));
+    reg_rw x5 (.clk(clk),.rst_n(rst_n),.wenble(selx5),.datain(rddata_wr),.dataout(x5out));
+    reg_rw x6 (.clk(clk),.rst_n(rst_n),.wenble(selx6),.datain(rddata_wr),.dataout(x6out));
+    reg_rw x7 (.clk(clk),.rst_n(rst_n),.wenble(selx7),.datain(rddata_wr),.dataout(x7out));
+    reg_rw x8 (.clk(clk),.rst_n(rst_n),.wenble(selx8),.datain(rddata_wr),.dataout(x8out));
+    reg_rw x9 (.clk(clk),.rst_n(rst_n),.wenble(selx9),.datain(rddata_wr),.dataout(x9out));
+    reg_rw x10(.clk(clk),.rst_n(rst_n),.wenble(selx10),.datain(rddata_wr),.dataout(x10out));
+    reg_rw x11(.clk(clk),.rst_n(rst_n),.wenble(selx11),.datain(rddata_wr),.dataout(x11out));
+    reg_rw x12(.clk(clk),.rst_n(rst_n),.wenble(selx12),.datain(rddata_wr),.dataout(x12out));
+    reg_rw x13(.clk(clk),.rst_n(rst_n),.wenble(selx13),.datain(rddata_wr),.dataout(x13out));
+    reg_rw x14(.clk(clk),.rst_n(rst_n),.wenble(selx14),.datain(rddata_wr),.dataout(x14out));
+    reg_rw x15(.clk(clk),.rst_n(rst_n),.wenble(selx15),.datain(rddata_wr),.dataout(x15out));
+    reg_rw x16(.clk(clk),.rst_n(rst_n),.wenble(selx16),.datain(rddata_wr),.dataout(x16out));
+    reg_rw x17(.clk(clk),.rst_n(rst_n),.wenble(selx17),.datain(rddata_wr),.dataout(x17out));
+    reg_rw x18(.clk(clk),.rst_n(rst_n),.wenble(selx18),.datain(rddata_wr),.dataout(x18out));
+    reg_rw x19(.clk(clk),.rst_n(rst_n),.wenble(selx19),.datain(rddata_wr),.dataout(x19out));
+    reg_rw x20(.clk(clk),.rst_n(rst_n),.wenble(selx20),.datain(rddata_wr),.dataout(x20out));
+    reg_rw x21(.clk(clk),.rst_n(rst_n),.wenble(selx21),.datain(rddata_wr),.dataout(x21out));
+    reg_rw x22(.clk(clk),.rst_n(rst_n),.wenble(selx22),.datain(rddata_wr),.dataout(x22out));
+    reg_rw x23(.clk(clk),.rst_n(rst_n),.wenble(selx23),.datain(rddata_wr),.dataout(x23out));
+    reg_rw x24(.clk(clk),.rst_n(rst_n),.wenble(selx24),.datain(rddata_wr),.dataout(x24out));
+    reg_rw x25(.clk(clk),.rst_n(rst_n),.wenble(selx25),.datain(rddata_wr),.dataout(x25out));
+    reg_rw x26(.clk(clk),.rst_n(rst_n),.wenble(selx26),.datain(rddata_wr),.dataout(x26out));
+    reg_rw x27(.clk(clk),.rst_n(rst_n),.wenble(selx27),.datain(rddata_wr),.dataout(x27out));
+    reg_rw x28(.clk(clk),.rst_n(rst_n),.wenble(selx28),.datain(rddata_wr),.dataout(x28out));
+    reg_rw x29(.clk(clk),.rst_n(rst_n),.wenble(selx29),.datain(rddata_wr),.dataout(x29out));
+    reg_rw x30(.clk(clk),.rst_n(rst_n),.wenble(selx30),.datain(rddata_wr),.dataout(x30out));
+    reg_rw x31(.clk(clk),.rst_n(rst_n),.wenble(selx31),.datain(rddata_wr),.dataout(x31out));
 
     ////////////////////////////////////////////////////////////////////////////
     // function
