@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/04 24:23
+ * Last Modified: 2019/01/08 21:33
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -21,24 +21,24 @@
  */
 
 module instruction_decode(
-    input clk,
-    input rst_n,
-    input[31:0] inst,
-    input[XLEN-1:0] rs1_data_rd,
-    input[XLEN-1:0] rs2_data_rd,
-    input[XLEN-1:0] curr_pc_fd,
-    input[XLEN-1:0] next_pc_fd,
-    input decode_en,
-    output[4:0] rs1_sel,
-    output[4:0] rs2_sel,
-    output reg[XLEN-1:0] imm,
-    output reg[XLEN-1:0] rs1_data_de,
-    output reg[XLEN-1:0] rs2_data_de,
-    output reg[XLEN-1:0] curr_pc_de,
-    output reg[XLEN-1:0] next_pc_de,
-    output reg[3:0] funct_alu,
-    output reg[4:0] rd_sel_de,
-    output reg[OPLEN-1:0] decoded_op
+    input clk, //CPUの動作クロック
+    input rst_n, //リセット 非同期リセットを想定しているものの, リセット不使用のデザインでも使用可能 リセット不使用の場合は1固定すること
+    input[31:0] inst, //デコード前の命令, Fetchした値を入力する
+    input[XLEN-1:0] rs1_data_rd, //レジスタ選択結果1 レジスタ選択信号1の結果
+    input[XLEN-1:0] rs2_data_rd, //レジスタ選択結果2 レジスタ選択信号2の結果
+    input[XLEN-1:0] curr_pc_fd, //現在のプログラムカウンタの値
+    input[XLEN-1:0] next_pc_fd, //次のプログラムカウンタの値
+    input decode_en, //instruction_decodeブロックの出力段FFのEnable信号
+    output[4:0] rs1_sel, //レジスタ選択信号1 register_fileに接続する
+    output[4:0] rs2_sel, //レジスタ選択信号2 register_fileに接続する
+    output[XLEN-1:0] imm, //即値、fetchした値をそのまま入力する
+    output[XLEN-1:0] rs1_data_de, //レジスタ選択結果1 rs1_data_rdを(ほぼ)そのまま出力
+    output[XLEN-1:0] rs2_data_de, //レジスタ選択結果2 rs2_data_rdを(ほぼ)そのまま出力
+    output[XLEN-1:0] curr_pc_de, //現在のプログラムカウンタの値 curr_pc_fdを(ほぼ)そのまま出力
+    output[XLEN-1:0] next_pc_de, //次のプログラムカウンタの値 next_pc_fdを(ほぼ)そのまま出力
+    output[3:0] funct_alu, //alu演算器選択信号
+    output[4:0] rd_sel_de, //データメモリ選択信号
+    output[OPLEN-1:0] decoded_op //opcodeデコード結果、後段のaluやmemory_accessで使用することを想定
 );
 
 //parameter
@@ -57,21 +57,27 @@ localparam OP = 7'b01_100_11;
 localparam MISC_MEM = 7'b00_011_11;
 localparam SYSTEM = 7'b11_100_11;
 
+//0にすると出力段のFlipFlopを除去できる
+localparam FF_EN = 1'b1;
 
 //commom
 wire[6:0] inst_op = inst[6:0];
 
 //use_rs1
-wire use_rs1 = fnc_use_rs1(inst_op, inst_funct3);
+wire use_rs1_system = (inst_funct3[2] == 1'b0) ? USE_RS1_RS1DATA : USE_RS1_PC;
+wire use_rs1 = fnc_use_rs1(inst_op, use_rs1_system);
 function fnc_use_rs1(
     input[6:0] op,
-    input[2:0] fn3
+    input use_rs1_system
 );
 begin
     case (op)
-        LUI, JALR, BRANCH, LOAD, STORE, OP_IMM, OP : fnc_use_rs1 = USE_RS1_RS1DATA;
-        SYSTEM : fnc_use_rs1 = (fn3[2] == 1'b0) ? USE_RS1_RS1DATA : USE_RS1_PC;
-        default : fnc_use_rs1 = USE_RS1_PC;
+        //LUIはrs1の値を持たないものの、後段のALUがrs1 = 0を要求するために必要
+        LUI : fnc_use_rs1 = USE_RS1_RS1DATA;
+        JALR, BRANCH, LOAD, STORE, OP_IMM, OP : fnc_use_rs1 = USE_RS1_RS1DATA;
+        SYSTEM : fnc_use_rs1 = use_rs1_system;
+        AUIPC, JAL : fnc_use_rs1 = USE_RS1_PC;
+        default : fnc_use_rs1 = 1'bx;
     endcase
 end  
 endfunction
@@ -84,22 +90,24 @@ function fnc_use_rs2(
 begin
     case (op)
         BRANCH, STORE, OP : fnc_use_rs2 = USE_RS2_RS2DATA;
-        default : fnc_use_rs2 = USE_RS2_IMM;
+        LUI, AUIPC, JALR, LOAD, OP_IMM : fnc_use_rs2 = USE_RS2_IMM;
+        default : fnc_use_rs2 = 1'bx;
     endcase
 end  
 endfunction
  
 //rd_data_sel
-wire[USE_RD_BIT_M-USE_RD_BIT_L:0] rd_data_sel = fnc_rd_data_sel(inst_op, inst_funct3);
+wire[USE_RD_BIT_M-USE_RD_BIT_L:0] rd_data_sel_opimm = ((inst_funct3 == FUNCT3_SLT) || (inst_funct3 == FUNCT3_SLTU)) ? USE_RD_COMP : USE_RD_ALU;
+wire[USE_RD_BIT_M-USE_RD_BIT_L:0] rd_data_sel = fnc_rd_data_sel(inst_op, rd_data_sel_opimm);
 function [USE_RD_BIT_M-USE_RD_BIT_L:0] fnc_rd_data_sel(
     input[6:0] op,
-    input[2:0] fn3
+    input[USE_RD_BIT_M-USE_RD_BIT_L:0] rd_data_sel_opimm
 );
 begin
     case (op)
         JAL, JALR : fnc_rd_data_sel = USE_RD_PC;
         LOAD : fnc_rd_data_sel = USE_RD_MEMORY;
-        OP_IMM : fnc_rd_data_sel = ((fn3 == FUNCT3_SLT) || (fn3 == FUNCT3_SLTU)) ? USE_RD_COMP : USE_RD_ALU; 
+        OP_IMM : fnc_rd_data_sel = rd_data_sel_opimm;
         default : fnc_rd_data_sel = USE_RD_ALU;
     endcase
 end  
@@ -129,27 +137,20 @@ function [XLEN-1:0] fnc_imm(
 );
 begin
     case (op)
-        LUI, AUIPC : fnc_imm = {{(XLEN-32){inst_data[31]}}, inst_data[31:12] , 12'b0000_0000_0000};
-        JAL : begin
-            {fnc_imm[20],fnc_imm[10:1],fnc_imm[11]} = inst_data[31:20];
-            fnc_imm[19:12] = inst_data[19:12];
-            fnc_imm[XLEN-1:21] = {XLEN{inst_data[31]}};
-            fnc_imm[0] = 1'b0;
-        end
-        JALR, LOAD, OP_IMM : fnc_imm = {{(XLEN){inst_data[31]}}, inst_data[31:20]};
-        BRANCH : begin
-            {fnc_imm[12], fnc_imm[10:5]} = inst_data[31:25];
-            {fnc_imm[4:1], fnc_imm[11]} = inst_data[11:7];
-            fnc_imm[XLEN-1:13] = {XLEN{inst_data[31]}};
-            fnc_imm[0] = 1'b0;
-        end
-        STORE : begin
-            fnc_imm[11:5] = inst_data[31:25];
-            fnc_imm[4:0] = inst_data[11:7];
-            fnc_imm[XLEN-1:12] = {XLEN{inst_data[31]}};
-        end
-        OP, MISC_MEM, SYSTEM : fnc_imm = {XLEN{1'b0}};
-        default : fnc_imm = {XLEN{1'b0}}; 
+        LUI, AUIPC : 
+            fnc_imm = {{(XLEN-31){inst_data[31]}}, inst_data[30:20], inst_data[19:12], 12'b0000_0000_0000};
+        JAL : 
+            fnc_imm = {{(XLEN-20){inst_data[31]}}, inst_data[19:12], inst_data[20], inst_data[30:25], inst_data[24:21], 1'b0};
+        JALR, LOAD, OP_IMM : 
+            fnc_imm = {{(XLEN-11){inst_data[31]}}, inst_data[30:25], inst_data[24:21], inst_data[20]};
+        BRANCH :
+            fnc_imm = {{(XLEN-12){inst_data[31]}}, inst_data[7], inst_data[30:25], inst_data[11:8], 1'b0};
+        STORE : 
+            fnc_imm = {{(XLEN-11){inst_data[31]}}, inst_data[30:25], inst_data[11:8], inst_data[7]};
+        OP, MISC_MEM, SYSTEM : 
+            fnc_imm = {XLEN{1'bx}};
+        default : 
+            fnc_imm = {XLEN{1'bx}}; 
     endcase
 end  
 endfunction
@@ -160,35 +161,23 @@ wire jump_en = (inst_op == JAL) || (inst_op == JALR) || (inst_op == BRANCH);
 //data memory write enable
 wire data_mem_we = (inst_op == STORE);
 
+//decoded_op
+wire[OPLEN-1:0] decoded_op_pre;
+assign decoded_op[USE_RS1_BIT] = use_rs1;
+assign decoded_op[USE_RS2_BIT] = use_rs2;
+assign decoded_op[USE_RD_BIT_M:USE_RD_BIT_L] = rd_data_sel;
+assign decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L] = inst_funct3;
+assign decoded_op[JUMP_EN_BIT] = jump_en;
+assign decoded_op[DATA_MEM_WE_BIT] = data_mem_we;
+
 //FF
-always @(posedge clk, negedge rst_n) begin
-    if (!rst_n) begin
-        imm <= {XLEN{1'b0}};
-        next_pc_de <= {XLEN{1'b0}};
-        curr_pc_de <= {XLEN{1'b0}};
-        rs1_data_de <= {XLEN{1'b0}};
-        rs2_data_de <= {XLEN{1'b0}};
-        funct_alu <= {XLEN{1'b0}};
-        rd_sel_de <= {XLEN{1'b0}};
-
-        decoded_op <= {OPLEN{1'b0}};
-    end
-    else if (decode_en) begin
-        imm <= imm_pre;
-        next_pc_de <= next_pc_fd;
-        curr_pc_de <= curr_pc_fd;
-        rs1_data_de <= rs1_data_rd;
-        rs2_data_de <= rs2_data_rd;
-        funct_alu <= funct_alu_pre;
-        rd_sel_de <= rd_sel;
-
-        decoded_op[USE_RS1_BIT] <= use_rs1;
-        decoded_op[USE_RS2_BIT] <= use_rs2;
-        decoded_op[USE_RD_BIT_M:USE_RD_BIT_L] <= rd_data_sel;
-        decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L] <= inst_funct3;
-        decoded_op[JUMP_EN_BIT] <= jump_en;
-        decoded_op[DATA_MEM_WE_BIT] <= data_mem_we;
-    end
-end
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o1(.d(imm_pre),        .q(imm),         .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o2(.d(next_pc_fd),     .q(next_pc_de),  .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o3(.d(curr_pc_fd),     .q(curr_pc_de),  .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o4(.d(rs1_data_rd),    .q(rs1_data_de), .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o5(.d(rs2_data_rd),    .q(rs2_data_de), .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(4),     .FF_EN(FF_EN)) u_o6(.d(funct_alu_pre),  .q(funct_alu),   .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(5),     .FF_EN(FF_EN)) u_o7(.d(rd_sel),         .q(rd_sel_de),   .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(OPLEN), .FF_EN(FF_EN)) u_o8(.d(decoded_op_pre), .q(decoded_op),  .clk(clk), .rst_n(rst_n), .en(decode_en));
 
 endmodule
