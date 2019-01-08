@@ -1,11 +1,11 @@
 /*
  * *****************************************************************
- * File: decode_opcode.v
+ * File: instruction_decode_tb.v
  * Category: instruction_decode
  * File Created: 2018/12/17 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/08 20:42
+ * Last Modified: 2019/01/09 07:17
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave

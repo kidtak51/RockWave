@@ -5,13 +5,13 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/08 21:33
+ * Last Modified: 2019/01/09 07:12
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
  * Description:
- *   
+ *   デコードブロック
  * *****************************************************************
  * HISTORY:
  * Date      	By        	Comments
@@ -171,13 +171,13 @@ assign decoded_op[JUMP_EN_BIT] = jump_en;
 assign decoded_op[DATA_MEM_WE_BIT] = data_mem_we;
 
 //FF
-obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o1(.d(imm_pre),        .q(imm),         .clk(clk), .rst_n(rst_n), .en(decode_en));
-obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o2(.d(next_pc_fd),     .q(next_pc_de),  .clk(clk), .rst_n(rst_n), .en(decode_en));
-obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o3(.d(curr_pc_fd),     .q(curr_pc_de),  .clk(clk), .rst_n(rst_n), .en(decode_en));
-obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o4(.d(rs1_data_rd),    .q(rs1_data_de), .clk(clk), .rst_n(rst_n), .en(decode_en));
-obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o5(.d(rs2_data_rd),    .q(rs2_data_de), .clk(clk), .rst_n(rst_n), .en(decode_en));
-obuf #(.WIDTH(4),     .FF_EN(FF_EN)) u_o6(.d(funct_alu_pre),  .q(funct_alu),   .clk(clk), .rst_n(rst_n), .en(decode_en));
-obuf #(.WIDTH(5),     .FF_EN(FF_EN)) u_o7(.d(rd_sel),         .q(rd_sel_de),   .clk(clk), .rst_n(rst_n), .en(decode_en));
-obuf #(.WIDTH(OPLEN), .FF_EN(FF_EN)) u_o8(.d(decoded_op_pre), .q(decoded_op),  .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o1(.d_in(imm_pre),        .d_out(imm),         .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o2(.d_in(next_pc_fd),     .d_out(next_pc_de),  .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o3(.d_in(curr_pc_fd),     .d_out(curr_pc_de),  .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o4(.d_in(rs1_data_rd),    .d_out(rs1_data_de), .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(XLEN),  .FF_EN(FF_EN)) u_o5(.d_in(rs2_data_rd),    .d_out(rs2_data_de), .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(4),     .FF_EN(FF_EN)) u_o6(.d_in(funct_alu_pre),  .d_out(funct_alu),   .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(5),     .FF_EN(FF_EN)) u_o7(.d_in(rd_sel),         .d_out(rd_sel_de),   .clk(clk), .rst_n(rst_n), .en(decode_en));
+obuf #(.WIDTH(OPLEN), .FF_EN(FF_EN)) u_o8(.d_in(decoded_op_pre), .d_out(decoded_op),  .clk(clk), .rst_n(rst_n), .en(decode_en));
 
 endmodule

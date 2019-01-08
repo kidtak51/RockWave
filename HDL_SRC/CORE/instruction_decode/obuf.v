@@ -1,17 +1,18 @@
 /*
  * *****************************************************************
- * File: instruction_decode_output_buffer.v
+ * File: obuf.v
  * Category: instruction_decode
  * File Created: 2019/01/08 06:45
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/08 20:52
+ * Last Modified: 2019/01/09 07:11
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
  * Description:
- *   
+ *   入力をFFを通して出力するバッファ回路
+ *   ただし、FF_ENを0にすることでFFを通さずにスルーして出力することも可能
  * *****************************************************************
  * HISTORY:
  * Date      	By        	Comments
@@ -28,8 +29,8 @@ module obuf
     input clk,//FFのクロック
     input rst_n,//FFの非同期リセット
     input en,//FFのenable信号
-    input[WIDTH-1:0] d,//FFのデータ入力
-    output[WIDTH-1:0] q//FFのデータ出力
+    input[WIDTH-1:0] d_in,//データ入力
+    output[WIDTH-1:0] d_out//データ出力
 );
 
 
@@ -42,17 +43,17 @@ generate
                 buffer_reg <= {WIDTH{1'b0}};
             end
             else if (en) begin
-                buffer_reg <= d;
+                buffer_reg <= d_in;
             end
             else begin
                 buffer_reg <= buffer_reg;
             end
         end
-        assign q = buffer_reg;
+        assign d_out = buffer_reg;
     end
     //FFなし
     else begin
-        assign q = d;
+        assign d_out = d_in;
     end
 endgenerate
 
