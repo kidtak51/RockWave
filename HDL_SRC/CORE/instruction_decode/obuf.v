@@ -5,14 +5,14 @@
  * File Created: 2019/01/08 06:45
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/09 07:11
+ * Last Modified: 2019/01/09 18:33
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
  * Description:
  *   入力をFFを通して出力するバッファ回路
- *   ただし、FF_ENを0にすることでFFを通さずにスルーして出力することも可能
+ *   ただし、OUT_FLIPFLOP_REMOVEをdefineすることでFFを通さずにスルーして出力することも可能
  * *****************************************************************
  * HISTORY:
  * Date      	By        	Comments
@@ -22,8 +22,7 @@
  */
 module obuf
 #(
-    parameter WIDTH = 1'b1,//FFのデータ幅
-    parameter FF_EN = 1'b1//0にするとFFを通らずに出力
+    parameter WIDTH = 1'b1//FFのデータ幅
 )
 (
     input clk,//FFのクロック
@@ -34,27 +33,24 @@ module obuf
 );
 
 
-generate
-    //enable付FF
-    if (FF_EN == 1'b1) begin
-        reg[WIDTH-1:0] buffer_reg;
-        always @(posedge clk, negedge rst_n) begin
-            if (!rst_n) begin
-                buffer_reg <= {WIDTH{1'b0}};
-            end
-            else if (en) begin
-                buffer_reg <= d_in;
-            end
-            else begin
-                buffer_reg <= buffer_reg;
-            end
-        end
-        assign d_out = buffer_reg;
-    end
+`ifdef OUT_FLIPFLOP_REMOVE
     //FFなし
-    else begin
-        assign d_out = d_in;
+    assign d_out = d_in;
+`else
+    //FFあり
+    reg[WIDTH-1:0] buffer_reg;
+    always @(posedge clk, negedge rst_n) begin
+        if (!rst_n) begin
+            buffer_reg <= {WIDTH{1'b0}};
+        end
+        else if (en) begin
+            buffer_reg <= d_in;
+        end
+        else begin
+            buffer_reg <= buffer_reg;
+        end
     end
-endgenerate
+    assign d_out = buffer_reg;
+`endif
 
 endmodule
