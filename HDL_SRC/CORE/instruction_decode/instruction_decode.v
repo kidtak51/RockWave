@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/09 18:35
+ * Last Modified: 2019/01/09 19:07
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -160,12 +160,12 @@ wire data_mem_we = (inst_op == STORE);
 
 //decoded_op
 wire[OPLEN-1:0] decoded_op_pre;
-assign decoded_op[USE_RS1_BIT] = use_rs1;
-assign decoded_op[USE_RS2_BIT] = use_rs2;
-assign decoded_op[USE_RD_BIT_M:USE_RD_BIT_L] = rd_data_sel;
-assign decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L] = inst_funct3;
-assign decoded_op[JUMP_EN_BIT] = jump_en;
-assign decoded_op[DATA_MEM_WE_BIT] = data_mem_we;
+assign decoded_op_pre[USE_RS1_BIT] = use_rs1;
+assign decoded_op_pre[USE_RS2_BIT] = use_rs2;
+assign decoded_op_pre[USE_RD_BIT_M:USE_RD_BIT_L] = rd_data_sel;
+assign decoded_op_pre[FUNCT3_BIT_M:FUNCT3_BIT_L] = inst_funct3;
+assign decoded_op_pre[JUMP_EN_BIT] = jump_en;
+assign decoded_op_pre[DATA_MEM_WE_BIT] = data_mem_we;
 
 //FF
 obuf #(.WIDTH(XLEN))  u_o1(.d_in(imm_pre),        .d_out(imm),         .clk(clk), .rst_n(rst_n), .en(decode_en));
