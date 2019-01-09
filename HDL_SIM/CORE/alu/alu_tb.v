@@ -11,7 +11,7 @@
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
  * Description:
- *   
+ *              演算を行う
  * *****************************************************************
  * HISTORY:
  * Date      	By        	Comments
@@ -45,35 +45,23 @@ initial begin
     #STEP
     funct3 = 3'b000;
     funct7 = 1'b0;
-    aluin1 = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
-    aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
-
-    #STEP
-    funct3 = 3'b000;
-    funct7 = 1'b0;
     aluin1 = 32'b0000_0000_0000_0000_0000_0000_0000_0111;
     aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_1010;
 
-    #STEP    funct3 = 3'b001; funct7 = 1'b0;
-    #STEP    funct3 = 3'b010; funct7 = 1'b0;
-    #STEP    funct3 = 3'b011; funct7 = 1'b0;    
-    #STEP    funct3 = 3'b100; funct7 = 1'b0;
-    #STEP    funct3 = 3'b101; funct7 = 1'b0;
-    #STEP    funct3 = 3'b110; funct7 = 1'b0;
-    #STEP    funct3 = 3'b111; funct7 = 1'b0;
-    #STEP    funct3 = 3'bXXX; funct7 = 1'b0;
-    #STEP    funct3 = 3'b000; funct7 = 1'bX;
+    #STEP    funct7 = 1'b0; funct3 = 3'b000; //ADD
+    #STEP    funct7 = 1'b1; funct3 = 3'b000; //SUB
+    #STEP    funct7 = 1'b0; funct3 = 3'b001; //SLL
+    #STEP    funct7 = 1'b0; funct3 = 3'b100; //XOR
+    #STEP    funct7 = 1'b0; funct3 = 3'b110; //OR
+    #STEP    funct7 = 1'b0; funct3 = 3'b111; //AND
+    #STEP    funct7 = 1'bX; funct3 = 3'bXXX; 
 
-    #STEP    funct3 = 3'b001; funct7 = 1'b1;
-    #STEP    funct3 = 3'b010; funct7 = 1'b1;
-    #STEP    funct3 = 3'b011; funct7 = 1'b1;    
-    #STEP    funct3 = 3'b100; funct7 = 1'b1;
-    #STEP    funct3 = 3'b101; funct7 = 1'b1;
-    #STEP    funct3 = 3'b110; funct7 = 1'b1;
-    #STEP    funct3 = 3'b111; funct7 = 1'b1;
-    #STEP    funct3 = 3'bXXX; funct7 = 1'b1;
+    aluin1 = 32'b1000_0000_0000_0000_0000_0000_0000_0111;
+    aluin2 = 32'b1000_0000_0000_0000_0000_0000_0000_1010;
 
-    #STEP    funct3 = 3'bXXX; funct7 = 1'bX;
+    #STEP    funct7 = 1'b0; funct3 = 3'b101; //SRL
+    #STEP    funct7 = 1'b1; funct3 = 3'b101; //SRA
+
 
 end
 
@@ -81,7 +69,7 @@ end
 initial begin
  $dumpfile("alu.vcd");
     $dumpvars(0,alu_tb);
-    $monitor(" STEP=%d funct3= %b funct7= %b aluin1=%b aluin2=%b aluout=%b ",STEP,funct3,funct7,aluin1,aluin2,aluout);
+    $monitor(" STEP=%d funct7= %b funct3= %b aluin1=%b aluin2=%b aluout=%b ",STEP,funct7,funct3,aluin1,aluin2,aluout);
 end
 
 endmodule
