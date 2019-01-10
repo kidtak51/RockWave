@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/09 07:17
+ * Last Modified: 2019/01/10 21:45
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -45,7 +45,7 @@ reg [XLEN-1:0] rs1_data_rd;
 reg [XLEN-1:0] rs2_data_rd;
 reg [XLEN-1:0] curr_pc_fd;
 reg [XLEN-1:0] next_pc_fd;
-reg  decode_en;
+reg  phase_decode;
 /**/
 
 wire [4:0] rs1_sel;
@@ -57,7 +57,7 @@ wire[XLEN-1:0] curr_pc_de;
 wire[XLEN-1:0] next_pc_de;
 wire[3:0] funct_alu;
 wire[4:0] rd_sel_de;
-wire[OPLEN-1:0] decoded_op;
+wire[OPLEN-1:0] decoded_op_de;
 
 instruction_decode u_instruction_decode(
     .clk(clk),
@@ -67,7 +67,7 @@ instruction_decode u_instruction_decode(
     .rs2_data_rd(rs2_data_rd),
     .curr_pc_fd(curr_pc_fd),
     .next_pc_fd(next_pc_fd),
-    .decode_en(decode_en),
+    .phase_decode(phase_decode),
     .rs1_sel(rs1_sel),
     .rs2_sel(rs2_sel),
     .imm(imm),
@@ -77,7 +77,7 @@ instruction_decode u_instruction_decode(
     .next_pc_de(next_pc_de),
     .funct_alu(funct_alu),
     .rd_sel_de(rd_sel_de),
-    .decoded_op(decoded_op)
+    .decoded_op_de(decoded_op_de)
 );
 
 
@@ -89,7 +89,7 @@ always begin
     #5 clk = ~clk;
 end
 
-wire tmp = decoded_op[USE_RS1_RS1DATA];
+wire tmp = decoded_op_de[USE_RS1_RS1DATA];
 
 initial begin
     $dumpfile("instruction_decode_tb.vcd");
@@ -99,7 +99,7 @@ initial begin
     rs2_data_rd = 128'd0;
     curr_pc_fd = 128'd0;
     next_pc_fd = 128'd0;
-    decode_en = 128'd1;
+    phase_decode = 128'd1;
 
     @(posedge clk)
     rst_n = 1;
@@ -125,72 +125,72 @@ initial begin
     inst=32'b00100100_00100000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(imm, 32'h00000242, "type=I; imm=578; opecode=0010011;");
 
     //USE_RS1 test
-    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=U; opecode=0110111(LUI);");
-    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_PC, "USE_RS1_TEST; type=U; opecode=0010111(AUIPC);");
-    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_PC, "USE_RS1_TEST; type=J; opecode=1101111(JAL);");
-    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=I; opecode=0010011(OP-IMM);");		
-    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=R; opecode=0010011(OP-IMM);");
+    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=U; opecode=0110111(LUI);");
+    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_PC, "USE_RS1_TEST; type=U; opecode=0010111(AUIPC);");
+    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_PC, "USE_RS1_TEST; type=J; opecode=1101111(JAL);");
+    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=I; opecode=0010011(OP-IMM);");		
+    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_RS1DATA, "USE_RS1_TEST; type=R; opecode=0010011(OP-IMM);");
 
     //USE_RS2 test
-    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS2_BIT], USE_RS2_RS2DATA, "USE_RS2_TEST; type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS2_BIT], USE_RS2_RS2DATA, "USE_RS2_TEST; type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RS2_BIT], USE_RS2_RS2DATA, "USE_RS2_TEST; type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS2_BIT], USE_RS2_RS2DATA, "USE_RS2_TEST; type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS2_BIT], USE_RS2_RS2DATA, "USE_RS2_TEST; type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS2_BIT], USE_RS2_RS2DATA, "USE_RS2_TEST; type=R; opecode=0110011(OP);");
 
     //USE_RD_SEL TEST; 
-    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=U; opecode=0110111(LUI);");
-    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=U; opecode=0010111(AUIPC);");
-    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_PC, "USE_RD_TEST;  type=J; opecode=1101111(JAL);");
-    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_PC, "USE_RD_TEST;  type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_MEMORY, "USE_RD_TEST;  type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=I; opecode=0010011(OP-IMM);");		
-    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=R; opecode=0010011(OP-IMM); funct3=000;");
-    inst=32'b00000000_00000000_00100000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_COMP, "USE_RD_TEST;  type=R; opecode=0010011(OP-IMM); funct3=010(slti);");
-    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_COMP, "USE_RD_TEST;  type=R; opecode=0010011(OP-IMM); funct3=011(sltu);");
+    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=U; opecode=0110111(LUI);");
+    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=U; opecode=0010111(AUIPC);");
+    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_PC, "USE_RD_TEST;  type=J; opecode=1101111(JAL);");
+    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_PC, "USE_RD_TEST;  type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_MEMORY, "USE_RD_TEST;  type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=I; opecode=0010011(OP-IMM);");		
+    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=R; opecode=0010011(OP-IMM); funct3=000;");
+    inst=32'b00000000_00000000_00100000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_COMP, "USE_RD_TEST;  type=R; opecode=0010011(OP-IMM); funct3=010(slti);");
+    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_COMP, "USE_RD_TEST;  type=R; opecode=0010011(OP-IMM); funct3=011(sltu);");
 
     //FUNCT3 TEST
-    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], FUNCT3_JUMP, "FUNCT3_TEST;type=J; opecode=1101111(JAL);");
-    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], 1, "FUNCT3_TEST;type=B; opecode=1100011(-);");
-    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], 2, "FUNCT3_TEST;type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00000000_00010000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], FUNCT3_JUMP, "FUNCT3_TEST;type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00100000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], FUNCT3_JUMP, "FUNCT3_TEST;type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_01000000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], FUNCT3_JUMP, "FUNCT3_TEST;type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], 3, "FUNCT3_TEST;type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], 3, "FUNCT3_TEST;type=I; opecode=0010011(OP-IMM);");		
-    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], 4, "FUNCT3_TEST;type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[FUNCT3_BIT_M:FUNCT3_BIT_L], 4, "FUNCT3_TEST;type=R; opecode=0010011(OP-IMM);");
+    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], FUNCT3_JUMP, "FUNCT3_TEST;type=J; opecode=1101111(JAL);");
+    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], 1, "FUNCT3_TEST;type=B; opecode=1100011(-);");
+    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], 2, "FUNCT3_TEST;type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00000000_00010000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], FUNCT3_JUMP, "FUNCT3_TEST;type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00100000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], FUNCT3_JUMP, "FUNCT3_TEST;type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_01000000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], FUNCT3_JUMP, "FUNCT3_TEST;type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], 3, "FUNCT3_TEST;type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], 3, "FUNCT3_TEST;type=I; opecode=0010011(OP-IMM);");		
+    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], 4, "FUNCT3_TEST;type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L], 4, "FUNCT3_TEST;type=R; opecode=0010011(OP-IMM);");
 
     //DATA_MEM_WE TEST
-    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=U; opecode=0110111(LUI);");
-    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=U; opecode=0010111(AUIPC);");
-    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=J; opecode=1101111(JAL);");
-    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=B; opecode=1100011(-);");
-    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 1, "DATA_MEM_WE_TEST; type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=I; opecode=0010011(OP-IMM);");		
-    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=R; opecode=0010011(OP-IMM);");
+    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=U; opecode=0110111(LUI);");
+    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=U; opecode=0010111(AUIPC);");
+    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=J; opecode=1101111(JAL);");
+    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=B; opecode=1100011(-);");
+    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 1, "DATA_MEM_WE_TEST; type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=I; opecode=0010011(OP-IMM);");		
+    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[DATA_MEM_WE_BIT], 0, "DATA_MEM_WE_TEST; type=R; opecode=0010011(OP-IMM);");
 
 
     //JUMP_EN TEST
-    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=U; opecode=0110111(LUI);");
-    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=U; opecode=0010111(AUIPC);");
-    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 1, "JUMP_EN_TEST; type=J; opecode=1101111(JAL);");
-    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 1, "JUMP_EN_TEST; type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 1, "JUMP_EN_TEST; type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=I; opecode=0010011(OP-IMM);");		
-    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=R; opecode=0010011(OP-IMM);");
+    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=U; opecode=0110111(LUI);");
+    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=U; opecode=0010111(AUIPC);");
+    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 1, "JUMP_EN_TEST; type=J; opecode=1101111(JAL);");
+    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 1, "JUMP_EN_TEST; type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 1, "JUMP_EN_TEST; type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=I; opecode=0010011(OP-IMM);");		
+    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=R; opecode=0010011(OP-IMM);");
 
     //rs1_sel test(zero)
     inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=U; opecode=0110111(LUI always zero);");
