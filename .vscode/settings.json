@@ -5,6 +5,7 @@
     ],
     "psi-header.changes-tracking": {
         "isActive": true,
+        "replace": ["File:"]
     },
     "psi-header.lang-config": [
         {
