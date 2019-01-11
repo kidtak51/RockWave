@@ -46,11 +46,13 @@ initial begin
     funct3 = 3'b000;
     funct7 = 1'b0;
     aluin1 = 32'b0000_0000_0000_0000_0000_0000_0000_0111;
-    aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_1010;
+    aluin2 = 32'b1000_0000_0000_0000_0000_0000_0000_1010;
 
     #STEP    funct7 = 1'b0; funct3 = 3'b000; //ADD
     #STEP    funct7 = 1'b1; funct3 = 3'b000; //SUB
     #STEP    funct7 = 1'b0; funct3 = 3'b001; //SLL
+    #STEP    funct7 = 1'b0; funct3 = 3'b010; //SLT
+    #STEP    funct7 = 1'b0; funct3 = 3'b011; //SLTU
     #STEP    funct7 = 1'b0; funct3 = 3'b100; //XOR
     #STEP    funct7 = 1'b0; funct3 = 3'b110; //OR
     #STEP    funct7 = 1'b0; funct3 = 3'b111; //AND

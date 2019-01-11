@@ -5,7 +5,7 @@
  * File Created: 2018/12/19 23:48
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/09 23:55
+ * Last Modified: 2019/01/11 02:24
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -44,21 +44,24 @@ module alu (
         input signed [XLEN-1:0] aluin1,
         input signed [XLEN-1:0] aluin2
         );
+
         begin
             case( funct73 )
-                   4'b0000  : calc = aluin1 + aluin2; //ADD 加算
+                   4'b0000  : calc = aluin1 + aluin2; //ADD//ADDI 加算
                    4'b1000  : calc = aluin1 - aluin2; //SUB 減算
-                   4'b0001  : calc = aluin1 << 5; //SLL 左シフト
-                   4'b0100  : calc = aluin1 ^ aluin2; //XOR 排他的論理和
-                   4'b0101  : calc = aluin1 >> 5; //SRL 右シフト
-                   4'b1101  : calc = aluin1 >>> 5; //SRA 右算術シフト
-                   4'b0110  : calc = aluin1 | aluin2; //OR 論理和                   
-                   4'b0111  : calc = aluin1 & aluin2; //AND 論理積
+                   4'b0001  : calc = aluin1 << aluin2 [4:0]; //SLL//SLLI 左シフト
+                   4'bX010  : calc = (aluin1 < aluin2)? 1:0; //SLT //SLTI
+                   4'bX011  : calc = ($unsigned(aluin1) < $unsigned(aluin2))? 1:0; //SLTU //SLTIU
+                   4'bX100  : calc = aluin1 ^ aluin2; //XOR//XORI 排他的論理和
+                   4'b0101  : calc = aluin1 >> aluin2 [4:0]; //SRL//SRLI 右シフト
+                   4'b1101  : calc = aluin1 >>> aluin2 [4:0]; //SRA//SRAI 右算術シフト
+                   4'bX110  : calc = aluin1 | aluin2; //OR//ORI 論理和                   
+                   4'bX111  : calc = aluin1 & aluin2; //AND//ANDI 論理積
                    default : calc = 32'hXXXX_XXXX;
             endcase
         end
     endfunction
 
-    assign aluout = calc( funct73, aluin1, aluin2 );
+    assign aluout = calc( funct73, aluin1, aluin2);
 
 endmodule // alu
