@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/10 21:57
+ * Last Modified: 2019/01/11 18:33
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -24,20 +24,20 @@ module instruction_decode(
     input clk, //CPUの動作クロック
     input rst_n, //リセット 非同期リセットを想定しているものの, リセット不使用のデザインでも使用可能 リセット不使用の場合は1固定すること
     input[31:0] inst, //デコード前の命令, Fetchした値を入力する
-    input[XLEN-1:0] rs1_data_rd, //レジスタ選択結果1 レジスタ選択信号1の結果
-    input[XLEN-1:0] rs2_data_rd, //レジスタ選択結果2 レジスタ選択信号2の結果
+    input[XLEN-1:0] rs1data_rd, //レジスタ選択結果1 レジスタ選択信号1の結果
+    input[XLEN-1:0] rs2data_rd, //レジスタ選択結果2 レジスタ選択信号2の結果
     input[XLEN-1:0] curr_pc_fd, //現在のプログラムカウンタの値
     input[XLEN-1:0] next_pc_fd, //次のプログラムカウンタの値
     input phase_decode, //instruction_decodeブロックの出力段FFのEnable信号
-    output[4:0] rs1_sel, //レジスタ選択信号1 register_fileに接続する
-    output[4:0] rs2_sel, //レジスタ選択信号2 register_fileに接続する
+    output[4:0] rs1sel, //レジスタ選択信号1 register_fileに接続する
+    output[4:0] rs2sel, //レジスタ選択信号2 register_fileに接続する
     output[XLEN-1:0] imm, //即値、fetchした値をそのまま入力する
-    output[XLEN-1:0] rs1_data_de, //レジスタ選択結果1 rs1_data_rdを(ほぼ)そのまま出力
-    output[XLEN-1:0] rs2_data_de, //レジスタ選択結果2 rs2_data_rdを(ほぼ)そのまま出力
+    output[XLEN-1:0] rs1data_de, //レジスタ選択結果1 rs1_data_rdを(ほぼ)そのまま出力
+    output[XLEN-1:0] rs2data_de, //レジスタ選択結果2 rs2_data_rdを(ほぼ)そのまま出力
     output[XLEN-1:0] curr_pc_de, //現在のプログラムカウンタの値 curr_pc_fdを(ほぼ)そのまま出力
     output[XLEN-1:0] next_pc_de, //次のプログラムカウンタの値 next_pc_fdを(ほぼ)そのまま出力
     output[3:0] funct_alu, //alu演算器選択信号
-    output[4:0] rd_sel_de, //データメモリ選択信号
+    output[4:0] rdsel_de, //データメモリ選択信号
     output[OPLEN-1:0] decoded_op_de //opcodeデコード結果、後段のaluやmemory_accessで使用することを想定
 );
 
@@ -123,8 +123,8 @@ wire[6:0] inst_funct7 = inst[31:25];
 wire[3:0] funct_alu_pre = {inst_funct7[5], inst_funct3_raw};
 
 //rs1, rs2 ここはFFを通らない
-assign rs1_sel = (inst_op == LUI) ? 5'd0 : inst[19:15];
-assign rs2_sel = inst[24:20];
+assign rs1sel = (inst_op == LUI) ? 5'd0 : inst[19:15];
+assign rs2sel = inst[24:20];
 
 //imm
 wire[XLEN-1:0] imm_pre = fnc_imm(inst_op, inst);
@@ -171,10 +171,10 @@ assign decoded_op_pre[DATA_MEM_WE_BIT] = data_mem_we;
 obuf #(.WIDTH(XLEN))  u_o1(.d_in(imm_pre),        .d_out(imm),           .clk(clk), .rst_n(rst_n), .en(phase_decode));
 obuf #(.WIDTH(XLEN))  u_o2(.d_in(next_pc_fd),     .d_out(next_pc_de),    .clk(clk), .rst_n(rst_n), .en(phase_decode));
 obuf #(.WIDTH(XLEN))  u_o3(.d_in(curr_pc_fd),     .d_out(curr_pc_de),    .clk(clk), .rst_n(rst_n), .en(phase_decode));
-obuf #(.WIDTH(XLEN))  u_o4(.d_in(rs1_data_rd),    .d_out(rs1_data_de),   .clk(clk), .rst_n(rst_n), .en(phase_decode));
-obuf #(.WIDTH(XLEN))  u_o5(.d_in(rs2_data_rd),    .d_out(rs2_data_de),   .clk(clk), .rst_n(rst_n), .en(phase_decode));
+obuf #(.WIDTH(XLEN))  u_o4(.d_in(rs1data_rd),     .d_out(rs1data_de),    .clk(clk), .rst_n(rst_n), .en(phase_decode));
+obuf #(.WIDTH(XLEN))  u_o5(.d_in(rs2data_rd),     .d_out(rs2data_de),    .clk(clk), .rst_n(rst_n), .en(phase_decode));
 obuf #(.WIDTH(4)   )  u_o6(.d_in(funct_alu_pre),  .d_out(funct_alu),     .clk(clk), .rst_n(rst_n), .en(phase_decode));
-obuf #(.WIDTH(5)   )  u_o7(.d_in(rd_sel),         .d_out(rd_sel_de),     .clk(clk), .rst_n(rst_n), .en(phase_decode));
+obuf #(.WIDTH(5)   )  u_o7(.d_in(rd_sel),         .d_out(rdsel_de),      .clk(clk), .rst_n(rst_n), .en(phase_decode));
 obuf #(.WIDTH(OPLEN)) u_o8(.d_in(decoded_op_pre), .d_out(decoded_op_de), .clk(clk), .rst_n(rst_n), .en(phase_decode));
 
 endmodule

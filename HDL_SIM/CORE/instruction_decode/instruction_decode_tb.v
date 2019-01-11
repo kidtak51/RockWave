@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/10 21:45
+ * Last Modified: 2019/01/11 18:34
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -41,42 +41,42 @@ localparam SYSTEM = 7'b11_100_11;
 reg clk;
 reg rst_n;
 reg [31:0] inst;
-reg [XLEN-1:0] rs1_data_rd;
-reg [XLEN-1:0] rs2_data_rd;
+reg [XLEN-1:0] rs1data_rd;
+reg [XLEN-1:0] rs2data_rd;
 reg [XLEN-1:0] curr_pc_fd;
 reg [XLEN-1:0] next_pc_fd;
 reg  phase_decode;
 /**/
 
-wire [4:0] rs1_sel;
-wire [4:0] rs2_sel;
+wire [4:0] rs1sel;
+wire [4:0] rs2sel;
 wire[XLEN-1:0] imm;
-wire[XLEN-1:0] rs1_data_de;
-wire[XLEN-1:0] rs2_data_de;
+wire[XLEN-1:0] rs1data_de;
+wire[XLEN-1:0] rs2data_de;
 wire[XLEN-1:0] curr_pc_de;
 wire[XLEN-1:0] next_pc_de;
 wire[3:0] funct_alu;
-wire[4:0] rd_sel_de;
+wire[4:0] rdsel_de;
 wire[OPLEN-1:0] decoded_op_de;
 
 instruction_decode u_instruction_decode(
     .clk(clk),
     .rst_n(rst_n),
     .inst(inst),
-    .rs1_data_rd(rs1_data_rd),
-    .rs2_data_rd(rs2_data_rd),
+    .rs1data_rd(rs1data_rd),
+    .rs2data_rd(rs2data_rd),
     .curr_pc_fd(curr_pc_fd),
     .next_pc_fd(next_pc_fd),
     .phase_decode(phase_decode),
-    .rs1_sel(rs1_sel),
-    .rs2_sel(rs2_sel),
+    .rs1sel(rs1sel),
+    .rs2sel(rs2sel),
     .imm(imm),
-    .rs1_data_de(rs1_data_de),
-    .rs2_data_de(rs2_data_de),
+    .rs1data_de(rs1data_de),
+    .rs2data_de(rs2data_de),
     .curr_pc_de(curr_pc_de),
     .next_pc_de(next_pc_de),
     .funct_alu(funct_alu),
-    .rd_sel_de(rd_sel_de),
+    .rdsel_de(rdsel_de),
     .decoded_op_de(decoded_op_de)
 );
 
@@ -95,8 +95,8 @@ initial begin
     $dumpfile("instruction_decode_tb.vcd");
     $dumpvars(0,instruction_decode_tb);
     inst = 32'd0;
-    rs1_data_rd = 128'd0;
-    rs2_data_rd = 128'd0;
+    rs1data_rd = 128'd0;
+    rs2data_rd = 128'd0;
     curr_pc_fd = 128'd0;
     next_pc_fd = 128'd0;
     phase_decode = 128'd1;
@@ -192,33 +192,33 @@ initial begin
     inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=R; opecode=0110011(OP);");
     inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[JUMP_EN_BIT], 0, "JUMP_EN_TEST; type=R; opecode=0010011(OP-IMM);");
 
-    //rs1_sel test(zero)
-    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=U; opecode=0110111(LUI always zero);");
-    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=I; opecode=0010011(OP-IMM);");		
-    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=R; opecode=0010011(OP-IMM);");
-    //rs1_sel test(0x1F)
-    inst=32'b00000000_00001111_11110000_00110111;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 0, "rs1_sel_test type=U; opecode=0110111(LUI always zero);");
-    inst=32'b00000000_00001111_10010000_01100011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 31, "rs1_sel_test type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000000_00001111_10100000_00100011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 31, "rs1_sel_test type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00001111_10110000_01100111;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 31, "rs1_sel_test type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00001111_10110000_00000011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 31, "rs1_sel_test type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00001111_10110000_00010011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 31, "rs1_sel_test type=I; opecode=0010011(OP-IMM);");		
-    inst=32'b00000000_00001111_11000000_00110011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 31, "rs1_sel_test type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00001111_11000000_00010011;	@(posedge clk)#1;	assert_eq_m(rs1_sel, 31, "rs1_sel_test type=R; opecode=0010011(OP-IMM);");
+    //rs1sel test(zero)
+    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(rs1sel, 0, "rs1_sel_test type=U; opecode=0110111(LUI always zero);");
+    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 0, "rs1_sel_test type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 0, "rs1_sel_test type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(rs1sel, 0, "rs1_sel_test type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 0, "rs1_sel_test type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 0, "rs1_sel_test type=I; opecode=0010011(OP-IMM);");		
+    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 0, "rs1_sel_test type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 0, "rs1_sel_test type=R; opecode=0010011(OP-IMM);");
+    //rs1sel test(0x1F)
+    inst=32'b00000000_00001111_11110000_00110111;	@(posedge clk)#1;	assert_eq_m(rs1sel, 0, "rs1_sel_test type=U; opecode=0110111(LUI always zero);");
+    inst=32'b00000000_00001111_10010000_01100011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 31, "rs1_sel_test type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000000_00001111_10100000_00100011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 31, "rs1_sel_test type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00001111_10110000_01100111;	@(posedge clk)#1;	assert_eq_m(rs1sel, 31, "rs1_sel_test type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00001111_10110000_00000011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 31, "rs1_sel_test type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00001111_10110000_00010011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 31, "rs1_sel_test type=I; opecode=0010011(OP-IMM);");		
+    inst=32'b00000000_00001111_11000000_00110011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 31, "rs1_sel_test type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00001111_11000000_00010011;	@(posedge clk)#1;	assert_eq_m(rs1sel, 31, "rs1_sel_test type=R; opecode=0010011(OP-IMM);");
 
     //rs2_sel_test zero
-    inst=32'b00000000_00001111_10010000_01100011;	@(posedge clk)#1;	assert_eq_m(rs2_sel, 0, "rs2_sel_test type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000000_00001111_10100000_00100011;	@(posedge clk)#1;	assert_eq_m(rs2_sel, 0, "rs2_sel_test type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00001111_11000000_00110011;	@(posedge clk)#1;	assert_eq_m(rs2_sel, 0, "rs2_sel_test type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00001111_10010000_01100011;	@(posedge clk)#1;	assert_eq_m(rs2sel, 0, "rs2_sel_test type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000000_00001111_10100000_00100011;	@(posedge clk)#1;	assert_eq_m(rs2sel, 0, "rs2_sel_test type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00001111_11000000_00110011;	@(posedge clk)#1;	assert_eq_m(rs2sel, 0, "rs2_sel_test type=R; opecode=0110011(OP);");
     //rs2_sel_test 0x1f
-    inst=32'b00000001_11111111_10010000_01100011;	@(posedge clk)#1;	assert_eq_m(rs2_sel, 31, "rs2_sel_test type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000001_11111111_10100000_00100011;	@(posedge clk)#1;	assert_eq_m(rs2_sel, 31, "rs2_sel_test type=S; opecode=0100011(STORE);");
-    inst=32'b00000001_11111111_11000000_00110011;	@(posedge clk)#1;	assert_eq_m(rs2_sel, 31, "rs2_sel_test type=R; opecode=0110011(OP);");
+    inst=32'b00000001_11111111_10010000_01100011;	@(posedge clk)#1;	assert_eq_m(rs2sel, 31, "rs2_sel_test type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000001_11111111_10100000_00100011;	@(posedge clk)#1;	assert_eq_m(rs2sel, 31, "rs2_sel_test type=S; opecode=0100011(STORE);");
+    inst=32'b00000001_11111111_11000000_00110011;	@(posedge clk)#1;	assert_eq_m(rs2sel, 31, "rs2_sel_test type=R; opecode=0110011(OP);");
 
     //funct_alu test
     inst=32'b01000000_00000000_01110000_00110011;	@(posedge clk)#1;	assert_eq_m(funct_alu, 15, "funct_alu type=R; opecode=0110011(OP);");
@@ -230,36 +230,36 @@ initial begin
     inst=32'b00000000_00000000_00000000_00110011;	@(posedge clk)#1;	assert_eq_m(funct_alu, 0, "funct_alu type=R; opecode=0110011(OP);");
     inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(funct_alu, 0, "funct_alu type=R; opecode=0010011(OP-IMM);");
 
-    //rd_sel_de test(0x1F)
-    inst=32'b00000000_00000000_00001111_10110111;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 31, "rd_sel_de type=U; opecode=0110111(LUI);");
-    inst=32'b00000000_00000000_00001111_10010111;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 31, "rd_sel_de type=U; opecode=0010111(AUIPC);");
-    inst=32'b00000000_00000000_00001111_11101111;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 31, "rd_sel_de type=J; opecode=1101111(JAL);");
-    inst=32'b00000000_00000000_00001111_10100011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=S; opecode=0100011(STORE always zero);");
-    inst=32'b00000000_00000000_00001111_11100111;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 31, "rd_sel_de type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00001111_10000011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 31, "rd_sel_de type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00000000_00001111_10010011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 31, "rd_sel_de type=I; opecode=0010011(OP-IMM);");		
-    inst=32'b00000000_00000000_00001111_10110011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 31, "rd_sel_de type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00000000_00001111_10010011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 31, "rd_sel_de type=R; opecode=0010011(OP-IMM);");
-    //rd_sel_de test(zero)
-    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=U; opecode=0110111(LUI);");
-    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=U; opecode=0010111(AUIPC);");
-    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=J; opecode=1101111(JAL);");
-    inst=32'b00000000_00000000_00000000_00100011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=S; opecode=0100011(STORE always zero);");
-    inst=32'b00000000_00000000_00000000_01100111;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00000000_00000011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=I; opecode=0010011(OP-IMM);");
-    inst=32'b00000000_00000000_00000000_00110011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(rd_sel_de, 0, "rd_sel_de type=R; opecode=0010011(OP-IMM);");
+    //rdsel_de test(0x1F)
+    inst=32'b00000000_00000000_00001111_10110111;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 31, "rdsel_de type=U; opecode=0110111(LUI);");
+    inst=32'b00000000_00000000_00001111_10010111;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 31, "rdsel_de type=U; opecode=0010111(AUIPC);");
+    inst=32'b00000000_00000000_00001111_11101111;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 31, "rdsel_de type=J; opecode=1101111(JAL);");
+    inst=32'b00000000_00000000_00001111_10100011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=S; opecode=0100011(STORE always zero);");
+    inst=32'b00000000_00000000_00001111_11100111;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 31, "rdsel_de type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00001111_10000011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 31, "rdsel_de type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00000000_00001111_10010011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 31, "rdsel_de type=I; opecode=0010011(OP-IMM);");		
+    inst=32'b00000000_00000000_00001111_10110011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 31, "rdsel_de type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_00001111_10010011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 31, "rdsel_de type=R; opecode=0010011(OP-IMM);");
+    //rdsel_de test(zero)
+    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=U; opecode=0110111(LUI);");
+    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=U; opecode=0010111(AUIPC);");
+    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=J; opecode=1101111(JAL);");
+    inst=32'b00000000_00000000_00000000_00100011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=S; opecode=0100011(STORE always zero);");
+    inst=32'b00000000_00000000_00000000_01100111;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00000000_00000011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=I; opecode=0010011(OP-IMM);");
+    inst=32'b00000000_00000000_00000000_00110011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de type=R; opecode=0010011(OP-IMM);");
 
     //rs1_data test
-    rs1_data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs1_data_de, rs1_data_rd, "rs1_data is all zeros");
-    rs1_data_rd = {XLEN{1'b1}}; @(posedge clk)#1; assert_eq_m(rs1_data_de, rs1_data_rd, "rs1_data is all ones");
-    rs1_data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs1_data_de, rs1_data_rd, "rs1_data is all zeros");
+    rs1data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs1data_de, rs1data_rd, "rs1_data is all zeros");
+    rs1data_rd = {XLEN{1'b1}}; @(posedge clk)#1; assert_eq_m(rs1data_de, rs1data_rd, "rs1_data is all ones");
+    rs1data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs1data_de, rs1data_rd, "rs1_data is all zeros");
 
     //rs2_data test
-    rs2_data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs2_data_de, rs2_data_rd, "rs2_data is all zeros");
-    rs2_data_rd = {XLEN{1'b1}}; @(posedge clk)#1; assert_eq_m(rs2_data_de, rs2_data_rd, "rs2_data is all ones");
-    rs2_data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs2_data_de, rs2_data_rd, "rs2_data is all zeros");
+    rs2data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs2data_de, rs2data_rd, "rs2_data is all zeros");
+    rs2data_rd = {XLEN{1'b1}}; @(posedge clk)#1; assert_eq_m(rs2data_de, rs2data_rd, "rs2_data is all ones");
+    rs2data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs2data_de, rs2data_rd, "rs2_data is all zeros");
 
     //pc test
     curr_pc_fd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(curr_pc_de, curr_pc_fd, "curr_pc is all zeros");
