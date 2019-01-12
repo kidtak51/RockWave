@@ -5,8 +5,8 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/28 05:54
- * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
+ * Last Modified: 2019/01/09 18:25
+ * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -16,6 +16,8 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2019/01/09	kidtak51	  各制御ブロックの出力段のFlipFlopを除去するための定義を追加した
+ * 2019/1/4	  kidtak51	  parameter名一部修正
  * 2018/12/28	Masaru Aoki	FUNCT3 / DataMemWE / JumpEn 追加
  * 2018/12/18	Masaru Aoki	First Version
  * *****************************************************************
@@ -55,6 +57,7 @@
       parameter USE_RD_ALU    = 2'b00;
       parameter USE_RD_PC     = 2'b01;
       parameter USE_RD_MEMORY = 2'b10;
+      parameter USE_RD_COMP   = 2'b11;
    
     // funct3
     parameter FUNCT3_BIT_L = 4;
@@ -78,7 +81,14 @@
       parameter FUNCT3_SLTU = 3'b011;
 
     // Data Memory Write Enable
-    parameter DATA_MEM_WE = 7;
+    parameter DATA_MEM_WE_BIT = 7;
 
     // Jump Enable
-    parameter JUMP_EN = 8;
+    parameter JUMP_EN_BIT = 8;
+
+    /////////////////////////////////////////////
+    // Common
+    /////////////////////////////////////////////
+    //以下をアンコメントすると、Decodeブロック, Executeブロック, Memoryブロックの出力段FFを除去する
+    //`define OUT_FLIPFLOP_REMOVE
+
