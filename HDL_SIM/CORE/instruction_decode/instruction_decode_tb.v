@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/11 18:34
+ * Last Modified: 2019/01/12 17:23
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -89,17 +89,18 @@ always begin
     #5 clk = ~clk;
 end
 
-wire tmp = decoded_op_de[USE_RS1_RS1DATA];
+//テスト正解格納用変数
+reg[XLEN-1:0] ans;
 
 initial begin
     $dumpfile("instruction_decode_tb.vcd");
     $dumpvars(0,instruction_decode_tb);
     inst = 32'd0;
-    rs1data_rd = 128'd0;
-    rs2data_rd = 128'd0;
-    curr_pc_fd = 128'd0;
-    next_pc_fd = 128'd0;
-    phase_decode = 128'd1;
+    rs1data_rd = {XLEN{1'b0}};
+    rs2data_rd = {XLEN{1'b0}};
+    curr_pc_fd = {XLEN{1'b0}};
+    next_pc_fd = {XLEN{1'b0}};
+    phase_decode = 1'b1;
 
     @(posedge clk)
     rst_n = 1;
@@ -269,22 +270,90 @@ initial begin
     next_pc_fd = {XLEN{1'b1}}; @(posedge clk)#1; assert_eq_m(next_pc_de, next_pc_fd, "curr_pc is all ones");
     next_pc_fd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(next_pc_de, next_pc_fd, "curr_pc is all zeros");
 
+`ifndef OUT_FLIPFLOP_REMOVE
+	//////////////////////////////////////////////////////////////
+	//最終出力段がFFを通過していることを確認するテスト。
+	//各種decodeのテストがpassしている状態で実施すること
+	//////////////////////////////////////////////////////////////
+	//imm
+    inst=32'b11011101_11011001_11010000_01101111;	@(posedge clk)#1;
+    inst=32'b00110000_00000000_00000000_11100011;	              #1;	assert_neq_m(imm, 32'h00000B00, "imm FF is not work.");
+
+    //USE_RS1 test
+    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;
+    inst=32'b00000000_00000000_00000000_00010111;	              #1;	assert_neq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_PC, "decoded_op[] FF is not work.");
+    //funct_alu test
+    inst=32'b01000000_00000000_01110000_00110011;	@(posedge clk)#1;
+    inst=32'b00000000_00000000_00000000_00010011;	              #1;	assert_neq_m(funct_alu, 0, "funct_alu FF is not work.");
+
+    //rdsel_de test(0x1F)
+    inst=32'b00000000_00000000_00001111_10110111;	@(posedge clk)#1;
+    inst=32'b00000000_00000000_00001111_10100011;	              #1;	assert_neq_m(rdsel_de, 0, "rdsel_de FF is now work.");
+
+	//rs1_data test
+    rs1data_rd = {XLEN{1'b1}}; @(posedge clk)#1;
+    rs1data_rd = {XLEN{1'b0}};               #1; assert_neq_m(rs1data_de, rs1data_rd, "rs1_data FF is not work.");
+
+    //rs2_data test
+    rs2data_rd = {XLEN{1'b0}}; @(posedge clk)#1;
+    rs2data_rd = {XLEN{1'b1}};               #1; assert_neq_m(rs2data_de, rs2data_rd, "rs2_data FF is not work.");
+
+    //pc test
+    next_pc_fd = {XLEN{1'b1}}; @(posedge clk)#1;
+    next_pc_fd = {XLEN{1'b0}};               #1; assert_neq_m(next_pc_de, next_pc_fd, "curr_pc FF is not work.");
+
+	//////////////////////////////////////////////////////////////
+	//最終出力段がFFのenableが動作（disable状態）を確認するテスト。
+	//////////////////////////////////////////////////////////////
+	//imm
+	phase_decode = 1'b1;
+    inst=32'b00110000_00000000_00000000_11100011;	@(posedge clk)#1;
+    phase_decode = 1'b0;
+    inst=32'b11011101_11011001_11010000_01101111;	@(posedge clk)#1;	assert_eq_m(imm, 32'h00000B00, "imm FF Enable is not work.");
+
+    //USE_RS1 test
+	phase_decode = 1'b1;
+    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;
+    phase_decode = 1'b0;
+    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RS1_BIT], USE_RS1_PC, "decoded_op[] FF  Enable is not work.");
+    
+	//funct_alu test
+	phase_decode = 1'b1;
+    inst=32'b00000000_00000000_00000000_00010011;	@(posedge clk)#1;
+    phase_decode = 1'b0;
+    inst=32'b01000000_00000000_01110000_00110011;	@(posedge clk)#1;	assert_eq_m(funct_alu, 0, "funct_alu FF Enable is not work.");
+
+    //rdsel_de test(0x1F)
+	phase_decode = 1'b1;
+    inst=32'b00000000_00000000_00001111_10100011;	@(posedge clk)#1;
+    phase_decode = 1'b0;
+    inst=32'b00000000_00000000_00001111_10110111;	@(posedge clk)#1;	assert_eq_m(rdsel_de, 0, "rdsel_de FF Enable is now work.");
+
+	//rs1_data test
+	phase_decode = 1'b1;
+    rs1data_rd = {XLEN{1'b1}}; @(posedge clk)#1;
+    phase_decode = 1'b0;
+    ans = rs1data_rd;
+    rs1data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs1data_de, ans, "rs1_data FF Enable is not work.");
+
+    //rs2_data test
+	phase_decode = 1'b1;
+    rs2data_rd = {XLEN{1'b1}}; @(posedge clk)#1;
+    phase_decode = 1'b0;
+    ans = rs2data_rd;
+    rs2data_rd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(rs2data_de, ans, "rs2_data FF Enable is not work.");
+
+    //pc test
+	phase_decode = 1'b1;
+    next_pc_fd = {XLEN{1'b1}}; @(posedge clk)#1;
+    phase_decode = 1'b0;
+    ans = next_pc_fd;
+    next_pc_fd = {XLEN{1'b0}}; @(posedge clk)#1; assert_eq_m(next_pc_de, ans, "curr_pc FF Enable is not work.");
+`endif
+
     $display("All tests pass!!");
     $finish;
 end
-
-task assert_eq;
-    input [XLEN-1:0] a;
-    input [XLEN-1:0] b;
-    begin
-        if(a == b) begin
-        end
-        else begin
-            $display("Assert NG (%h,%h)", a, b);
-            $finish;
-        end
-    end
-endtask
 
 task assert_eq_m;
     input [XLEN-1:0] a;
@@ -292,6 +361,21 @@ task assert_eq_m;
     input [0:8*50-1] message;
     begin
         if(a == b) begin
+        end
+        else begin
+            $display("Assert NG (%h,%h,%s)", a, b, message);
+            #14
+            $finish;
+        end
+    end
+endtask
+
+task assert_neq_m;
+    input [XLEN-1:0] a;
+    input [XLEN-1:0] b;
+    input [0:8*50-1] message;
+    begin
+        if(a != b) begin
         end
         else begin
             $display("Assert NG (%h,%h,%s)", a, b, message);
