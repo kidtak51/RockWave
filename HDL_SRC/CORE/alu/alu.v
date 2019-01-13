@@ -5,7 +5,7 @@
  * File Created: 2018/12/19 23:48
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/11 02:24
+ * Last Modified: 2019/01/14 24:00
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -23,30 +23,25 @@
 module alu (
     aluin1,
     aluin2,
-    funct3,
-    funct7,
+    funct_alu,
     aluout
     );
     
     parameter XLEN = 32;
 
-    input  wire signed [XLEN-1:0] aluin1;
-    input  wire signed [XLEN-1:0] aluin2;
-    input  wire [2:0] funct3;
-    input  wire funct7;
-    output wire [XLEN-1:0] aluout;
-    wire [3:0] funct73;
+    input  wire signed [XLEN-1:0] aluin1; //alu入力信号1
+    input  wire signed [XLEN-1:0] aluin2; //alu入力信号2
+    input  wire [3:0] funct_alu; //alu演算器選択信号
+    output wire [XLEN-1:0] aluout; //alu演算結果信号
 
-    assign funct73 = {funct7,funct3};
-    
     function [XLEN-1:0] calc( 
-        input [3:0] funct73,
         input signed [XLEN-1:0] aluin1,
-        input signed [XLEN-1:0] aluin2
+        input signed [XLEN-1:0] aluin2,
+        input funct_alu
         );
 
         begin
-            case( funct73 )
+            case( funct_alu )
                    4'b0000  : calc = aluin1 + aluin2; //ADD//ADDI 加算
                    4'b1000  : calc = aluin1 - aluin2; //SUB 減算
                    4'b0001  : calc = aluin1 << aluin2 [4:0]; //SLL//SLLI 左シフト
@@ -62,6 +57,6 @@ module alu (
         end
     endfunction
 
-    assign aluout = calc( funct73, aluin1, aluin2);
+    assign aluout = calc( aluin1, aluin2, funct_alu);
 
 endmodule // alu
