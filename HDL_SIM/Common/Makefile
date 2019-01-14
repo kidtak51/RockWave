@@ -3,17 +3,22 @@
 # File Created: 2019/01/14 08:24
 # Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
-# Last Modified: 2019/01/14 09:04
+# Last Modified: 2019/01/14 10:49
 # Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2018  Project RockWave
 ######################################################################
 # Description:
-#    TestBench for synchronizer
+#    Test for Common module
 ######################################################################
 
-testbench = synchronizer_tb
-testmodule = ../../HDL_SRC/Common/synchronizer.v
+##### Synchronizer
+# testbench = synchronizer_tb
+# testmodule = ../../HDL_SRC/Common/synchronizer.v
+
+##### Refclk
+testbench = refclk_tb
+testmodule = ../../HDL_SRC/Common/refclk.v
 
 INCDIR = ../../HDL_SRC/CORE/
 
