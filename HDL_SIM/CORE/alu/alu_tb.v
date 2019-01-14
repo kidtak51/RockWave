@@ -22,56 +22,79 @@
 
 module alu_tb;
 
-reg [31:0] aluin1;
-reg [31:0] aluin2;
-reg [2:0] funct3;
-reg funct7;
-wire [31:0] aluout;
+parameter XLEN =32;
+//`include "core_general.vh"
+
+reg [XLEN-1:0] aluin1;
+reg [XLEN-1:0] aluin2;
+reg [3:0] funct_alu;
+wire [XLEN-1:0] aluout;
+
 
 //1周期1000unit
 parameter STEP = 1;
 
 alu test(
-   aluin1, aluin2, funct3, funct7, aluout
+   .aluin1(aluin1), .aluin2(aluin2),
+   .funct_alu(funct_alu), .aluout(aluout)
 );
 
 initial begin
 
-    funct3 = 3'b000;
-    funct7 = 1'b0;
+    funct_alu = 4'b0000;
     aluin1 = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
     aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
 
     #STEP
-    funct3 = 3'b000;
-    funct7 = 1'b0;
-    aluin1 = 32'b0000_0000_0000_0000_0000_0000_0000_0111;
-    aluin2 = 32'b1000_0000_0000_0000_0000_0000_0000_1010;
+    funct_alu = 4'b0000;
+    aluin1 = 32'b0000_0000_0000_0000_0000_0000_0001_0111;
+    aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_1010;
 
-    #STEP    funct7 = 1'b0; funct3 = 3'b000; //ADD
-    #STEP    funct7 = 1'b1; funct3 = 3'b000; //SUB
-    #STEP    funct7 = 1'b0; funct3 = 3'b001; //SLL
-    #STEP    funct7 = 1'b0; funct3 = 3'b010; //SLT
-    #STEP    funct7 = 1'b0; funct3 = 3'b011; //SLTU
-    #STEP    funct7 = 1'b0; funct3 = 3'b100; //XOR
-    #STEP    funct7 = 1'b0; funct3 = 3'b110; //OR
-    #STEP    funct7 = 1'b0; funct3 = 3'b111; //AND
-    #STEP    funct7 = 1'bX; funct3 = 3'bXXX; 
+/* add */       #STEP    funct_alu = 4'b0000;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0000_0000_0010_0001, "ADD");
+/* sub */       #STEP    funct_alu = 4'b1000;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0000_0000_0000_1101, "SUB");
+/* SLL/SLLI */  #STEP    funct_alu = 4'b0001;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0101_1100_0000_0000, "SLL/SLLI"); 
+/* SLL/SLLI */  #STEP    funct_alu = 4'b1001;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0101_1100_0000_0000, "SLL/SLLI"); 
+/* XOR */       #STEP    funct_alu = 4'b0100;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0000_0000_0001_1101, "XOR"); 
+/* XOR */       #STEP    funct_alu = 4'b1100;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0000_0000_0001_1101, "XOR");
+/* OR */        #STEP    funct_alu = 4'b0110;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0000_0000_0001_1111, "OR"); 
+/* OR */        #STEP    funct_alu = 4'b1110;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0000_0000_0001_1111, "OR"); 
+/* AND */       #STEP    funct_alu = 4'b0111;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0000_0000_0000_0010, "AND"); 
+/* AND */       #STEP    funct_alu = 4'b1111;   #STEP assert_calc(aluout, 32'b0000_0000_0000_0000_0000_0000_0000_0010, "AND"); 
 
-    aluin1 = 32'b1000_0000_0000_0000_0000_0000_0000_0111;
-    aluin2 = 32'b1000_0000_0000_0000_0000_0000_0000_1010;
+    #STEP
+    aluin1 = 32'b1000_0000_0000_0000_0000_0000_0001_0101;
+    aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_0011;
+/* SRL/SRLI */  #STEP    funct_alu = 4'b0101;   #STEP assert_calc(aluout, 32'b0001_0000_0000_0000_0000_0000_0000_0010, "SRL/SRLI"); 
+/* SRA/SRAI */  #STEP    funct_alu = 4'b1101;   #STEP assert_calc(aluout, 32'b1111_0000_0000_0000_0000_0000_0000_0010, "SRA/SRAI"); 
 
-    #STEP    funct7 = 1'b0; funct3 = 3'b101; //SRL
-    #STEP    funct7 = 1'b1; funct3 = 3'b101; //SRA
-
+//xxxx
+    #STEP
+    aluin1 = 32'b1000_0000_0000_0000_0000_0000_0001_0101;
+    aluin2 = 32'b0000_0000_0000_0000_0000_0000_0000_0011;
+/* xxxx */      #STEP    funct_alu = 4'b0011;   #STEP assert_calc(aluout, 32'bxxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx, "xxxx"); 
 
 end
+
+task assert_calc;
+    input [XLEN-1:0] a;
+    input [XLEN-1:0] b;
+    input [0:8*10-1] message;
+    begin
+        if(a === b) begin
+            $display("       OK (%b,%b,%s)", a, b, message);
+        end
+        else begin
+            $display("Assert NG (%b,%b,%s)", a, b, message);
+            $finish;
+        end
+    end
+endtask
 
 /* 表示 */
 initial begin
  $dumpfile("alu.vcd");
     $dumpvars(0,alu_tb);
-    $monitor(" STEP=%d funct7= %b funct3= %b aluin1=%b aluin2=%b aluout=%b ",STEP,funct7,funct3,aluin1,aluin2,aluout);
+    $monitor(" STEP=%d\n funct_alu= %b\n aluin1=%b\n aluin2=%b\n aluout=%b\n ",$time,funct_alu,aluin1,aluin2,aluout);
 end
 
 endmodule
