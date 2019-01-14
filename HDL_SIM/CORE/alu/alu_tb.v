@@ -22,8 +22,8 @@
 
 module alu_tb;
 
-parameter XLEN =32;
-//`include "core_general.vh"
+//parameter XLEN =32;
+`include "core_general.vh"
 
 reg [XLEN-1:0] aluin1;
 reg [XLEN-1:0] aluin2;
