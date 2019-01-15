@@ -5,7 +5,7 @@
  * File Created: 2018/12/19 23:48
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/15 24:12
+ * Last Modified: 2019/01/15 12:33
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -39,16 +39,12 @@ module alu (
             case( funct_alu )
                    4'b0000  : calc = aluin1 + aluin2; //ADD//ADDI 加算
                    4'b1000  : calc = aluin1 - aluin2; //SUB 減算
-                   4'b0001  : calc = aluin1 << aluin2[4:0]; //SLL//SLLI 左論理シフト
-                   4'b1001  : calc = aluin1 << aluin2[4:0]; //SLL//SLLI 左論理シフト
-                   4'b0100  : calc = aluin1 ^ aluin2; //XOR 排他的論理和
-                   4'b1100  : calc = aluin1 ^ aluin2; //XOR 排他的論理和
+                   4'b0001,4'b1001  : calc = aluin1 << aluin2[4:0]; //SLL//SLLI 左論理シフト
+                   4'b0100,4'b1100  : calc = aluin1 ^ aluin2; //XOR 排他的論理和
                    4'b0101  : calc = aluin1 >> aluin2 [4:0]; //SRL//SRLI 右論理シフト
                    4'b1101  : calc = $signed(aluin1) >>> aluin2 [4:0]; //SRA//SRAI 右算術シフト
-                   4'b0110  : calc = aluin1 | aluin2; //OR 論理和                   
-                   4'b1110  : calc = aluin1 | aluin2; //OR 論理和                                      
-                   4'b0111  : calc = aluin1 & aluin2; //AND 論理積
-                   4'b1111  : calc = aluin1 & aluin2; //AND 論理積
+                   4'b0110,4'b1110  : calc = aluin1 | aluin2; //OR 論理和                   
+                   4'b0111,4'b1111  : calc = aluin1 & aluin2; //AND 論理積
                    default : calc = {XLEN{1'bx}};
             endcase
         end

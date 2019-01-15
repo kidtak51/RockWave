@@ -66,6 +66,18 @@ initial begin
 /* SRL/SRLI */  #STEP    funct_alu = 4'b0101;   #STEP assert_calc(aluout, 32'b0001_0000_0000_0000_0000_0000_0000_0010, "SRL/SRLI"); 
 /* SRA/SRAI */  #STEP    funct_alu = 4'b1101;   #STEP assert_calc(aluout, 32'b1111_0000_0000_0000_0000_0000_0000_0010, "SRA/SRAI"); 
 
+    #STEP
+    aluin1 = 32'b1000_0000_0000_0000_0000_0000_0001_0101;
+    aluin2 = 32'b1000_0000_0000_0000_0000_0000_0001_0001;
+/* SRA/SRAI */  #STEP    funct_alu = 4'b1101;   #STEP assert_calc(aluout, 32'b1111_1111_1111_1111_1100_0000_0000_0000, "SRA/SRAI"); 
+
+    #STEP
+    aluin1 = 32'b1000_0000_0000_0000_0000_0000_0001_0101;
+    aluin2 = 32'b1000_0000_0000_0000_0000_0000_0000_0001;
+/* SRA/SRAI */  #STEP    funct_alu = 4'b1101;   #STEP assert_calc(aluout, 32'b1100_0000_0000_0000_0000_0000_0000_1010, "SRA/SRAI"); 
+
+
+
 //xxxx
     #STEP
     aluin1 = 32'b1000_0000_0000_0000_0000_0000_0001_0101;
