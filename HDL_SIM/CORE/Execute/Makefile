@@ -3,7 +3,7 @@
 # File Created: 2018/11/25 06:07
 # Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
-# Last Modified: 2019/01/15 22:29
+# Last Modified: 2019/01/16 24:25
 # Modified By: Takuya Shono ( ta.shono+1@gmail.com )
 ######
 # Copyright 2018 - 2018  Project RockWave
@@ -12,8 +12,11 @@
 #    TestBench for alu_tb
 ######################################################################
 
-testbench = alu_tb
-testmodule = ../../../HDL_SRC/CORE/Execute/alu.v
+#testbench = alu_tb
+#testmodule = ../../../HDL_SRC/CORE/Execute/alu.v
+
+testbench = comp_tb
+testmodule = ../../../HDL_SRC/CORE/Execute/comp.v
 
 INCDIR = ../../../HDL_SRC/CORE/
 
