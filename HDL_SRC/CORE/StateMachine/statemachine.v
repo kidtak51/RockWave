@@ -5,7 +5,7 @@
  * File Created: 2019/01/20 21:35
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/20 23:30
+ * Last Modified: 2019/01/21 01:05
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -24,6 +24,7 @@
 module statemachine(
 
     input rst_n,
+    input clk,  
   
     // For StateMachine
     input stall_fetch,              // 状態fetchをkeepする
@@ -39,8 +40,8 @@ module statemachine(
     output phase_writeback          //状態をWRITEBACKにする
     );
   
-    reg  [4:0] current; //現在の状態
-    reg  [4:0] next;    //次の状態
+    reg  [4:0] current;         //現在の状態
+    reg  [4:0] next = FETCH;    //次の状態//初期はFETCH
 
 //ワンホット方式
     localparam FETCH            = 5'b00001;
@@ -49,11 +50,11 @@ module statemachine(
     localparam MEMORYACCESS     = 5'b01000;
     localparam WRITEBACK        = 5'b10000;
 
-    always @(negedge rst_n) begin
+    always @(posedge clk or negedge rst_n) begin
         if(!rst_n)
-            current <= 5'bxxxxx;
+            current <= 5'bx_xxxx;
         else
-            current <= FETCH;
+            current <= next;
         end
 
     always @( current ) begin
@@ -78,7 +79,7 @@ module statemachine(
                         next <= WRITEBACK;
                    else
                         next <= FETCH;
-            default: next <= 5'bxxxxx;
+            default: next <= FETCH;
         endcase
     end
 
