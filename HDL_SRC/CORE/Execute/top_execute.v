@@ -5,7 +5,7 @@
  * File Created: 2019/01/16 23:22
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/19 21:43
+ * Last Modified: 2019/01/20 12:37
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -38,10 +38,12 @@ module top_execute(
     
     // For Memory
     output [OPLEN-1:0] decoded_op_em, // Decoded OPcode
+    output [XLEN-1:0] rs2data_em,     //レジスタ選択結果2
     output jump_state_em,             // PCの次のアドレスがJumpアドレス
     output [4:0] rdsel_em,            // RD選択
     output [XLEN-1:0] next_pc_em,     // Next PC Address 
     output [XLEN-1:0] alu_out_em,     // ALU outp
+
    // For StateMachine
     output stall_execute        // Stall execute Phase    
 );
