@@ -5,7 +5,7 @@
  * File Created: 2019/01/21 24:16
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/21 01:03
+ * Last Modified: 2019/01/21 23:12
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -40,10 +40,9 @@ module statemachine_tb;
     wire phase_decode;            //状態をDECODEにする
     wire phase_execute;           //状態をEXECUTEにする
     wire phase_memoryaccess;      //状態をMEMORYACCESSにする
-    wire phase_writeback;          //状態をWRITEBACKにする
+    wire phase_writeback;         //状態をWRITEBACKにする
    
     wire  [4:0] current; //現在の状態
-    wire  [4:0] next;    //次の状態
 
    // DUT インスタンス
     statemachine U_statemachine(.*);
@@ -61,24 +60,27 @@ module statemachine_tb;
         stall_execute       = 0;
         stall_memoryaccess  = 0;
         stall_writeback     = 0;
-
+ 
         @(posedge clk)
         @(posedge clk)
         rst_n = 1;
 
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        @(posedge clk)
-        
+        #(50)
+
+    //stall検証
+                stall_fetch         = 1;
+        #(15)   stall_fetch         = 0;
+        #(15)   stall_decode        = 1;
+        #(15)   stall_decode        = 0;        
+        #(15)   stall_execute       = 1;        
+        #(15)   stall_execute       = 0;        
+        #(15)   stall_memoryaccess  = 1;        
+        #(15)   stall_memoryaccess  = 0;        
+        #(15)   stall_writeback     = 1;        
+        #(15)   stall_writeback     = 0;        
+
+        #(50)
+
         $finish;
     end
 

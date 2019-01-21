@@ -5,7 +5,7 @@
  * File Created: 2019/01/20 21:35
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/21 01:05
+ * Last Modified: 2019/01/21 22:53
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -19,7 +19,6 @@
  * 2019/01/20	Takuya Shono	First Version
  * *****************************************************************
  */
-
 
 module statemachine(
 
@@ -41,7 +40,6 @@ module statemachine(
     );
   
     reg  [4:0] current;         //現在の状態
-    reg  [4:0] next = FETCH;    //次の状態//初期はFETCH
 
 //ワンホット方式
     localparam FETCH            = 5'b00001;
@@ -52,42 +50,38 @@ module statemachine(
 
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n)
-            current <= 5'bx_xxxx;
+            current <= FETCH;
         else
-            current <= next;
-        end
-
-    always @( current ) begin
-        case(current) //ステートの移動
-            FETCH: if(stall_fetch)
-                        next <= FETCH;
-                   else
-                        next <= DECODE;
-            DECODE: if(stall_decode)
-                        next <= DECODE;
-                   else
-                        next <= EXECUTE;
-            EXECUTE: if(stall_execute)
-                        next <= EXECUTE;
-                   else
-                        next <= MEMORYACCESS;
-            MEMORYACCESS: if(stall_memoryaccess)
-                        next <= MEMORYACCESS;
-                   else
-                        next <= WRITEBACK;
-            WRITEBACK: if(stall_writeback)
-                        next <= WRITEBACK;
-                   else
-                        next <= FETCH;
-            default: next <= FETCH;
-        endcase
+            case( current ) //ステートの移動
+                FETCH: if(stall_fetch)
+                            current <= FETCH;
+                       else
+                            current <= DECODE;
+                DECODE: if(stall_decode)
+                            current <= DECODE;
+                       else
+                            current <= EXECUTE;
+                EXECUTE: if(stall_execute)
+                            current <= EXECUTE;
+                       else
+                            current <= MEMORYACCESS;
+                MEMORYACCESS: if(stall_memoryaccess)
+                            current <= MEMORYACCESS;
+                       else
+                            current <= WRITEBACK;
+                WRITEBACK: if(stall_writeback)
+                            current <= WRITEBACK;
+                       else
+                            current <= FETCH;
+                default: current <= 5'bx_xxxx;
+            endcase
     end
 
-    assign  phase_fetch         = next[0]; 
-    assign  phase_decode        = next[1];
-    assign  phase_execute       = next[2];
-    assign  phase_memoryaccess  = next[3];
-    assign  phase_writeback     = next[4];
+    assign  phase_fetch         = current[0]; 
+    assign  phase_decode        = current[1];
+    assign  phase_execute       = current[2];
+    assign  phase_memoryaccess  = current[3];
+    assign  phase_writeback     = current[4];
 
 endmodule //statemachine
 
