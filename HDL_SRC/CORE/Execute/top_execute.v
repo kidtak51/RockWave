@@ -5,7 +5,7 @@
  * File Created: 2019/01/16 23:22
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/20 12:37
+ * Last Modified: 2019/01/21 12:14
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -62,8 +62,8 @@ module top_execute(
     wire use_rs2;
 
     //For alu
-    assign aluin1 = ( use_rs1 == 1)? rs1data_de : curr_pc_de;
-    assign aluin2 = ( use_rs2 == 1)? rs2data_de : imm;
+    assign aluin1 = ( use_rs1 == USE_RS1_RS1DATA)? rs1data_de : curr_pc_de;
+    assign aluin2 = ( use_rs2 == USE_RS2_RS2DATA)? rs2data_de : imm;
     //For comp
     assign use_rs1 = decoded_op_de[USE_RS1_BIT];
     assign use_rs2 = decoded_op_de[USE_RS2_BIT];

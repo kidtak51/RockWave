@@ -5,7 +5,7 @@
  * File Created: 2019/01/16 23:45
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/20 17:26
+ * Last Modified: 2019/01/21 12:26
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -113,13 +113,17 @@ module top_execute_tb;
         // スルー信号動作確認
         ////////////////////////////////////
         @( posedge phase_execute)
-        next_pc_de    = 32'hA0A0_A0A0;
-        rdsel_de      = 5'b1_0101;
+        decoded_op_de    = 9'b1_0101_0101;
+        rs2data_de       = 32'h1010_1010;
+        next_pc_de       = 32'hA0A0_A0A0;
+        rdsel_de         = 5'b1_0101;
      
         @( posedge phase_memoryaccess)
         #(1)
-        assert_eq(next_pc_em, 32'hA0A0_A0A0, "next_pc_de->next_pc_em");
-        assert_eq(rdsel_em,   5'b101_01, "rdsel_de->rdsel_em");
+        assert_eq(decoded_op_em, 9'b1_0101_0101, "decoded_op_de->decoded_op_em");
+        assert_eq(rs2data_em,    32'h1010_1010, "rs2data_de->rs2data_em");
+        assert_eq(next_pc_em,    32'hA0A0_A0A0, "next_pc_de->next_pc_em");
+        assert_eq(rdsel_em,      5'b101_01,     "rdsel_de->rdsel_em");
 
         ////////////////////////////////////
         // ALU系動作確認
