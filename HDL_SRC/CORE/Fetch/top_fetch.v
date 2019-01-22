@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 04:52
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/23 05:08
+ * Last Modified: 2019/01/23 05:15
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -56,7 +56,8 @@ module top_fetch(
     
     wire [XLEN-1:0] curr_pc;        //      PC Address
     wire [XLEN-1:0] next_pc;        // Next PC Address
-    wire [(XLEN-AWIDTH)-1:0] dummy_inst_addr; // 未使用PC上位ビット
+    wire [(XLEN-AWIDTH)-3:0] dummy_inst_addr2; // 未使用PC上位ビット
+    wire [              1:0] dummy_inst_addr1; // 未使用PC下位ビット(1word=4byte)
 
     /////////////////////////////////////////////
     // Program Counter
@@ -73,10 +74,10 @@ module top_fetch(
     end
 
     assign curr_pc = program_counter;
-    // RISC-Vの命令は4byte単位
+    // RISC-Vの命令は4byte単位 
     assign next_pc = program_counter + 4;
-    // InstMemory用アドレス
-    assign {dummy_inst_addr,inst_addr} = program_counter;
+    // InstMemory用アドレス / InstMemory:1Word=4Byte
+    assign {dummy_inst_addr2,inst_addr,dummy_inst_addr1} = program_counter;
     // Decode用inst
     //   XilinxのBlockRAMが同期RAMで1clk遅延するためラッチを通さない
     assign inst = inst_data;
