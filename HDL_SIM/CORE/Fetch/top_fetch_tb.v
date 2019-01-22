@@ -5,7 +5,7 @@
  * File Created: 2018/12/18 04:35
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/23 05:45
+ * Last Modified: 2019/01/23 05:51
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -115,7 +115,7 @@ initial begin
     assert_eq(inst_addr,(RESET_VECTOR>>2)&12'hFFF,"Reset InstAddr");
     assert_eq(inst_data,inst, "Reset Instructiom");
 
-    // ProgramCountは4byte / inst_addrは1byte　単位で増加する
+    // ProgramCountは4byte / inst_addrは1word　単位で増加する
     @(posedge phase_decode)    #(1)
     assert_eq(curr_pc_fd,RESET_VECTOR+4, "1st inst Currennt");
     assert_eq(next_pc_fd,RESET_VECTOR+8, "1st inst Next");
