@@ -5,7 +5,7 @@
  * File Created: 2019/01/14 09:22
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/14 21:02
+ * Last Modified: 2019/01/23 04:20
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -59,8 +59,11 @@ module dfilter(
     always @(posedge clk or negedge rst_n) begin
         if(~rst_n)
             data_out <= INIVAL;
-        else if(flt_count_full)
-            data_out <= data_in;
+        else if(refclk)
+            if(flt_count_full)
+                data_out <= data_in;
+            else
+                data_out <= data_out;
         else
             data_out <= data_out;
     end
@@ -82,7 +85,7 @@ module dfilter(
     end
 
     assign flt_st = data_out ? flt_fall_st : flt_rise_st;
-    assign flt_count_full = (flt_count >= {BW{1'b1}}) & refclk;
+    assign flt_count_full = (flt_count >= {BW{1'b1}});
       
     ///////////////////////////////
     // activeエッジ / inactiveエッジ作成
