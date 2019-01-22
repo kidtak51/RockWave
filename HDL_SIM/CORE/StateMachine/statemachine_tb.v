@@ -5,7 +5,7 @@
  * File Created: 2019/01/21 24:16
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/21 23:12
+ * Last Modified: 2019/01/22 21:41
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -63,23 +63,23 @@ module statemachine_tb;
  
         @(posedge clk)
         @(posedge clk)
-        rst_n = 1;
+        #(1)        rst_n = 1;
 
-        #(50)
+        #(54)
 
     //stall検証
-                stall_fetch         = 1;
-        #(15)   stall_fetch         = 0;
-        #(15)   stall_decode        = 1;
-        #(15)   stall_decode        = 0;        
-        #(15)   stall_execute       = 1;        
-        #(15)   stall_execute       = 0;        
-        #(15)   stall_memoryaccess  = 1;        
-        #(15)   stall_memoryaccess  = 0;        
-        #(15)   stall_writeback     = 1;        
-        #(15)   stall_writeback     = 0;        
+        #(6)    stall_fetch         = 1;
+        #(20)   stall_fetch         = 0;
+                stall_decode        = 1;
+        #(20)   stall_decode        = 0;        
+                stall_execute       = 1;        
+        #(20)   stall_execute       = 0;        
+                stall_memoryaccess  = 1;        
+        #(20)   stall_memoryaccess  = 0;        
+                stall_writeback     = 1;        
+        #(20)   stall_writeback     = 0;        
 
-        #(50)
+        #(80)
 
         $finish;
     end

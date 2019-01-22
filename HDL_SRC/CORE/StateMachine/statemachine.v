@@ -5,7 +5,7 @@
  * File Created: 2019/01/20 21:35
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/21 22:53
+ * Last Modified: 2019/01/22 12:27
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -41,7 +41,7 @@ module statemachine(
   
     reg  [4:0] current;         //現在の状態
 
-//ワンホット方式
+    localparam INITIAL          = 5'b00000;
     localparam FETCH            = 5'b00001;
     localparam DECODE           = 5'b00010;
     localparam EXECUTE          = 5'b00100;
@@ -50,30 +50,32 @@ module statemachine(
 
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n)
-            current <= FETCH;
+            current <= INITIAL;
         else
             case( current ) //ステートの移動
+                INITIAL: current <= FETCH;
+
                 FETCH: if(stall_fetch)
-                            current <= FETCH;
+                            current <= current;
                        else
                             current <= DECODE;
                 DECODE: if(stall_decode)
-                            current <= DECODE;
+                            current <= current;
                        else
                             current <= EXECUTE;
                 EXECUTE: if(stall_execute)
-                            current <= EXECUTE;
+                            current <= current;
                        else
                             current <= MEMORYACCESS;
                 MEMORYACCESS: if(stall_memoryaccess)
-                            current <= MEMORYACCESS;
+                            current <= current;
                        else
                             current <= WRITEBACK;
                 WRITEBACK: if(stall_writeback)
-                            current <= WRITEBACK;
+                            current <= current;
                        else
                             current <= FETCH;
-                default: current <= 5'bx_xxxx;
+                default: current <= INITIAL;
             endcase
     end
 
