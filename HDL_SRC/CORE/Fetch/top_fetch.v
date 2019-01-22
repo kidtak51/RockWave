@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 04:52
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/19 05:34
+ * Last Modified: 2019/01/23 05:08
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -34,7 +34,7 @@ module top_fetch(
     input phase_fetch,               // Fetch Phase
     input phase_writeback,           // WriteBack Phase
     // From MemoryAccess
-    input jump_state_mf,             // PCの次のアドレスがJumpアドレス
+    input jump_state_wf,             // PCの次のアドレスがJumpアドレス
     input [XLEN-1:0] regdata_for_pc, // Jump先アドレス
     // From InstMemory
     input [XLEN-1:0] inst_data,      // InstMemory Data
@@ -64,7 +64,7 @@ module top_fetch(
         if(!rst_n)
             program_counter <= RESET_VECTOR;
         else if(phase_writeback)
-            if(jump_state_mf)
+            if(jump_state_wf)
                 program_counter <= regdata_for_pc;
             else
                 program_counter <= next_pc;
