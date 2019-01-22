@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 04:52
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/23 05:15
+ * Last Modified: 2019/01/23 05:45
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -76,7 +76,7 @@ module top_fetch(
     assign curr_pc = program_counter;
     // RISC-Vの命令は4byte単位 
     assign next_pc = program_counter + 4;
-    // InstMemory用アドレス / InstMemory:1Word=4Byte
+    // InstMemory用アドレス / InstMemoryは1Word=4Byteなため下位2bitを捨てる
     assign {dummy_inst_addr2,inst_addr,dummy_inst_addr1} = program_counter;
     // Decode用inst
     //   XilinxのBlockRAMが同期RAMで1clk遅延するためラッチを通さない
