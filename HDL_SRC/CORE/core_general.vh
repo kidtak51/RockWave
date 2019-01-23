@@ -5,8 +5,8 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/09 18:25
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2019/01/24 04:29
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2019/01/24	Masaru Aoki	64bitの記述を追加
  * 2019/01/09	kidtak51	  各制御ブロックの出力段のFlipFlopを除去するための定義を追加した
  * 2019/1/4	  kidtak51	  parameter名一部修正
  * 2018/12/28	Masaru Aoki	FUNCT3 / DataMemWE / JumpEn 追加
@@ -23,8 +24,14 @@
  * *****************************************************************
  */
 
+//    `define RV64I
+
     // CPU Register Bit Size
-    parameter XLEN = 32;
+  `ifdef RV64I
+      parameter XLEN = 64;
+  `else
+      parameter XLEN = 32;
+  `endif
     
     /////////////////////////////////////////////
     // Instruction Memory
@@ -66,8 +73,10 @@
       parameter FUNCT3_B = 3'b000;
       parameter FUNCT3_H = 3'b001;
       parameter FUNCT3_W = 3'b010;
+      parameter FUNCT3_D = 3'b011;      // RV64
       parameter FUNCT3_BU = 3'b100;
       parameter FUNCT3_HU = 3'b101;
+      parameter FUNCT3_WU = 3'b110;     // RV64
       // BRANCH
       parameter FUNCT3_BEQ  = 3'b000;
       parameter FUNCT3_BNE  = 3'b001;
