@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 04:52
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/19 05:34
+ * Last Modified: 2019/01/24 05:29
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -34,7 +34,7 @@ module top_fetch(
     input phase_fetch,               // Fetch Phase
     input phase_writeback,           // WriteBack Phase
     // From MemoryAccess
-    input jump_state_mf,             // PCの次のアドレスがJumpアドレス
+    input jump_state_wf,             // PCの次のアドレスがJumpアドレス
     input [XLEN-1:0] regdata_for_pc, // Jump先アドレス
     // From InstMemory
     input [XLEN-1:0] inst_data,      // InstMemory Data
@@ -56,7 +56,6 @@ module top_fetch(
     
     wire [XLEN-1:0] curr_pc;        //      PC Address
     wire [XLEN-1:0] next_pc;        // Next PC Address
-    wire [(XLEN-AWIDTH)-1:0] dummy_inst_addr; // 未使用PC上位ビット
 
     /////////////////////////////////////////////
     // Program Counter
@@ -64,7 +63,7 @@ module top_fetch(
         if(!rst_n)
             program_counter <= RESET_VECTOR;
         else if(phase_writeback)
-            if(jump_state_mf)
+            if(jump_state_wf)
                 program_counter <= regdata_for_pc;
             else
                 program_counter <= next_pc;
@@ -73,10 +72,10 @@ module top_fetch(
     end
 
     assign curr_pc = program_counter;
-    // RISC-Vの命令は4byte単位
+    // RISC-Vの命令は4byte単位 
     assign next_pc = program_counter + 4;
-    // InstMemory用アドレス
-    assign {dummy_inst_addr,inst_addr} = program_counter;
+    // InstMemory用アドレス / InstMemoryは1Word=4Byteなため下位2bitを捨てる
+    assign inst_addr = program_counter[AWIDTH+1:2];
     // Decode用inst
     //   XilinxのBlockRAMが同期RAMで1clk遅延するためラッチを通さない
     assign inst = inst_data;
