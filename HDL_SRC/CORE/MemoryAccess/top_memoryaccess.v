@@ -5,7 +5,7 @@
  * File Created: 2019/01/02 05:45
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/06 05:49
+ * Last Modified: 2019/01/24 04:57
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2019/01/24	Masaru Aoki	RV64I対応
  * 2019/01/02	Masaru Aoki	First Version
  * *****************************************************************
  */
@@ -36,7 +37,7 @@ module top_memoryaccess(
     input [XLEN-1:0] rs2data_em,     // RS2data
     // For DataMemory
     output [AWIDTH-1:0] data_mem_addr,// Address
-    output [31:0] data_mem_wdata,    // Write Data
+    output [XLEN-1:0] data_mem_wdata,// Write Data
     output [2:0] data_mem_we,        // Write Enable
     // For WriteBack
     output [OPLEN-1:0] decoded_op_mw,// Decoded OPcode
@@ -44,7 +45,7 @@ module top_memoryaccess(
     output [4:0] rdsel_mw,           // RD選択
     output [XLEN-1:0] next_pc_mw,    // Next PC Address for Decode
     output [XLEN-1:0] alu_out_mw,    // ALU output
-    output [31:0] mem_out_mw,        // Data Memory output
+    output [XLEN-1:0] mem_out_mw,    // Data Memory output
     // For StateMachine
     output stall_memoryaccess        // Stall MemoryAccess Phase
 );
@@ -57,7 +58,7 @@ module top_memoryaccess(
     /////////////////////////////////////////////
     // Rename Decode Opcode 
     wire [2:0] funct3 = decoded_op_em[FUNCT3_BIT_M:FUNCT3_BIT_L];
-    wire we = decoded_op_em[DATA_MEM_WE];
+    wire we = decoded_op_em[DATA_MEM_WE_BIT];
 
     /////////////////////////////////////////////
     // Memory Access STORE系
@@ -70,7 +71,7 @@ module top_memoryaccess(
     assign mem_out_mw = func_mem_out(funct3,data_mem_out);
     function [XLEN-1:0] func_mem_out(
         input [2:0] funct3,
-        input [31:0] mem_out
+        input [XLEN-1:0] mem_out
     );
     begin
         case(funct3)
@@ -79,6 +80,10 @@ module top_memoryaccess(
             FUNCT3_H : func_mem_out = {{(XLEN-16){mem_out[15]}},mem_out[15:0]};
             FUNCT3_HU: func_mem_out = {{(XLEN-16){       1'b0}},mem_out[15:0]};
             FUNCT3_W : func_mem_out = {{(XLEN-31){mem_out[31]}},mem_out[30:0]};
+`ifdef RV64I
+            FUNCT3_WU: func_mem_out = {{(XLEN-32){       1'b0}},mem_out[31:0]};
+            FUNCT3_D : func_mem_out = {{(XLEN-63){mem_out[63]}},mem_out[62:0]};
+`endif
             default:   func_mem_out = {(XLEN-1){1'bx}};
         endcase
     end

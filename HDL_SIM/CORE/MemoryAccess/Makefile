@@ -3,7 +3,7 @@
 # File Created: 2018/11/25 06:07
 # Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
-# Last Modified: 2019/01/06 05:28
+# Last Modified: 2019/01/24 04:54
 # Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2018  Project RockWave
@@ -18,7 +18,10 @@
 # testbench = memoryaccess_tb
 # testmodule = ../../../HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v
 
-testbench = top_memoryaccess_tb
+# testbench = top_memoryaccess_tb
+# testmodule = ../../../HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v ../../../HDL_SRC/CORE/MemoryAccess/ram.v
+
+testbench = top_memoryaccess_rv64i_tb
 testmodule = ../../../HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v ../../../HDL_SRC/CORE/MemoryAccess/ram.v
 
 INCDIR = ../../../HDL_SRC/CORE/
