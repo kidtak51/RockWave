@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/12 17:23
+ * Last Modified: 2019/01/25 17:58
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -77,6 +77,7 @@ instruction_decode u_instruction_decode(
     .next_pc_de(next_pc_de),
     .funct_alu(funct_alu),
     .rdsel_de(rdsel_de),
+    .stall_decode(stall_decode),
     .decoded_op_de(decoded_op_de)
 );
 
@@ -104,6 +105,9 @@ initial begin
 
     @(posedge clk)
     rst_n = 1;
+    //stall_decode test
+    assert_eq_m(stall_decode, 0, "stall decode always zero");
+
     //imm test
     inst=32'b11011101_11011001_11010000_01101111;	@(posedge clk)#1;	assert_eq_m(imm, 32'hFFF9DDDC, "type=J; imm=4294565340; opecode=1101111;");
     inst=32'b00110000_00000000_00000000_11100011;	@(posedge clk)#1;	assert_eq_m(imm, 32'h00000B00, "type=B; imm=2816; opecode=1100011;");
