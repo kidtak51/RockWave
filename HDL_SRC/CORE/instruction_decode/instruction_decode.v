@@ -38,6 +38,7 @@ module instruction_decode(
     output[XLEN-1:0] next_pc_de, //次のプログラムカウンタの値 next_pc_fdを(ほぼ)そのまま出力
     output[3:0] funct_alu, //alu演算器選択信号
     output[4:0] rdsel_de, //データメモリ選択信号
+    output stall_decode,
     output[OPLEN-1:0] decoded_op_de //opcodeデコード結果、後段のaluやmemory_accessで使用することを想定
 );
 
@@ -58,6 +59,7 @@ localparam MISC_MEM = 7'b00_011_11;
 localparam SYSTEM = 7'b11_100_11;
 
 //commom
+assign stall_decode = 1'b0;
 wire[6:0] inst_op = inst[6:0];
 
 //use_rs1

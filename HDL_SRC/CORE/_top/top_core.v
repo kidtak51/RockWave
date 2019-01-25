@@ -5,7 +5,7 @@
  * File Created: 2019/01/10 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/24 22:12
+ * Last Modified: 2019/01/25 17:56
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -39,17 +39,20 @@ module top_core(
 wire phase_fetch;
 wire stall_fetch;
 wire phase_decode;
+wire stall_decode;
 wire phase_execute;
+wire stall_execute;
 wire phase_memoryaccess;
 wire stall_memoryaccess;
 wire phase_writeback;
+wire stall_writeback;
 wire jump_state_wf;             // PCの次のアドレスがJumpアドレス//////
 wire [XLEN-1:0] regdata_for_pc; // Jump先アドレス
 wire [XLEN-1:0] inst_data;      // InstMemory Data
 wire [AWIDTH-1:0] inst_addr;   // InstMemory Address
 wire [XLEN-1:0] curr_pc_fd;    // Current PC Address for Decode
 wire [XLEN-1:0] next_pc_fd;    //    Next PC Address for Decode
-wire [XLEN-1:0] inst;          // Instruction
+wire [31:0] inst;          // Instruction
 wire [XLEN-1:0] rs1data_de; //レジスタ選択結果1 rs1_data_rdを(ほぼ)そのまま出力
 wire [XLEN-1:0] rs2data_de; //レジスタ選択結果2 rs2_data_rdを(ほぼ)そのまま出力
 wire [XLEN-1:0] curr_pc_de; //現在のプログラムカウンタの値 curr_pc_fdを(ほぼ)そのまま出力
@@ -57,7 +60,7 @@ wire [XLEN-1:0] next_pc_de; //次のプログラムカウンタの値 next_pc_fd
 wire [3:0] funct_alu; //alu演算器選択信号
 wire [4:0] rdsel_de; //データメモリ選択信号
 wire [OPLEN-1:0] decoded_op_de; //opcodeデコード結果、後段のaluやmemory_accessで使用することを想定
-wire [31:0] imm;
+wire [XLEN-1:0] imm;
 wire [XLEN-1:0] next_pc_em; //次のプログラムカウンタの値 next_pc_fdを(ほぼ)そのまま出力
 wire [4:0] rdsel_em; //データメモリ選択信号
 wire [OPLEN-1:0] decoded_op_em; //opcodeデコード結果、後段のaluやmemory_accessで使用することを想定
@@ -69,7 +72,7 @@ wire jump_state_mw;            // PCの次のアドレスがJumpアドレス
 wire [4:0] rdsel_mw;           // RD選択
 wire [XLEN-1:0] next_pc_mw;    // Next PC Address for Decode
 wire [XLEN-1:0] alu_out_mw;    // ALU 
-wire [31:0] mem_out_mw;        // Data Memory 
+wire [XLEN-1:0] mem_out_mw;        // Data Memory 
 wire [XLEN-1:0] rddata_wr;   // 入力データ
 wire [4:0] rdsel_wr;         // RD 選択
 wire [4:0] rs1sel;           // RS1 選択
@@ -87,7 +90,9 @@ statemachine u_statemachine(
     .phase_writeback    (phase_writeback    ),
     .stall_execute      (stall_execute      ),
     .stall_fetch        (stall_fetch        ),
-    .stall_memoryaccess (stall_memoryaccess )
+    .stall_decode       (stall_decode       ),
+    .stall_memoryaccess (stall_memoryaccess ),
+    .stall_writeback    (stall_writeback)
 );
 
 writeback u_writeback(
@@ -100,7 +105,8 @@ writeback u_writeback(
     .rddata_wr(rddata_wr),
     .regdata_for_pc(regdata_for_pc),
     .jump_state_wf(jump_state_wf),
-    .rdsel_wr(rdsel_wr)
+    .rdsel_wr(rdsel_wr),
+    .stall_writeback(stall_writeback)
 );
 
 top_fetch u_top_fetch(
@@ -137,6 +143,7 @@ instruction_decode u_instruction_decode(
     .next_pc_de    (next_pc_de  ),
     .funct_alu     (funct_alu   ),
     .rdsel_de      (rdsel_de    ),
+    .stall_decode  (stall_decode),
     .decoded_op_de (decoded_op_de)
 );
 

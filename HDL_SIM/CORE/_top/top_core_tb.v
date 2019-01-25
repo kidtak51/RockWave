@@ -5,7 +5,7 @@
  * File Created: 2019/01/21 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/24 22:12
+ * Last Modified: 2019/01/25 17:55
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -194,6 +194,13 @@ initial begin
         ans = ~ans;
     end
 
+    ans = {TESTBITWIDTH{1'b1}};
+    for ( i=0; i<2; i=i+1 ) begin
+        force u_top_core.u_instruction_decode.stall_decode = ans;#1;
+        assert_eq_m(u_top_core.u_instruction_decode.stall_decode,u_top_core.u_statemachine.stall_decode,"",`__LINE__);
+        ans = ~ans;
+    end
+
     //////////////////////////////////////////////////
     //u_top_execute output port接続チェック
     //////////////////////////////////////////////////
@@ -343,6 +350,13 @@ initial begin
         ans = ~ans;
     end
 
+    ans = {TESTBITWIDTH{1'b1}};
+    for ( i=0; i<2; i=i+1 ) begin
+        force u_top_core.u_writeback.stall_writeback = ans;#1;
+        assert_eq_m(u_top_core.u_writeback.stall_writeback,u_top_core.u_statemachine.stall_writeback,"",`__LINE__);
+        ans = ~ans;
+    end
+
     //////////////////////////////////////////////////
     //u_register_fileのoutput port接続チェック
     //////////////////////////////////////////////////
@@ -439,7 +453,8 @@ module writeback(
     output[XLEN-1:0] rddata_wr,
     output[XLEN-1:0] regdata_for_pc,
     output jump_state_wf,
-    output[4:0] rdsel_wr
+    output[4:0] rdsel_wr,
+    output stall_writeback
 );
 `include "core_general.vh"
 endmodule
