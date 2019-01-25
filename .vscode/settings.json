@@ -64,5 +64,6 @@
             ]
         }
     ],
-    "verilog.linting.iverilog.arguments": "-I HDL_SRC/CORE"
+    "verilog.linting.iverilog.arguments": "-I HDL_SRC/CORE",
+    "files.insertFinalNewline": true
 }

@@ -5,7 +5,7 @@
  * File Created: 2019/01/23 12:25
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/24 23:59
+ * Last Modified: 2019/01/25 19:09
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -46,7 +46,7 @@ module writeback(
     `include "core_general.vh"
 
     wire jump_en;       //jump許可
-    wire [1:0] use_rd;  //データ出力選択
+    wire [USE_RD_BIT_M-USE_RD_BIT_L:0] use_rd;  //データ出力選択
     wire [XLEN-1:0] jump_state_selin; //セレクタ入力用に[XLEN]bit拡張する
 
     assign rdsel_wr = rdsel_mw; 
@@ -64,7 +64,7 @@ module writeback(
         input [XLEN-1:0] jump_state_selin;  //データ入力2    
         input [XLEN-1:0] next_pc_mw;        //データ入力3    
         input [XLEN-1:0] alu_out_mw;        //データ入力4
-        input [1:0] use_rd;                 //セレクタ
+        input [USE_RD_BIT_M-USE_RD_BIT_L:0] use_rd;                 //セレクタ
             case( use_rd )
                 USE_RD_ALU    : select = alu_out_mw;
                 USE_RD_PC     : select = next_pc_mw;
@@ -76,6 +76,6 @@ module writeback(
 
     assign rddata_wr = select( mem_out_mw, jump_state_selin, next_pc_mw, alu_out_mw, use_rd);
 
-    assign stall_execute = 1'b0;
+    assign stall_writeback = 1'b0;
 
 endmodule //top_writeback
