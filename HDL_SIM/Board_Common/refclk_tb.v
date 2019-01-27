@@ -5,7 +5,7 @@
  * File Created: 2019/01/14 08:26
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/14 10:59
+ * Last Modified: 2019/01/28 08:25
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -42,14 +42,16 @@ module refclk_tb;
 
     ///////////////////////////////////////////////////////////////////
     // インスタンス
-    refclk #(.BW(2), .N(2)) 
+    refclk #(.BW(2)) 
     U_refclk2 (
     .clk(clk), .rst_n(rst_n),
+    .ref_st(2'h1),
     .refclk(refclk2)
     );
-    refclk #(.BW(5), .N(16)) 
+    refclk #(.BW(8)) 
     U_refclk16 (
     .clk(clk), .rst_n(rst_n),
+    .ref_st(8'd15),
     .refclk(refclk16)
     );
 
@@ -64,6 +66,7 @@ end
 ///////////////////////////////////////////////////////////////////
 // クロック数をカウント
 initial begin
+    @(posedge rst_n);
     clkcount = 0;
     clkcount2 = 0;
     clkcount16 = 0;
@@ -97,7 +100,7 @@ initial begin
     #(`STEP*100)
 
     // 所定の分周比になっていること
-    @(posedge refclk2)
+    @(negedge refclk2)
     #(1)
     if(clkcount == (clkcount2*2)) begin
     end
@@ -107,7 +110,7 @@ initial begin
         $finish;
     end
 
-    @(posedge refclk16)
+    @(negedge refclk16)
     #(1)
     if(clkcount == (clkcount16*16)) begin
     end
