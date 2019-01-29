@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/11 18:33
+ * Last Modified: 2019/01/29 07:16
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -73,9 +73,9 @@ begin
     case (op)
         //LUIはrs1の値を持たないものの、後段のALUがrs1 = 0を要求するために必要
         LUI : fnc_use_rs1 = USE_RS1_RS1DATA;
-        JALR, BRANCH, LOAD, STORE, OP_IMM, OP : fnc_use_rs1 = USE_RS1_RS1DATA;
+        JALR, LOAD, STORE, OP_IMM, OP : fnc_use_rs1 = USE_RS1_RS1DATA;
         SYSTEM : fnc_use_rs1 = use_rs1_system;
-        AUIPC, JAL : fnc_use_rs1 = USE_RS1_PC;
+        BRANCH, AUIPC, JAL : fnc_use_rs1 = USE_RS1_PC;
         default : fnc_use_rs1 = 1'bx;
     endcase
 end  
@@ -88,8 +88,8 @@ function fnc_use_rs2(
 );
 begin
     case (op)
-        BRANCH, STORE, OP : fnc_use_rs2 = USE_RS2_RS2DATA;
-        LUI, AUIPC, JALR, LOAD, OP_IMM : fnc_use_rs2 = USE_RS2_IMM;
+        STORE, OP : fnc_use_rs2 = USE_RS2_RS2DATA;
+        BRANCH, LUI, AUIPC, JALR, LOAD, OP_IMM : fnc_use_rs2 = USE_RS2_IMM;
         default : fnc_use_rs2 = 1'bx;
     endcase
 end  
@@ -121,8 +121,11 @@ wire[2:0] inst_funct3_raw = inst[14:12];
 wire[2:0] inst_funct3 = ((inst_op == JAL) || (inst_op == JALR)) ? FUNCT3_JUMP : inst_funct3_raw;
 
 //funct_alu
-wire[6:0] inst_funct7 = inst[31:25];
-wire[3:0] funct_alu_pre = {inst_funct7[5], inst_funct3_raw};
+wire[6:0] inst_funct7_raw = inst[31:25];
+//OPとOP_IMMの一部の条件以外はfunct7は未使用。aluにfunct7[5]をそのまま入力するので、未使用の条件では0固定にする。
+wire[6:0] inst_funct7 = ((inst_op == OP) || ((inst_op == OP_IMM) && (inst_funct3_raw[2:0] == 2'b01))) ? inst_funct7_raw : 7'd0;
+wire[2:0] inst_funct3_branch = (inst_op == BRANCH) ? 3'b0 : inst_funct3_raw;//BRANCHなら強制ADD(3'b0)
+wire[3:0] funct_alu_pre = {inst_funct7[5], inst_funct3_branch};
 
 //rs1, rs2 ここはFFを通らない
 assign rs1sel = (inst_op == LUI) ? 5'd0 : inst[19:15];
