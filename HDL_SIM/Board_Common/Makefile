@@ -3,7 +3,7 @@
 # File Created: 2019/01/14 08:24
 # Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
-# Last Modified: 2019/01/20 05:41
+# Last Modified: 2019/01/27 07:06
 # Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2018  Project RockWave
@@ -24,11 +24,10 @@ SRCDIR = ../../HDL_SRC/Common/
 # testmodule = ../../HDL_SRC/Board_Common/refclk.v
 
 ##### dfilter
-# testbench = dfilter_tb
-# testmodule = ../../HDL_SRC/Common/dfilter.v ../../HDL_SRC/Common/refclk.v
+testbench = dfilter_tb
 
 ##### dfilter
-testbench = register_tb
+# testbench = register_tb
 allVerilogFiles := $(wildcard $(SRCDIR)*.v)#
 ##### rst
  testbench = rst_tb
