@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/31 12:20
+ * Last Modified: 2019/01/31 21:29
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -125,8 +125,9 @@ wire[2:0] inst_funct3 = ((inst_op == JAL) || (inst_op == JALR)) ? FUNCT3_JUMP : 
 wire[6:0] inst_funct7_raw = inst[31:25];
 //OPとOP_IMMの一部の条件以外はfunct7は未使用。aluにfunct7[5]をそのまま入力するので、未使用の条件では0固定にする。
 wire[6:0] inst_funct7 = ((inst_op == OP) || ((inst_op == OP_IMM) && (inst_funct3_raw[2:0] == 2'b01))) ? inst_funct7_raw : 7'd0;
-wire[2:0] inst_funct3_branch = (inst_op == BRANCH) ? 3'b0 : inst_funct3_raw;//BRANCHなら強制ADD(3'b0)
-wire[3:0] funct_alu_pre = {inst_funct7[5], inst_funct3_branch};
+//force_add_caseなら強制ADD(4'd0)
+wire force_add_case = (inst_op == BRANCH) || (inst_op == AUIPC);
+wire[3:0] funct_alu_pre = force_add_case ? 4'd0 : {inst_funct7[5], inst_funct3_raw};
 
 //rs1, rs2 ここはFFを通らない
 assign rs1sel = (inst_op == LUI) ? 5'd0 : inst[19:15];
