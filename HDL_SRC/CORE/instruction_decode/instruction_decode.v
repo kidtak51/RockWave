@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/29 07:16
+ * Last Modified: 2019/01/31 12:20
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -114,7 +114,8 @@ endfunction
 
 //rd_sel
 wire[4:0] inst_rd = inst[11:7];
-wire[4:0] rd_sel = (inst_op == STORE) ? 5'd0 : inst_rd;
+wire rd_no_write_case = (inst_op == STORE) || (inst_op == BRANCH);
+wire[4:0] rd_sel = rd_no_write_case ? 5'd0 : inst_rd;
 
 //funct3
 wire[2:0] inst_funct3_raw = inst[14:12];
