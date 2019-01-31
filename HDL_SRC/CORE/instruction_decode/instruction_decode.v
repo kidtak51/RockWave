@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/31 21:29
+ * Last Modified: 2019/01/31 21:40
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -89,7 +89,7 @@ function fnc_use_rs2(
 begin
     case (op)
         STORE, OP : fnc_use_rs2 = USE_RS2_RS2DATA;
-        BRANCH, LUI, AUIPC, JALR, LOAD, OP_IMM : fnc_use_rs2 = USE_RS2_IMM;
+        BRANCH, LUI, AUIPC, JAL, JALR, LOAD, OP_IMM : fnc_use_rs2 = USE_RS2_IMM;
         default : fnc_use_rs2 = 1'bx;
     endcase
 end  
