@@ -5,7 +5,7 @@
  * File Created: 2019/01/25 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/30 24:21
+ * Last Modified: 2019/02/01 18:38
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -35,6 +35,8 @@ wire [XLEN-1:0] data_mem_wdata;//データメモリへのデータ入力を接�
 wire [2:0] data_mem_we;//データメモリへのWriteEnable信号を接続する
 reg rst_n;
 reg clk;
+integer i;//forループ用
+
 // Clock
 initial
     clk = 0;
@@ -42,12 +44,41 @@ always begin
     #5 clk = ~clk;
 end
 
-initial $readmemh(`INST_ROM_FILE_NAME, u_inst_memory.mem);
-
 initial begin
+    
+
+end
+reg[AWIDTH-1:0] memDataStartAddr = 'h800;
+initial begin
+    //initial
+    $readmemh(`INST_ROM_FILE_NAME, u_inst_memory.mem);
     $dumpfile({`INST_ROM_FILE_NAME, ".vcd"});
     $dumpvars(0,core_tb);
+    
+    //Start up seeqence
+    //romからramにコピーする
     rst_n = 0;
+
+    //romやram以外の回路が動作しないようにstatemachineを停止する
+    force u_top_core.u_statemachine.current = 0;
+    @(posedge clk) #1;
+    rst_n = 1;
+    @(posedge clk) #1;
+    for (i = 0; i<(2**AWIDTH); i = i + 4) begin
+        force u_data_memory.addr = i;
+        force u_data_memory.qin = u_inst_memory.mem[memDataStartAddr + i];
+        force u_data_memory.we = 'b110;
+        @(posedge clk) #1;
+        force u_data_memory.we = 'h00;
+    end
+    release u_data_memory.addr;
+    release u_data_memory.qin;
+    release u_data_memory.we;
+    release u_top_core.u_statemachine.current;
+    rst_n = 0;
+
+    ////Core simulation start
+    @(posedge clk) #1;
     #10
     rst_n = 1;
     #50000
