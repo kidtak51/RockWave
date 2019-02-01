@@ -5,7 +5,7 @@
  * File Created: 2019/01/25 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/02/01 18:38
+ * Last Modified: 2019/02/02 07:11
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -84,7 +84,7 @@ initial begin
     #50000
 
     //time out error
-    $display(-1);
+    $display("%s, %d",{"result, ", `INST_ROM_FILE_NAME}, -1);
     $finish;
 end
 
@@ -92,7 +92,7 @@ localparam ECALL = 32'h73;
 
 always @(posedge clk) begin
     if(u_top_core.u_instruction_decode.inst == ECALL) begin
-        $display(u_top_core.u_register_file.x3out);
+        $display("%s, %d",{"result, ", `INST_ROM_FILE_NAME}, u_top_core.u_register_file.x3out);
         //$exit(u_top_core.u_register_file.x3out);
         $finish;
 
