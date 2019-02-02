@@ -5,7 +5,7 @@
  * File Created: 2018/12/23 05:38
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/28 12:38
+ * Last Modified: 2019/01/31 05:41
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -150,39 +150,39 @@ module register_file (
     assign selx30 = (rdsel_wr == 5'b11110 ) & phase_writeback;
     assign selx31 = (rdsel_wr == 5'b11111 ) & phase_writeback;
 
-    reg_rw x1 (.clk(clk),.rst_n(rst_n),.wenble(selx1),.datain(rddata_wr),.dataout(x1out));
-    reg_rw x2 (.clk(clk),.rst_n(rst_n),.wenble(selx2),.datain(rddata_wr),.dataout(x2out));
-    reg_rw x3 (.clk(clk),.rst_n(rst_n),.wenble(selx3),.datain(rddata_wr),.dataout(x3out));
-    reg_rw x4 (.clk(clk),.rst_n(rst_n),.wenble(selx4),.datain(rddata_wr),.dataout(x4out));
-    reg_rw x5 (.clk(clk),.rst_n(rst_n),.wenble(selx5),.datain(rddata_wr),.dataout(x5out));
-    reg_rw x6 (.clk(clk),.rst_n(rst_n),.wenble(selx6),.datain(rddata_wr),.dataout(x6out));
-    reg_rw x7 (.clk(clk),.rst_n(rst_n),.wenble(selx7),.datain(rddata_wr),.dataout(x7out));
-    reg_rw x8 (.clk(clk),.rst_n(rst_n),.wenble(selx8),.datain(rddata_wr),.dataout(x8out));
-    reg_rw x9 (.clk(clk),.rst_n(rst_n),.wenble(selx9),.datain(rddata_wr),.dataout(x9out));
-    reg_rw x10(.clk(clk),.rst_n(rst_n),.wenble(selx10),.datain(rddata_wr),.dataout(x10out));
-    reg_rw x11(.clk(clk),.rst_n(rst_n),.wenble(selx11),.datain(rddata_wr),.dataout(x11out));
-    reg_rw x12(.clk(clk),.rst_n(rst_n),.wenble(selx12),.datain(rddata_wr),.dataout(x12out));
-    reg_rw x13(.clk(clk),.rst_n(rst_n),.wenble(selx13),.datain(rddata_wr),.dataout(x13out));
-    reg_rw x14(.clk(clk),.rst_n(rst_n),.wenble(selx14),.datain(rddata_wr),.dataout(x14out));
-    reg_rw x15(.clk(clk),.rst_n(rst_n),.wenble(selx15),.datain(rddata_wr),.dataout(x15out));
-    reg_rw x16(.clk(clk),.rst_n(rst_n),.wenble(selx16),.datain(rddata_wr),.dataout(x16out));
-    reg_rw x17(.clk(clk),.rst_n(rst_n),.wenble(selx17),.datain(rddata_wr),.dataout(x17out));
-    reg_rw x18(.clk(clk),.rst_n(rst_n),.wenble(selx18),.datain(rddata_wr),.dataout(x18out));
-    reg_rw x19(.clk(clk),.rst_n(rst_n),.wenble(selx19),.datain(rddata_wr),.dataout(x19out));
-    reg_rw x20(.clk(clk),.rst_n(rst_n),.wenble(selx20),.datain(rddata_wr),.dataout(x20out));
-    reg_rw x21(.clk(clk),.rst_n(rst_n),.wenble(selx21),.datain(rddata_wr),.dataout(x21out));
-    reg_rw x22(.clk(clk),.rst_n(rst_n),.wenble(selx22),.datain(rddata_wr),.dataout(x22out));
-    reg_rw x23(.clk(clk),.rst_n(rst_n),.wenble(selx23),.datain(rddata_wr),.dataout(x23out));
-    reg_rw x24(.clk(clk),.rst_n(rst_n),.wenble(selx24),.datain(rddata_wr),.dataout(x24out));
-    reg_rw x25(.clk(clk),.rst_n(rst_n),.wenble(selx25),.datain(rddata_wr),.dataout(x25out));
-    reg_rw x26(.clk(clk),.rst_n(rst_n),.wenble(selx26),.datain(rddata_wr),.dataout(x26out));
-    reg_rw x27(.clk(clk),.rst_n(rst_n),.wenble(selx27),.datain(rddata_wr),.dataout(x27out));
-    reg_rw x28(.clk(clk),.rst_n(rst_n),.wenble(selx28),.datain(rddata_wr),.dataout(x28out));
-    reg_rw x29(.clk(clk),.rst_n(rst_n),.wenble(selx29),.datain(rddata_wr),.dataout(x29out));
-    reg_rw x30(.clk(clk),.rst_n(rst_n),.wenble(selx30),.datain(rddata_wr),.dataout(x30out));
-    reg_rw x31(.clk(clk),.rst_n(rst_n),.wenble(selx31),.datain(rddata_wr),.dataout(x31out));
+    register x1 (.clk(clk),.rst_n(rst_n),.wenble(selx1),.datain(rddata_wr),.dataout(x1out));
+    register x2 (.clk(clk),.rst_n(rst_n),.wenble(selx2),.datain(rddata_wr),.dataout(x2out));
+    register x3 (.clk(clk),.rst_n(rst_n),.wenble(selx3),.datain(rddata_wr),.dataout(x3out));
+    register x4 (.clk(clk),.rst_n(rst_n),.wenble(selx4),.datain(rddata_wr),.dataout(x4out));
+    register x5 (.clk(clk),.rst_n(rst_n),.wenble(selx5),.datain(rddata_wr),.dataout(x5out));
+    register x6 (.clk(clk),.rst_n(rst_n),.wenble(selx6),.datain(rddata_wr),.dataout(x6out));
+    register x7 (.clk(clk),.rst_n(rst_n),.wenble(selx7),.datain(rddata_wr),.dataout(x7out));
+    register x8 (.clk(clk),.rst_n(rst_n),.wenble(selx8),.datain(rddata_wr),.dataout(x8out));
+    register x9 (.clk(clk),.rst_n(rst_n),.wenble(selx9),.datain(rddata_wr),.dataout(x9out));
+    register x10(.clk(clk),.rst_n(rst_n),.wenble(selx10),.datain(rddata_wr),.dataout(x10out));
+    register x11(.clk(clk),.rst_n(rst_n),.wenble(selx11),.datain(rddata_wr),.dataout(x11out));
+    register x12(.clk(clk),.rst_n(rst_n),.wenble(selx12),.datain(rddata_wr),.dataout(x12out));
+    register x13(.clk(clk),.rst_n(rst_n),.wenble(selx13),.datain(rddata_wr),.dataout(x13out));
+    register x14(.clk(clk),.rst_n(rst_n),.wenble(selx14),.datain(rddata_wr),.dataout(x14out));
+    register x15(.clk(clk),.rst_n(rst_n),.wenble(selx15),.datain(rddata_wr),.dataout(x15out));
+    register x16(.clk(clk),.rst_n(rst_n),.wenble(selx16),.datain(rddata_wr),.dataout(x16out));
+    register x17(.clk(clk),.rst_n(rst_n),.wenble(selx17),.datain(rddata_wr),.dataout(x17out));
+    register x18(.clk(clk),.rst_n(rst_n),.wenble(selx18),.datain(rddata_wr),.dataout(x18out));
+    register x19(.clk(clk),.rst_n(rst_n),.wenble(selx19),.datain(rddata_wr),.dataout(x19out));
+    register x20(.clk(clk),.rst_n(rst_n),.wenble(selx20),.datain(rddata_wr),.dataout(x20out));
+    register x21(.clk(clk),.rst_n(rst_n),.wenble(selx21),.datain(rddata_wr),.dataout(x21out));
+    register x22(.clk(clk),.rst_n(rst_n),.wenble(selx22),.datain(rddata_wr),.dataout(x22out));
+    register x23(.clk(clk),.rst_n(rst_n),.wenble(selx23),.datain(rddata_wr),.dataout(x23out));
+    register x24(.clk(clk),.rst_n(rst_n),.wenble(selx24),.datain(rddata_wr),.dataout(x24out));
+    register x25(.clk(clk),.rst_n(rst_n),.wenble(selx25),.datain(rddata_wr),.dataout(x25out));
+    register x26(.clk(clk),.rst_n(rst_n),.wenble(selx26),.datain(rddata_wr),.dataout(x26out));
+    register x27(.clk(clk),.rst_n(rst_n),.wenble(selx27),.datain(rddata_wr),.dataout(x27out));
+    register x28(.clk(clk),.rst_n(rst_n),.wenble(selx28),.datain(rddata_wr),.dataout(x28out));
+    register x29(.clk(clk),.rst_n(rst_n),.wenble(selx29),.datain(rddata_wr),.dataout(x29out));
+    register x30(.clk(clk),.rst_n(rst_n),.wenble(selx30),.datain(rddata_wr),.dataout(x30out));
+    register x31(.clk(clk),.rst_n(rst_n),.wenble(selx31),.datain(rddata_wr),.dataout(x31out));
 
-    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
     // function
 
    function[XLEN-1:0] selector;
