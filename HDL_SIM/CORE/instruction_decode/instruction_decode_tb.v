@@ -1,11 +1,11 @@
 /*
  * *****************************************************************
- * File: instruction_decode_tb.v
+ * File: core_tb.v
  * Category: instruction_decode
  * File Created: 2018/12/17 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/25 17:58
+ * Last Modified: 2019/02/05 06:54
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -129,22 +129,22 @@ initial begin
     inst=32'b00100100_00100000_00000000_00000011;	@(posedge clk)#1;	assert_eq_m(imm, 32'h00000242, "type=I; imm=578; opecode=0000011;");
     inst=32'b00100100_00100000_00000000_00010011;	@(posedge clk)#1;	assert_eq_m(imm, 32'h00000242, "type=I; imm=578; opecode=0010011;");
 
-    //USE_RS1 test
-    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_RS1_TEST; type=U; opecode=0110111(LUI);");
-    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_PC, "USE_RS1_TEST; type=U; opecode=0010111(AUIPC);");
-    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_PC, "USE_RS1_TEST; type=J; opecode=1101111(JAL);");
-    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_RS1_TEST; type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_RS1_TEST; type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_RS1_TEST; type=I; opecode=1100111(JALR);");
-    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_RS1_TEST; type=I; opecode=0000011(LOAD);");
-    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_RS1_TEST; type=I; opecode=0010011(OP-IMM);");		
-    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_RS1_TEST; type=R; opecode=0110011(OP);");
-    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_RS1_TEST; type=R; opecode=0010011(OP-IMM);");
+    //USE_ALU_IN1 test
+    inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_ALU_IN1_TEST; type=U; opecode=0110111(LUI);");
+    inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_PC, "USE_ALU_IN1_TEST; type=U; opecode=0010111(AUIPC);");
+    inst=32'b00000000_00000000_00000000_01101111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_PC, "USE_ALU_IN1_TEST; type=J; opecode=1101111(JAL);");
+    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_ALU_IN1_TEST; type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_ALU_IN1_TEST; type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00000000_00110000_01100111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_ALU_IN1_TEST; type=I; opecode=1100111(JALR);");
+    inst=32'b00000000_00000000_00110000_00000011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_ALU_IN1_TEST; type=I; opecode=0000011(LOAD);");
+    inst=32'b00000000_00000000_00110000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_ALU_IN1_TEST; type=I; opecode=0010011(OP-IMM);");		
+    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_ALU_IN1_TEST; type=R; opecode=0110011(OP);");
+    inst=32'b00000000_00000000_01000000_00010011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_RS1DATA, "USE_ALU_IN1_TEST; type=R; opecode=0010011(OP-IMM);");
 
-    //USE_RS2 test
-    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN2_BIT], USE_ALU_IN2_RS2DATA, "USE_RS2_TEST; type=B; opecode=1100011(BRANCH);");
-    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN2_BIT], USE_ALU_IN2_RS2DATA, "USE_RS2_TEST; type=S; opecode=0100011(STORE);");
-    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN2_BIT], USE_ALU_IN2_RS2DATA, "USE_RS2_TEST; type=R; opecode=0110011(OP);");
+    //USE_ALU_IN2 test
+    inst=32'b00000000_00000000_00010000_01100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN2_BIT], USE_ALU_IN2_RS2DATA, "USE_ALU_IN2_TEST; type=B; opecode=1100011(BRANCH);");
+    inst=32'b00000000_00000000_00100000_00100011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN2_BIT], USE_ALU_IN2_RS2DATA, "USE_ALU_IN2_TEST; type=S; opecode=0100011(STORE);");
+    inst=32'b00000000_00000000_01000000_00110011;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_ALU_IN2_BIT], USE_ALU_IN2_RS2DATA, "USE_ALU_IN2_TEST; type=R; opecode=0110011(OP);");
 
     //USE_RD_SEL TEST; 
     inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;	assert_eq_m(decoded_op_de[USE_RD_BIT_M:USE_RD_BIT_L], USE_RD_ALU, "USE_RD_TEST;  type=U; opecode=0110111(LUI);");
@@ -283,7 +283,7 @@ initial begin
     inst=32'b11011101_11011001_11010000_01101111;	@(posedge clk)#1;
     inst=32'b00110000_00000000_00000000_11100011;	              #1;	assert_neq_m(imm, 32'h00000B00, "imm FF is not work.");
 
-    //USE_RS1 test
+    //USE_ALU_IN1 test
     inst=32'b00000000_00000000_00000000_00110111;	@(posedge clk)#1;
     inst=32'b00000000_00000000_00000000_00010111;	              #1;	assert_neq_m(decoded_op_de[USE_ALU_IN1_BIT], USE_ALU_IN1_PC, "decoded_op[] FF is not work.");
     //funct_alu test
@@ -315,7 +315,7 @@ initial begin
     phase_decode = 1'b0;
     inst=32'b11011101_11011001_11010000_01101111;	@(posedge clk)#1;	assert_eq_m(imm, 32'h00000B00, "imm FF Enable is not work.");
 
-    //USE_RS1 test
+    //USE_ALU_IN1 test
 	phase_decode = 1'b1;
     inst=32'b00000000_00000000_00000000_00010111;	@(posedge clk)#1;
     phase_decode = 1'b0;
