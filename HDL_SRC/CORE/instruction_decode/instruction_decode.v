@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/02/02 17:15
+ * Last Modified: 2019/02/04 07:12
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -62,35 +62,35 @@ localparam SYSTEM = 7'b11_100_11;
 assign stall_decode = 1'b0;
 wire[6:0] inst_op = inst[6:0];
 
-//use_rs1
-wire use_rs1_system = (inst_funct3[2] == 1'b0) ? USE_RS1_RS1DATA : USE_RS1_PC;
-wire use_rs1 = fnc_use_rs1(inst_op, use_rs1_system);
-function fnc_use_rs1(
+//use_alu_in1
+wire use_alu_in1_system = (inst_funct3[2] == 1'b0) ? USE_ALU_IN1_RS1DATA : USE_ALU_IN1_PC;
+wire use_alu_in1 = fnc_use_alu_in1(inst_op, use_alu_in1_system);
+function fnc_use_alu_in1(
     input[6:0] op,
-    input use_rs1_system
+    input use_alu_in1_system
 );
 begin
     case (op)
         //LUIはrs1の値を持たないものの、後段のALUがrs1 = 0を要求するために必要
-        LUI : fnc_use_rs1 = USE_RS1_RS1DATA;
-        JALR, LOAD, STORE, OP_IMM, OP : fnc_use_rs1 = USE_RS1_RS1DATA;
-        SYSTEM : fnc_use_rs1 = use_rs1_system;
-        BRANCH, AUIPC, JAL : fnc_use_rs1 = USE_RS1_PC;
-        default : fnc_use_rs1 = 1'bx;
+        LUI : fnc_use_alu_in1 = USE_ALU_IN1_RS1DATA;
+        JALR, LOAD, STORE, OP_IMM, OP : fnc_use_alu_in1 = USE_ALU_IN1_RS1DATA;
+        SYSTEM : fnc_use_alu_in1 = use_alu_in1_system;
+        BRANCH, AUIPC, JAL : fnc_use_alu_in1 = USE_ALU_IN1_PC;
+        default : fnc_use_alu_in1 = 1'bx;
     endcase
 end  
 endfunction
 
-//use_rs2
-wire use_rs2 = fnc_use_rs2(inst_op);
-function fnc_use_rs2(
+//use_alu_in2
+wire use_alu_in2 = fnc_use_alu_in2(inst_op);
+function fnc_use_alu_in2(
     input[6:0] op
 );
 begin
     case (op)
-        OP : fnc_use_rs2 = USE_RS2_RS2DATA;
-        BRANCH, LUI, AUIPC, JAL, JALR, LOAD, STORE, OP_IMM : fnc_use_rs2 = USE_RS2_IMM;
-        default : fnc_use_rs2 = 1'bx;
+        OP : fnc_use_alu_in2 = USE_ALU_IN2_RS2DATA;
+        BRANCH, LUI, AUIPC, JAL, JALR, LOAD, STORE, OP_IMM : fnc_use_alu_in2 = USE_ALU_IN2_IMM;
+        default : fnc_use_alu_in2 = 1'bx;
     endcase
 end  
 endfunction
@@ -167,8 +167,8 @@ wire data_mem_we = (inst_op == STORE);
 
 //decoded_op
 wire[OPLEN-1:0] decoded_op_pre;
-assign decoded_op_pre[USE_RS1_BIT] = use_rs1;
-assign decoded_op_pre[USE_RS2_BIT] = use_rs2;
+assign decoded_op_pre[USE_ALU_IN1_BIT] = use_alu_in1;
+assign decoded_op_pre[USE_ALU_IN2_BIT] = use_alu_in2;
 assign decoded_op_pre[USE_RD_BIT_M:USE_RD_BIT_L] = rd_data_sel;
 assign decoded_op_pre[FUNCT3_BIT_M:FUNCT3_BIT_L] = inst_funct3;
 assign decoded_op_pre[JUMP_EN_BIT] = jump_en;

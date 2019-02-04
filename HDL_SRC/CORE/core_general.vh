@@ -51,12 +51,12 @@
     parameter OPLEN = 9;
 
     // RS1/RS2
-    parameter USE_RS1_BIT = 0;
-      parameter USE_RS1_PC      = 0;
-      parameter USE_RS1_RS1DATA = 1;
-    parameter USE_RS2_BIT = 1;
-      parameter USE_RS2_IMM     = 0;
-      parameter USE_RS2_RS2DATA = 1;
+    parameter USE_ALU_IN1_BIT = 0;
+      parameter USE_ALU_IN1_PC      = 0;
+      parameter USE_ALU_IN1_RS1DATA = 1;
+    parameter USE_ALU_IN2_BIT = 1;
+      parameter USE_ALU_IN2_IMM     = 0;
+      parameter USE_ALU_IN2_RS2DATA = 1;
 
     // RD
     parameter USE_RD_BIT_L = 2;
