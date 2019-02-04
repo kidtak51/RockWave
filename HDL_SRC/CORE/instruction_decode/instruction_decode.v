@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/02/04 07:12
+ * Last Modified: 2019/02/05 07:13
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -124,7 +124,8 @@ wire[2:0] inst_funct3 = ((inst_op == JAL) || (inst_op == JALR)) ? FUNCT3_JUMP : 
 //funct_alu
 wire[6:0] inst_funct7_raw = inst[31:25];
 //OPとOP_IMMの一部の条件以外はfunct7は未使用。aluにfunct7[5]をそのまま入力するので、未使用の条件では0固定にする。
-wire[6:0] inst_funct7 = ((inst_op == OP) || ((inst_op == OP_IMM) && (inst_funct3_raw[2:0] == 2'b01))) ? inst_funct7_raw : 7'd0;
+wire funct7_enable = ((inst_op == OP) || ((inst_op == OP_IMM) && (inst_funct3_raw[1:0] == 2'b01)));
+wire[6:0] inst_funct7 = funct7_enable ? inst_funct7_raw : 7'd0;
 //force_add_caseなら強制ADD(4'd0)
 wire force_add_case = (inst_op == BRANCH) || (inst_op == AUIPC) || (inst_op == LOAD) || (inst_op == STORE) || (inst_op == LUI) || (inst_op == JAL);
 wire[3:0] funct_alu_pre = force_add_case ? 4'd0 : {inst_funct7[5], inst_funct3_raw};
