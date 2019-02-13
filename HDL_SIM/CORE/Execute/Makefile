@@ -3,7 +3,7 @@
 # File Created: 2018/11/25 06:07
 # Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
-# Last Modified: 2019/01/20 14:52
+# Last Modified: 2019/02/12 06:52
 # Modified By: Takuya Shono ( ta.shono+1@gmail.com )
 ######
 # Copyright 2018 - 2018  Project RockWave
@@ -21,7 +21,7 @@ testmodule3 =../../../HDL_SRC/CORE/Execute/comp.v
 #testmodule = ../../../HDL_SRC/CORE/Execute/alu.v
 
 #testbench = comp_tb
-#testmodule = ../../../HDL_SRC/CORE/Execute/comp.v
+#testmodule1 = ../../../HDL_SRC/CORE/Execute/comp.v
 
 INCDIR = ../../../HDL_SRC/CORE/
 

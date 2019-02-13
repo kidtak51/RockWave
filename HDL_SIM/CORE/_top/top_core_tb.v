@@ -1,12 +1,12 @@
 /*
  * *****************************************************************
- * File: top_core_tb.v
+ * File: top_execute_tb.v
  * Category: top_core
  * File Created: 2019/01/21 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/25 17:55
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2019/02/12 12:26
+ * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
