@@ -5,7 +5,7 @@
  * File Created: 2019/01/16 23:45
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/21 12:26
+ * Last Modified: 2019/02/12 12:26
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -261,6 +261,26 @@ module top_execute_tb;
         #(1)
         assert_eq_jump_state(jump_state_em, 1'bx, "BLTU,jump_state_em = x");
 
+    //SLTI
+        @( posedge phase_execute)
+        decoded_op_de [FUNCT3_BIT_M:FUNCT3_BIT_L] = 3'b010; //SLT
+        rs1data_de = 32'h0000_000A;
+        rs2data_de = 32'h0000_0001;
+        imm        = 32'h0000_000F;
+        @( posedge phase_memoryaccess)
+        #(1)
+        assert_eq_jump_state(jump_state_em, 1'b1, "SLTI,jump_state_em = 1");
+
+        @( posedge phase_execute)
+        decoded_op_de [FUNCT3_BIT_M:FUNCT3_BIT_L] = 3'b010; //SLT
+        rs1data_de = 32'h0000_000A;
+        rs2data_de = 32'h0000_000F;
+        imm        = 32'h0000_0001;
+        @( posedge phase_memoryaccess)
+        #(1)
+        assert_eq_jump_state(jump_state_em, 1'b0, "SLTI,jump_state_em = 1");
+
+    $display("All tests pass!!");
     $finish;
 end
 
