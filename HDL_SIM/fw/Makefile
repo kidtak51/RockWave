@@ -3,7 +3,7 @@
 # File Created: 2018/12/19 12:12
 # Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
 ######
-# Last Modified: 2019/01/31 07:14
+# Last Modified: 2019/02/05 21:41
 # Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
 ######
 # Copyright 2018 - 2018  Project top_core
@@ -23,10 +23,11 @@ iverilog: wave
 define F
 	iverilog -o $(1).test -I $(SRCDIR) -D INST_ROM_FILE_NAME=\"$(1)\" $(testbench) $(allVerilogFiles)
 
-	vvp $(1).test>>allResult.txt
+	vvp $(1).test>>allResult_tmp.txt
 
 endef
 
 wave:
-	echo start>allResult.txt
 	$(foreach x,$(hexFiles),$(call F,$(x)))
+	grep result allResult_tmp.txt>allResult.txt
+	rm allResult_tmp.txt
