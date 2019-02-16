@@ -1,11 +1,11 @@
 /*
  * *****************************************************************
- * File: top_execute.v
+ * File: top_core_tb.v
  * Category: Execute
  * File Created: 2019/01/16 23:22
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/21 12:14
+ * Last Modified: 2019/02/13 12:05
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -58,15 +58,19 @@ module top_execute(
     wire [XLEN-1:0] aluout_pre;
 
     wire jump_state_pre;
-    wire use_rs1;
-    wire use_rs2;
+    wire use_alu_in1;
+    wire use_alu_in2;
+    wire [FUNCT3_BIT_M-FUNCT3_BIT_L+1:0] use_comp_in2;
+    wire [XLEN-1:0] compin2;
 
     //For alu
-    assign aluin1 = ( use_rs1 == USE_RS1_RS1DATA)? rs1data_de : curr_pc_de;
-    assign aluin2 = ( use_rs2 == USE_RS2_RS2DATA)? rs2data_de : imm;
+    assign aluin1 = ( use_alu_in1 == USE_ALU_IN1_RS1DATA)? rs1data_de : curr_pc_de;
+    assign aluin2 = ( use_alu_in2 == USE_ALU_IN2_RS2DATA)? rs2data_de : imm;
     //For comp
-    assign use_rs1 = decoded_op_de[USE_RS1_BIT];
-    assign use_rs2 = decoded_op_de[USE_RS2_BIT];
+    assign use_comp_in2 = decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L];
+    assign compin2 = ( use_comp_in2 == FUNCT3_SLT )? imm : rs2data_de;
+    assign use_alu_in1 = decoded_op_de[USE_ALU_IN1_BIT];
+    assign use_alu_in2 = decoded_op_de[USE_ALU_IN2_BIT];
 
     //call module alu
     alu U_alu(
@@ -79,7 +83,7 @@ module top_execute(
     //call module comp
     comp U_comp(
         .rs1data_de(rs1data_de),
-        .rs2data_de(rs2data_de),
+        .rs2data_de(compin2),
         .decoded_op_de(decoded_op_de),
         .jump_state_pre(jump_state_pre)
     );

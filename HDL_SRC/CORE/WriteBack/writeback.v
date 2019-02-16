@@ -5,8 +5,8 @@
  * File Created: 2019/01/23 12:25
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/25 19:09
- * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
+ * Last Modified: 2019/01/28 21:40
+ * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -77,5 +77,6 @@ module writeback(
     assign rddata_wr = select( mem_out_mw, jump_state_selin, next_pc_mw, alu_out_mw, use_rd);
 
     assign stall_writeback = 1'b0;
+    assign regdata_for_pc = alu_out_mw;
 
 endmodule //top_writeback

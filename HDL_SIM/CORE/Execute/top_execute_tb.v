@@ -5,7 +5,7 @@
  * File Created: 2019/01/16 23:45
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/21 12:26
+ * Last Modified: 2019/02/12 12:26
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -142,8 +142,8 @@ module top_execute_tb;
 
     //rs1data_de+rs2data_de->alu_out_em
         @( posedge phase_execute)
-        decoded_op_de[USE_RS1_BIT] = 1'b1;
-        decoded_op_de[USE_RS2_BIT] = 1'b1;
+        decoded_op_de[USE_ALU_IN1_BIT] = 1'b1;
+        decoded_op_de[USE_ALU_IN2_BIT] = 1'b1;
         rs1data_de    = 32'hA0A0_A0A0;       
         curr_pc_de    = 32'h1010_1010;
         rs2data_de    = 32'h0A0A_0A0A;
@@ -167,8 +167,8 @@ module top_execute_tb;
     //curr_pc_de+imm->alu_out_em
         @( posedge phase_execute)
         funct_alu     = 4'b0000; //add
-        decoded_op_de[USE_RS1_BIT] = 1'b0;
-        decoded_op_de[USE_RS2_BIT] = 1'b0;
+        decoded_op_de[USE_ALU_IN1_BIT] = 1'b0;
+        decoded_op_de[USE_ALU_IN2_BIT] = 1'b0;
         rs1data_de    = 32'hA0A0_A0A0;       
         curr_pc_de    = 32'h1010_1010;
         rs2data_de    = 32'h0A0A_0A0A;
@@ -261,6 +261,26 @@ module top_execute_tb;
         #(1)
         assert_eq_jump_state(jump_state_em, 1'bx, "BLTU,jump_state_em = x");
 
+    //SLTI
+        @( posedge phase_execute)
+        decoded_op_de [FUNCT3_BIT_M:FUNCT3_BIT_L] = 3'b010; //SLT
+        rs1data_de = 32'h0000_000A;
+        rs2data_de = 32'h0000_0001;
+        imm        = 32'h0000_000F;
+        @( posedge phase_memoryaccess)
+        #(1)
+        assert_eq_jump_state(jump_state_em, 1'b1, "SLTI,jump_state_em = 1");
+
+        @( posedge phase_execute)
+        decoded_op_de [FUNCT3_BIT_M:FUNCT3_BIT_L] = 3'b010; //SLT
+        rs1data_de = 32'h0000_000A;
+        rs2data_de = 32'h0000_000F;
+        imm        = 32'h0000_0001;
+        @( posedge phase_memoryaccess)
+        #(1)
+        assert_eq_jump_state(jump_state_em, 1'b0, "SLTI,jump_state_em = 1");
+
+    $display("All tests pass!!");
     $finish;
 end
 
