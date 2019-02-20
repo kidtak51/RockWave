@@ -5,8 +5,8 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/02/05 07:13
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2019/02/18 07:44
+ * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2019/02/18   shonta      SLTIと分離するためdecoded_opにmust jumpを追加
  * 2018/12/17	kidtak51	First Version
  * *****************************************************************
  */
@@ -166,6 +167,11 @@ wire jump_en = (inst_op == JAL) || (inst_op == JALR) || (inst_op == BRANCH);
 //data memory write enable
 wire data_mem_we = (inst_op == STORE);
 
+//must_jump
+wire must_jump_op = (inst_op == LOAD) || (inst_op == OP) || (inst_op == STORE) || (inst_op == SYSTEM);
+wire must_jump_funct3 = ((inst_funct3_raw) == FUNCT3_JUMP);
+assign must_jump = ( must_jump_op ) && (must_jump_funct3);
+
 //decoded_op
 wire[OPLEN-1:0] decoded_op_pre;
 assign decoded_op_pre[USE_ALU_IN1_BIT] = use_alu_in1;
@@ -174,6 +180,8 @@ assign decoded_op_pre[USE_RD_BIT_M:USE_RD_BIT_L] = rd_data_sel;
 assign decoded_op_pre[FUNCT3_BIT_M:FUNCT3_BIT_L] = inst_funct3;
 assign decoded_op_pre[JUMP_EN_BIT] = jump_en;
 assign decoded_op_pre[DATA_MEM_WE_BIT] = data_mem_we;
+assign decoded_op_pre[MUST_JUMP_BIT] = must_jump;
+
 
 //FF
 obuf #(.WIDTH(XLEN))  u_o1(.d_in(imm_pre),        .d_out(imm),           .clk(clk), .rst_n(rst_n), .en(phase_decode));

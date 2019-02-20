@@ -1,11 +1,11 @@
 /*
  * *****************************************************************
- * File: top_core_tb.v
+ * File: top_execute.v
  * Category: Execute
  * File Created: 2019/01/16 23:22
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/02/13 12:05
+ * Last Modified: 2019/02/18 07:17
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -16,7 +16,8 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
- * 2019/01/16	Takuya Shono	First Version
+ * 2019/02/18   shonta      SLTIと分離するためdecoded_opにmust jumpを追加
+ * 2019/01/16	shonta  	First Version
  * *****************************************************************
  */
 
@@ -51,17 +52,21 @@ module top_execute(
     `include "core_general.vh"
 
     localparam LATCH_LEN = (XLEN*3+1+5+OPLEN);
+
     reg [LATCH_LEN-1:0] latch_execute; // Latch for Next Stage
 
     wire [XLEN-1:0] aluin1;
     wire [XLEN-1:0] aluin2;
     wire [XLEN-1:0] aluout_pre;
 
-    wire jump_state_pre;
+    wire comp_out;
     wire use_alu_in1;
     wire use_alu_in2;
     wire [FUNCT3_BIT_M-FUNCT3_BIT_L+1:0] use_comp_in2;
     wire [XLEN-1:0] compin2;
+
+    wire must_jump_en;
+    wire jump_state_pre;
 
     //For alu
     assign aluin1 = ( use_alu_in1 == USE_ALU_IN1_RS1DATA)? rs1data_de : curr_pc_de;
@@ -71,6 +76,9 @@ module top_execute(
     assign compin2 = ( use_comp_in2 == FUNCT3_SLT )? imm : rs2data_de;
     assign use_alu_in1 = decoded_op_de[USE_ALU_IN1_BIT];
     assign use_alu_in2 = decoded_op_de[USE_ALU_IN2_BIT];
+    //From comp
+    assign must_jump_en = decoded_op_de[MUST_JUMP_BIT]; 
+    assign jump_state_pre = ( must_jump_en == 1'b1 )? 1'b1 : comp_out; 
 
     //call module alu
     alu U_alu(
@@ -85,7 +93,7 @@ module top_execute(
         .rs1data_de(rs1data_de),
         .rs2data_de(compin2),
         .decoded_op_de(decoded_op_de),
-        .jump_state_pre(jump_state_pre)
+        .comp_out(comp_out)
     );
 
      /////////////////////////////////////////////
