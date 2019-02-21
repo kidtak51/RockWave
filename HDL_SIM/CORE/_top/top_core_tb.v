@@ -5,8 +5,8 @@
  * File Created: 2019/01/21 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/25 17:55
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2019/02/18 07:27
+ * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -443,18 +443,19 @@ endmodule
 
 
 //writebackモジュールが実装されたら下記は削除する
-module writeback(
-    input[XLEN-1:0] mem_out_mw,
-    input jump_state_mw,
-    input[XLEN-1:0] next_pc_mw,
-    input[XLEN-1:0] alu_out_mw,
-    input[OPLEN-1:0] decoded_op_mw,
-    input[4:0] rdsel_mw,
-    output[XLEN-1:0] rddata_wr,
-    output[XLEN-1:0] regdata_for_pc,
-    output jump_state_wf,
-    output[4:0] rdsel_wr,
-    output stall_writeback
-);
-`include "core_general.vh"
-endmodule
+//module writeback(
+//    input[XLEN-1:0] mem_out_mw,
+//    input jump_state_mw,
+//    input[XLEN-1:0] next_pc_mw,
+//    input[XLEN-1:0] alu_out_mw,
+//    input[OPLEN-1:0] decoded_op_mw,
+//    input[4:0] rdsel_mw,
+//    output[XLEN-1:0] rddata_wr,
+//    output[XLEN-1:0] regdata_for_pc,
+//    output jump_state_wf,
+//    output[4:0] rdsel_wr,
+//    output stall_writeback
+//);
+//`include "core_general.vh"
+//endmodule
+

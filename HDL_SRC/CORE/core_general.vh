@@ -5,8 +5,8 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/24 04:29
- * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
+ * Last Modified: 2019/02/18 07:42
+ * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2019/02/18 shonta      SLTIと分離するためdecoded_opにmust jumpを追加
  * 2019/01/24	Masaru Aoki	64bitの記述を追加
  * 2019/01/09	kidtak51	  各制御ブロックの出力段のFlipFlopを除去するための定義を追加した
  * 2019/1/4	  kidtak51	  parameter名一部修正
@@ -48,7 +49,7 @@
     /////////////////////////////////////////////
     // Doecode
     /////////////////////////////////////////////
-    parameter OPLEN = 9;
+    parameter OPLEN = 10;
 
     // RS1/RS2
     parameter USE_ALU_IN1_BIT = 0;
@@ -80,7 +81,7 @@
       // BRANCH
       parameter FUNCT3_BEQ  = 3'b000;
       parameter FUNCT3_BNE  = 3'b001;
-      parameter FUNCT3_JUMP = 3'b010;  // Must Jump
+      parameter FUNCT3_JUMP = 3'b010;  // Must Jump ただし、SLTIは除く 
       parameter FUNCT3_BLT  = 3'b100;
       parameter FUNCT3_BGE  = 3'b101;
       parameter FUNCT3_BLTU = 3'b110;
@@ -94,6 +95,9 @@
 
     // Jump Enable
     parameter JUMP_EN_BIT = 8;
+
+    // must jump
+    parameter MUST_JUMP_BIT = 9;
 
     /////////////////////////////////////////////
     // Common

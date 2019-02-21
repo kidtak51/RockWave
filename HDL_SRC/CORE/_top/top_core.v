@@ -5,8 +5,8 @@
  * File Created: 2019/01/10 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/25 17:56
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2019/02/20 12:15
+ * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2019/02/20   shonta      phase_writebackを接続した
  * 2019/01/10	kidtak51	First Version
  * *****************************************************************
  */
@@ -106,6 +107,7 @@ writeback u_writeback(
     .regdata_for_pc(regdata_for_pc),
     .jump_state_wf(jump_state_wf),
     .rdsel_wr(rdsel_wr),
+    .phase_writeback(phase_writeback),
     .stall_writeback(stall_writeback)
 );
 

@@ -5,7 +5,7 @@
  * File Created: 2019/01/14 18:57
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/02/12 06:43
+ * Last Modified: 2019/02/21 12:26
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -16,7 +16,8 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
- * 2019/01/14	Takuya Shono	First Version
+ * 2019/02/18   shonta      SLTIと分離するためdecoded_opにmust jumpを追加
+ * 2019/01/14	shonta  	First Version
  * *****************************************************************
  */
 
@@ -24,7 +25,7 @@ module comp (
     input [XLEN-1:0] rs1data_de, //レジスタ選択結果1 rs1データ
     input [XLEN-1:0] rs2data_de, //レジスタ選択結果2 rs2データ
     input [OPLEN-1:0] decoded_op_de, // Decoded OPcode
-    output jump_state_pre //比較結果
+    output comp_out //比較結果
     );
 
     //parameter
@@ -53,6 +54,6 @@ module comp (
         end
     endfunction
 
-    assign jump_state_pre = comp( rs1data_de, rs2data_de, funct3);
+    assign comp_out = comp( rs1data_de, rs2data_de, funct3);
 
 endmodule // comp

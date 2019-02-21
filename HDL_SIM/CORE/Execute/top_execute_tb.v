@@ -5,7 +5,7 @@
  * File Created: 2019/01/16 23:45
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/02/12 12:26
+ * Last Modified: 2019/02/21 12:22
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2019/02/18   shonta      SLTIと分離するためdecoded_opにmust jumpを追加
  * 2019/01/16	Takuya Shono	First Version
  * *****************************************************************
  */
@@ -58,7 +59,8 @@ module top_execute_tb;
     wire [XLEN-1:0] aluin2;     // alu入力
     wire [XLEN-1:0] aluout_pre; // alu出力 //FF前段
     //For comp
-    wire jump_state_pre; // comp出力 //FF前段
+    wire comp_out; //comp出力
+    wire jump_state_pre; //FF前段
 
     integer i;
 
@@ -103,7 +105,7 @@ module top_execute_tb;
         next_pc_de = 32'h0000_0000;
         funct_alu = 4'b0000;
         rdsel_de = 5'b0_0000;
-        decoded_op_de = 9'b0_0000_0000;
+        decoded_op_de = 10'b00_0000_0000;
  
         @(posedge clk)
         @(posedge clk)
@@ -113,7 +115,7 @@ module top_execute_tb;
         // スルー信号動作確認
         ////////////////////////////////////
         @( posedge phase_execute)
-        decoded_op_de    = 9'b1_0101_0101;
+        decoded_op_de    = 10'b01_0101_0101;
         rs2data_de       = 32'h1010_1010;
         next_pc_de       = 32'hA0A0_A0A0;
         rdsel_de         = 5'b1_0101;
@@ -138,7 +140,7 @@ module top_execute_tb;
         next_pc_de = 32'h0000_0000;
         funct_alu = 4'b0000;
         rdsel_de = 5'b0_0000;
-        decoded_op_de = 9'b0_0000_0000;
+        decoded_op_de = 10'b00_0000_0000;
 
     //rs1data_de+rs2data_de->alu_out_em
         @( posedge phase_execute)
@@ -209,7 +211,7 @@ module top_execute_tb;
         next_pc_de = 32'h0000_0000;
         funct_alu = 4'b0000;
         rdsel_de = 5'b0_0000;
-        decoded_op_de = 9'b0_0000_0000;
+        decoded_op_de = 10'b0_0000_0000;
 
     //BEQ
         @( posedge phase_execute)
@@ -278,7 +280,49 @@ module top_execute_tb;
         imm        = 32'h0000_0001;
         @( posedge phase_memoryaccess)
         #(1)
-        assert_eq_jump_state(jump_state_em, 1'b0, "SLTI,jump_state_em = 1");
+        assert_eq_jump_state(jump_state_em, 1'b0, "SLTI,jump_state_em = 0");
+
+    //MUST JUMP
+        @( posedge phase_execute)
+        decoded_op_de [MUST_JUMP_BIT] = 1'b1; //must jump
+        decoded_op_de [FUNCT3_BIT_M:FUNCT3_BIT_L] = 3'b010; //SLT
+        rs1data_de = 32'h0000_000A;
+        rs2data_de = 32'h0000_0001;
+        imm        = 32'h0000_000F;
+        @( posedge phase_memoryaccess)
+        #(1)
+        assert_eq_jump_state(jump_state_em, 1'b1, "MUST_JUMP,jump_state_em = 1");
+
+        @( posedge phase_execute)
+        decoded_op_de [MUST_JUMP_BIT] = 1'b0; //must jump
+        decoded_op_de [FUNCT3_BIT_M:FUNCT3_BIT_L] = 3'b010; //SLT
+        rs1data_de = 32'h0000_000A;
+        rs2data_de = 32'h0000_0001;
+        imm        = 32'h0000_000F;
+        @( posedge phase_memoryaccess)
+        #(1)
+        assert_eq_jump_state(jump_state_em, 1'b1, "MUST_JUMP,jump_state_em = 1");
+
+        @( posedge phase_execute)
+        decoded_op_de [MUST_JUMP_BIT] = 1'b1; //must jump
+        decoded_op_de [FUNCT3_BIT_M:FUNCT3_BIT_L] = 3'b010; //SLT
+        rs1data_de = 32'h0000_000A;
+        rs2data_de = 32'h0000_000F;
+        imm        = 32'h0000_0001;
+        @( posedge phase_memoryaccess)
+        #(1)
+        assert_eq_jump_state(jump_state_em, 1'b1, "MUST_JUMP,jump_state_em = 1");
+
+        @( posedge phase_execute)
+        decoded_op_de [MUST_JUMP_BIT] = 1'b0; //must jump
+        decoded_op_de [FUNCT3_BIT_M:FUNCT3_BIT_L] = 3'b010; //SLT
+        rs1data_de = 32'h0000_000A;
+        rs2data_de = 32'h0000_000F;
+        imm        = 32'h0000_0001;
+        @( posedge phase_memoryaccess)
+        #(1)
+        assert_eq_jump_state(jump_state_em, 1'b0, "MUST_JUMP,jump_state_em = 0");
+
 
     $display("All tests pass!!");
     $finish;
