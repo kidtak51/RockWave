@@ -1,5 +1,6 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  --include "../../../../../../HDL_SRC/CORE" \
+"../../../../Zedboard.srcs/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v" \
 "../../../../../../HDL_SRC/CORE/Execute/alu.v" \
 "../../../../../../HDL_SRC/CORE/Execute/comp.v" \
 "../../../../../../HDL_SRC/CORE/instruction_decode/instruction_decode.v" \

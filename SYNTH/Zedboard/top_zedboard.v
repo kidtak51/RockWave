@@ -3,10 +3,23 @@ module top_zedboard(
     output [7:0] led
 );
 `include "core_general.vh"
+
+    //instruction memory
+    wire [AWIDTH-1:0] inst_addr;
+    wire [XLEN-1:0] inst_data;
+
+    //data memory
+    wire [XLEN-1:0] data_mem_out;
+    wire [AWIDTH-1:0] data_mem_addr;
+    wire [XLEN-1:0] data_mem_wdata;
+    wire [2:0] data_mem_we;
+
+`ifdef __ICARUS__
 initial begin
     //$readmemh(`INST_ROM_FILE_NAME, u_inst_memory.mem);
     $readmemh("rv32ui-p-add.hex", u_inst_memory.mem);
 end
+`endif
 
 //instant reset wave generate
 reg[7:0] cnt = 8'd0;
