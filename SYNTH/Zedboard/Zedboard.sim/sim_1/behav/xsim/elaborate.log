@@ -1,0 +1,94 @@
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /opt/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto a933adacb9d34f55b154d07169588e63 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot top_zedboard_tb_behav xil_defaultlib.top_zedboard_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 12 for port 'inst_addr' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:28]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'inst_data' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:29]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'data_mem_out' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:30]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 12 for port 'data_mem_addr' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:31]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'data_mem_wdata' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:32]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 3 for port 'data_mem_we' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:33]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 12 for port 'addr' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:40]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'qout' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:41]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 12 for port 'addr' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:47]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'qin' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:48]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 3 for port 'we' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:49]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'qout' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:50]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v" Line 1. Module top_zedboard_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v" Line 23. Module top_core_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v" Line 23. Module statemachine doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/WriteBack/writeback.v" Line 23. Module writeback_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/Fetch/top_fetch.v" Line 29. Module top_fetch_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v" Line 24. Module instruction_decode_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v" Line 23. Module obuf(WIDTH=32) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v" Line 23. Module obuf(WIDTH=32) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v" Line 23. Module obuf(WIDTH=32) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v" Line 23. Module obuf(WIDTH=32) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v" Line 23. Module obuf(WIDTH=32) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v" Line 23. Module obuf(WIDTH=4) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v" Line 23. Module obuf(WIDTH=5) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v" Line 23. Module obuf(WIDTH=10) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/Execute/top_execute.v" Line 24. Module top_execute_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/Execute/alu.v" Line 23. Module alu_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/Execute/comp.v" Line 24. Module comp_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v" Line 23. Module top_memoryaccess_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v" Line 23. Module register_file_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v" Line 23. Module reg_rw_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v" Line 24. Module rom_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v" Line 27. Module ram_default doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.statemachine
+Compiling module xil_defaultlib.writeback_default
+Compiling module xil_defaultlib.top_fetch_default
+Compiling module xil_defaultlib.obuf(WIDTH=32)
+Compiling module xil_defaultlib.obuf(WIDTH=4)
+Compiling module xil_defaultlib.obuf(WIDTH=5)
+Compiling module xil_defaultlib.obuf(WIDTH=10)
+Compiling module xil_defaultlib.instruction_decode_default
+Compiling module xil_defaultlib.alu_default
+Compiling module xil_defaultlib.comp_default
+Compiling module xil_defaultlib.top_execute_default
+Compiling module xil_defaultlib.top_memoryaccess_default
+Compiling module xil_defaultlib.reg_rw_default
+Compiling module xil_defaultlib.register_file_default
+Compiling module xil_defaultlib.top_core_default
+Compiling module xil_defaultlib.rom_default
+Compiling module xil_defaultlib.ram_default
+Compiling module xil_defaultlib.top_zedboard_default
+Compiling module xil_defaultlib.top_zedboard_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot top_zedboard_tb_behav

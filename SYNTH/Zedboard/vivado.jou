@@ -1,0 +1,26 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sun Feb 17 00:16:50 2019
+# Process ID: 312
+# Current directory: C:/RockWave/RockWave/HDL_SRC/Zedboard
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent12040 C:\RockWave\RockWave\HDL_SRC\Zedboard\Zedboard.xpr
+# Log file: C:/RockWave/RockWave/HDL_SRC/Zedboard/vivado.log
+# Journal file: C:/RockWave/RockWave/HDL_SRC/Zedboard\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/RockWave/RockWave/HDL_SRC/Zedboard/Zedboard.xpr
+update_compile_order -fileset sources_1
+set_property -name {STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS} -value {-verilog_define INST_ROM_FILE_NAME=rv32ui-p-add.hex} -objects [get_runs synth_1]
+add_files C:/RockWave/RockWave/HDL_SRC/CORE/core_general.vh
+add_files {C:/RockWave/RockWave/HDL_SRC/CORE/Fetch/top_fetch.v C:/RockWave/RockWave/HDL_SRC/CORE/instruction_decode/old/decode_opcode.v C:/RockWave/RockWave/HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v C:/RockWave/RockWave/HDL_SRC/CORE/WriteBack/writeback.v C:/RockWave/RockWave/HDL_SRC/CORE/Execute/alu.v C:/RockWave/RockWave/HDL_SRC/CORE/Fetch/rom.v C:/RockWave/RockWave/HDL_SRC/CORE/Execute/top_execute.v C:/RockWave/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v C:/RockWave/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v C:/RockWave/RockWave/HDL_SRC/CORE/Execute/comp.v C:/RockWave/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v C:/RockWave/RockWave/HDL_SRC/CORE/core_general.vh C:/RockWave/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v C:/RockWave/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v C:/RockWave/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v C:/RockWave/RockWave/HDL_SRC/CORE/_top/top_core.v}
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files C:/RockWave/RockWave/HDL_SRC/CORE/instruction_decode/old/decode_opcode.v] -no_script -reset -force -quiet
+remove_files  C:/RockWave/RockWave/HDL_SRC/CORE/instruction_decode/old/decode_opcode.v
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+reset_run synth_1
+launch_runs impl_1 -jobs 2
+wait_on_run impl_1
