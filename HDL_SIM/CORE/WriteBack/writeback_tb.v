@@ -5,8 +5,8 @@
  * File Created: 2019/01/23 12:31
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/25 24:11
- * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
+ * Last Modified: 2019/02/16 23:50
+ * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -89,6 +89,13 @@ module writeback_tb;
     #STEP   jump_state_mw = 0;
     #STEP   decoded_op_mw [USE_RD_BIT_M:USE_RD_BIT_L] = 2'bxx;
     #STEP   assert_eq( 32'hxxxx_xxxx, rddata_wr, "xxxx");
+
+    //regdata_for_pc
+    #STEP   alu_out_mw = 32'hAAAA_AAAA;
+    #STEP   assert_eq( alu_out_mw, regdata_for_pc, "regdata_for_pc");
+    #STEP   alu_out_mw = 32'h5555_5555;
+    #STEP   assert_eq( alu_out_mw, regdata_for_pc, "regdata_for_pc");
+   
     
     #STEP   
     $display("ALL_TESTS_PASS");

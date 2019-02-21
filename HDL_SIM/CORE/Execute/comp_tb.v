@@ -5,7 +5,7 @@
  * File Created: 2019/01/16 24:31
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/02/18 07:48
+ * Last Modified: 2019/02/21 12:24
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -194,6 +194,30 @@ initial begin
     #STEP    assert_comp(comp_out, 1'b0, "FUNCT3_SLT_5");
 
 
+    //FUNCT3_SLT
+    //rs1<rs2
+    #STEP    decoded_op_de = 8'bx010_xxxx;
+             rs1data_de = 32'b0000_0000_0000_0000_0000_0000_0000_0001;
+             rs2data_de = 32'b0000_0000_0000_0000_0000_0000_0000_1000;
+    #STEP    assert_comp(jump_state_pre, 1'b1, "FUNCT3_SLT_1");
+    //rs1>rs2
+    #STEP    rs1data_de = 32'b0000_0000_0000_0000_0000_0000_0000_1000;
+             rs2data_de = 32'b0000_0000_0000_0000_0000_0000_0000_0001;
+    #STEP    assert_comp(jump_state_pre, 1'b0, "FUNCT3_SLT_2");
+    //rs1<rs2
+             rs1data_de = 32'b0000_0000_0000_0000_0000_0000_0000_0001;
+             rs2data_de = 32'b1000_0000_0000_0000_0000_0000_0000_0001;
+    #STEP    assert_comp(jump_state_pre, 1'b0, "FUNCT3_SLT_3");
+    //rs1>rs2
+    #STEP    rs1data_de = 32'b1000_0000_0000_0000_0000_0000_0000_0001;
+             rs2data_de = 32'b0000_0000_0000_0000_0000_0000_0000_0001;
+    #STEP    assert_comp(jump_state_pre, 1'b1, "FUNCT3_SLT_4");
+    //equal
+    #STEP    rs1data_de = 32'b1000_0000_0000_0000_0000_0000_0000_1001;
+             rs2data_de = 32'b1000_0000_0000_0000_0000_0000_0000_1001;
+    #STEP    assert_comp(jump_state_pre, 1'b0, "FUNCT3_SLT_5");
+
+
     //funct3=3'b011
     #STEP    decoded_op_de = 10'b00_x011_xxxx;
     #STEP    assert_comp(comp_out, 1'bx, "FUNCT3=3'b011");
@@ -201,6 +225,8 @@ initial begin
     //funct3=3'b0x0
     #STEP    decoded_op_de = 10'b00_xx0x_0xxx;
     #STEP    assert_comp(comp_out, 1'bx, "FUNCT3=3'b0x1");
+
+    $display("All tests pass!!");
 
     $display("All tests pass!!");
 
