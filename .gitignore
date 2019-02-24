@@ -1,3 +1,5 @@
 *.vcd
 *.gtkw
-
+HDL_SIM/CORE/_top/*.test
+HDL_SIM/fw/*.hex.test
+HDL_SIM/fw/allResult.txt
