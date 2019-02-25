@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="top_zedboard_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="top_zedboard_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="11420000000001fs"></ZoomEndTime>
+      <Cursor1Time time="4585452100000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="130"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="6" />
+   <wave_markers>
+      <marker label="" time="2805252000000" />
+   </wave_markers>
+   <wvobject type="logic" fp_name="/top_zedboard_tb/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_zedboard_tb/u_top_zedboard/rst_n">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/u_top_core/u_top_fetch/program_counter">
+      <obj_property name="ElementShortName">program_counter[31:0]</obj_property>
+      <obj_property name="ObjectShortName">program_counter[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/u_top_core/u_top_fetch/inst_data">
+      <obj_property name="ElementShortName">inst_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_zedboard_tb/led">
+      <obj_property name="ElementShortName">led[7:0]</obj_property>
+      <obj_property name="ObjectShortName">led[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group117">
+      <obj_property name="label">Register</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x01_ra">
+         <obj_property name="ElementShortName">x01_ra[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x01_ra[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x02_sp">
+         <obj_property name="ElementShortName">x02_sp[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x02_sp[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x03_gp">
+         <obj_property name="ElementShortName">x03_gp[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x03_gp[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x04_tp">
+         <obj_property name="ElementShortName">x04_tp[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x04_tp[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x05_t0">
+         <obj_property name="ElementShortName">x05_t0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x05_t0[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x06_t1">
+         <obj_property name="ElementShortName">x06_t1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x06_t1[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x07_t2">
+         <obj_property name="ElementShortName">x07_t2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x07_t2[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x08_s0_fp">
+         <obj_property name="ElementShortName">x08_s0_fp[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x08_s0_fp[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x09_s1">
+         <obj_property name="ElementShortName">x09_s1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x09_s1[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x10_a0">
+         <obj_property name="ElementShortName">x10_a0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x10_a0[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x11_a1">
+         <obj_property name="ElementShortName">x11_a1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x11_a1[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x12_a2">
+         <obj_property name="ElementShortName">x12_a2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x12_a2[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x13_a3">
+         <obj_property name="ElementShortName">x13_a3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x13_a3[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x14_a4">
+         <obj_property name="ElementShortName">x14_a4[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x14_a4[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x15_a5">
+         <obj_property name="ElementShortName">x15_a5[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x15_a5[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x16_a6">
+         <obj_property name="ElementShortName">x16_a6[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x16_a6[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x17_a7">
+         <obj_property name="ElementShortName">x17_a7[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x17_a7[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x18_s2">
+         <obj_property name="ElementShortName">x18_s2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x18_s2[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x19_s3">
+         <obj_property name="ElementShortName">x19_s3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x19_s3[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x20_s4">
+         <obj_property name="ElementShortName">x20_s4[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x20_s4[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x21_s5">
+         <obj_property name="ElementShortName">x21_s5[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x21_s5[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x22_s6">
+         <obj_property name="ElementShortName">x22_s6[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x22_s6[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x23_s7">
+         <obj_property name="ElementShortName">x23_s7[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x23_s7[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x24_s8">
+         <obj_property name="ElementShortName">x24_s8[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x24_s8[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x25_s9">
+         <obj_property name="ElementShortName">x25_s9[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x25_s9[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x26_s10">
+         <obj_property name="ElementShortName">x26_s10[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x26_s10[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x27_s11">
+         <obj_property name="ElementShortName">x27_s11[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x27_s11[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x28_t3">
+         <obj_property name="ElementShortName">x28_t3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x28_t3[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x29_t4">
+         <obj_property name="ElementShortName">x29_t4[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x29_t4[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x30_t5">
+         <obj_property name="ElementShortName">x30_t5[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x30_t5[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/u_top_zedboard/x31_t6">
+         <obj_property name="ElementShortName">x31_t6[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x31_t6[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
