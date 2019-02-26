@@ -90,3 +90,4 @@
 *.vcd
 *.gtkw
 *.test
+HDL_SIM/fw/allResult.txt
