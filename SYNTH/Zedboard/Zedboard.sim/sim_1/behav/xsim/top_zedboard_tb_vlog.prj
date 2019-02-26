@@ -1,0 +1,25 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../../../HDL_SRC/CORE" \
+"../../../../Zedboard.srcs/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v" \
+"../../../../../../HDL_SRC/CORE/Execute/alu.v" \
+"../../../../../../HDL_SRC/CORE/Execute/comp.v" \
+"../../../../../../HDL_SRC/CORE/instruction_decode/instruction_decode.v" \
+"../../../../../../HDL_SRC/CORE/instruction_decode/obuf.v" \
+"../../../../../../HDL_SRC/CORE/MemoryAccess/ram.v" \
+"../../../../../../HDL_SRC/CORE/RegisterFile/reg_rw.v" \
+"../../../../../../HDL_SRC/CORE/RegisterFile/register_file.v" \
+"../../../../../../HDL_SRC/CORE/Fetch/rom.v" \
+"../../../../../../HDL_SRC/CORE/StateMachine/statemachine.v" \
+"../../../../../../HDL_SRC/CORE/_top/top_core.v" \
+"../../../../../../HDL_SRC/CORE/Execute/top_execute.v" \
+"../../../../../../HDL_SRC/CORE/Fetch/top_fetch.v" \
+"../../../../../../HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v" \
+"../../../../top_zedboard.v" \
+"../../../../../../HDL_SRC/CORE/WriteBack/writeback.v" \
+"../../../../../../HDL_SIM/CORE/_top/top_zedboard_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

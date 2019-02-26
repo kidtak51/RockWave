@@ -1,0 +1,1 @@
+-wto "a933adacb9d34f55b154d07169588e63" --incr --debug "typical" --relax --mt "8" -L "xil_defaultlib" -L "unisims_ver" -L "unimacro_ver" -L "secureip" --snapshot "top_zedboard_behav" "xil_defaultlib.top_zedboard" "xil_defaultlib.glbl" -log "elaborate.log" 

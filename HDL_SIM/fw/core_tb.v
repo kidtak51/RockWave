@@ -5,8 +5,8 @@
  * File Created: 2019/01/25 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/02/05 21:38
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2019/02/22 05:29
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -82,7 +82,7 @@ end
 reg[AWIDTH-1:0] memDataStartAddr = 'h800;
 initial begin
     //initial
-    $readmemh(`INST_ROM_FILE_NAME, u_inst_memory.mem);
+    $readmemh(`INST_ROM_FILE_NAME, u_inst_memory.U_ram.ram);
     $dumpfile({`INST_ROM_FILE_NAME, ".vcd"});
     $dumpvars(0,core_tb);
     
@@ -97,7 +97,7 @@ initial begin
     @(posedge clk) #1;
     for (i = 0; i<(2**AWIDTH); i = i + 4) begin
         force u_data_memory.addr = i;
-        force u_data_memory.qin = u_inst_memory.mem[memDataStartAddr + i];
+        force u_data_memory.qin = u_inst_memory.U_ram.ram[memDataStartAddr + i];
         force u_data_memory.we = 'b110;
         @(posedge clk) #1;
         force u_data_memory.we = 'h00;
@@ -106,6 +106,7 @@ initial begin
     release u_data_memory.qin;
     release u_data_memory.we;
     release u_top_core.u_statemachine.current;
+
     rst_n = 0;
 
     ////Core simulation start

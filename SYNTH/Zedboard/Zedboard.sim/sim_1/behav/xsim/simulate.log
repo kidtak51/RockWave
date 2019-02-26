@@ -1,0 +1,4 @@
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+WARNING: File rv32ui-p-add.hex referenced on /home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v at line 8 cannot be opened for reading. Please ensure that this file is available in the current working directory.
+.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
