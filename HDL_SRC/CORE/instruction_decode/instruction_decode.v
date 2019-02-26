@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/02/18 07:44
+ * Last Modified: 2019/02/26 12:23
  * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -168,9 +168,7 @@ wire jump_en = (inst_op == JAL) || (inst_op == JALR) || (inst_op == BRANCH);
 wire data_mem_we = (inst_op == STORE);
 
 //must_jump
-wire must_jump_op = (inst_op == LOAD) || (inst_op == OP) || (inst_op == STORE) || (inst_op == SYSTEM);
-wire must_jump_funct3 = ((inst_funct3_raw) == FUNCT3_JUMP);
-assign must_jump = ( must_jump_op ) && (must_jump_funct3);
+wire must_jump = (inst_op == JAL) || (inst_op == JALR);
 
 //decoded_op
 wire[OPLEN-1:0] decoded_op_pre;
