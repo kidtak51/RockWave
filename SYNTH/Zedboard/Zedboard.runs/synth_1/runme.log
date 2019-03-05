@@ -14,11 +14,11 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 27136 
+INFO: Helper process launched with PID 7678 
 WARNING: [Synth 8-2611] redeclaration of ansi port inst_data is not allowed [/home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v:52]
 WARNING: [Synth 8-2611] redeclaration of ansi port inst_addr is not allowed [/home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v:53]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:09 . Memory (MB): peak = 1400.492 ; gain = 9.387 ; free physical = 600 ; free virtual = 7919
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:09 . Memory (MB): peak = 1400.488 ; gain = 10.387 ; free physical = 1222 ; free virtual = 8634
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'top_zedboard' [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:1]
 	Parameter XLEN bound to: 32 - type: integer 
@@ -26,6 +26,10 @@ INFO: [Synth 8-6157] synthesizing module 'top_zedboard' [/home/aokim/RockWave/SY
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -66,6 +70,10 @@ INFO: [Synth 8-6157] synthesizing module 'top_core' [/home/aokim/RockWave/HDL_SR
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -114,6 +122,10 @@ INFO: [Synth 8-6157] synthesizing module 'writeback' [/home/aokim/RockWave/HDL_S
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -156,6 +168,10 @@ INFO: [Synth 8-6157] synthesizing module 'top_fetch' [/home/aokim/RockWave/HDL_S
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -197,6 +213,10 @@ INFO: [Synth 8-6157] synthesizing module 'instruction_decode' [/home/aokim/RockW
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -261,6 +281,10 @@ INFO: [Synth 8-6157] synthesizing module 'top_execute' [/home/aokim/RockWave/HDL
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -302,6 +326,10 @@ INFO: [Synth 8-6157] synthesizing module 'alu' [/home/aokim/RockWave/HDL_SRC/COR
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -343,6 +371,10 @@ INFO: [Synth 8-6157] synthesizing module 'comp' [/home/aokim/RockWave/HDL_SRC/CO
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -385,6 +417,10 @@ INFO: [Synth 8-6157] synthesizing module 'top_memoryaccess' [/home/aokim/RockWav
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -427,6 +463,10 @@ INFO: [Synth 8-6157] synthesizing module 'register_file' [/home/aokim/RockWave/H
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -463,12 +503,16 @@ INFO: [Synth 8-6157] synthesizing module 'register_file' [/home/aokim/RockWave/H
 	Parameter MUST_JUMP_BIT bound to: 9 - type: integer 
 INFO: [Synth 8-226] default block is never used [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v:223]
 INFO: [Synth 8-226] default block is never used [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v:223]
-INFO: [Synth 8-6157] synthesizing module 'reg_rw' [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v:23]
+INFO: [Synth 8-6157] synthesizing module 'register' [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register.v:23]
 	Parameter XLEN bound to: 32 - type: integer 
 	Parameter DWIDTH bound to: 32 - type: integer 
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -503,7 +547,7 @@ INFO: [Synth 8-6157] synthesizing module 'reg_rw' [/home/aokim/RockWave/HDL_SRC/
 	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
 	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
 	Parameter MUST_JUMP_BIT bound to: 9 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'reg_rw' (10#1) [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'register' (10#1) [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register.v:23]
 INFO: [Synth 8-6155] done synthesizing module 'register_file' (11#1) [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v:23]
 INFO: [Synth 8-6155] done synthesizing module 'top_core' (12#1) [/home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v:23]
 INFO: [Synth 8-6157] synthesizing module 'rom' [/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v:26]
@@ -512,6 +556,10 @@ INFO: [Synth 8-6157] synthesizing module 'rom' [/home/aokim/RockWave/HDL_SRC/COR
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -625,12 +673,62 @@ INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_0' [/home/aokim/RockWave/SY
 INFO: [Synth 8-3491] module 'blk_mem_gen_v8_4_2' declared at '/home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/blk_mem_gen_0/hdl/blk_mem_gen_v8_4_vhsyn_rfs.vhd:195321' bound to instance 'U0' of component 'blk_mem_gen_v8_4_2' [/home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/blk_mem_gen_0/synth/blk_mem_gen_0.vhd:237]
 INFO: [Synth 8-256] done synthesizing module 'blk_mem_gen_0' (21#1) [/home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/blk_mem_gen_0/synth/blk_mem_gen_0.vhd:71]
 INFO: [Synth 8-6155] done synthesizing module 'rom' (22#1) [/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v:26]
+INFO: [Synth 8-6157] synthesizing module 'localbus' [/home/aokim/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:25]
+	Parameter INNUM bound to: 13 - type: integer 
+	Parameter OUTNUM bound to: 8 - type: integer 
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
+	Parameter OPLEN bound to: 10 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+	Parameter MUST_JUMP_BIT bound to: 9 - type: integer 
 INFO: [Synth 8-6157] synthesizing module 'ram' [/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v:28]
 	Parameter XLEN bound to: 32 - type: integer 
 	Parameter DWIDTH bound to: 32 - type: integer 
 	Parameter AWIDTH bound to: 12 - type: integer 
 	Parameter WORDS bound to: 4096 - type: integer 
 	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
 	Parameter OPLEN bound to: 10 - type: integer 
 	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
 	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
@@ -672,8 +770,202 @@ INFO: [Synth 8-6157] synthesizing module 'bytewrite_ram_1b' [/home/aokim/RockWav
 	Parameter NB_COL bound to: 4 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'bytewrite_ram_1b' (23#1) [/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v:64]
 INFO: [Synth 8-6155] done synthesizing module 'ram' (24#1) [/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v:28]
-INFO: [Synth 8-6155] done synthesizing module 'top_zedboard' (25#1) [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:1]
+INFO: [Synth 8-6157] synthesizing module 'top_gpio' [/home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/top_gpio.v:23]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
+	Parameter OPLEN bound to: 10 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+	Parameter MUST_JUMP_BIT bound to: 9 - type: integer 
+	Parameter INNUM bound to: 13 - type: integer 
+	Parameter OUTNUM bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'fnc_gpio' [/home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/fnc_gpio.v:27]
+	Parameter INNUM bound to: 13 - type: integer 
+	Parameter OUTNUM bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'dfilter' [/home/aokim/RockWave/HDL_SRC/Board_Common/dfilter.v:27]
+	Parameter INIVAL bound to: 1'b0 
+	Parameter BW bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'dfilter' (25#1) [/home/aokim/RockWave/HDL_SRC/Board_Common/dfilter.v:27]
+INFO: [Synth 8-6157] synthesizing module 'refclk' [/home/aokim/RockWave/HDL_SRC/Board_Common/refclk.v:25]
+	Parameter BW bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'refclk' (26#1) [/home/aokim/RockWave/HDL_SRC/Board_Common/refclk.v:25]
+INFO: [Synth 8-6157] synthesizing module 'syncronizer' [/home/aokim/RockWave/HDL_SRC/Board_Common/synchronizer.v:25]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
+	Parameter OPLEN bound to: 10 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+	Parameter MUST_JUMP_BIT bound to: 9 - type: integer 
+	Parameter WIDTH bound to: 13 - type: integer 
+	Parameter INIVAL bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'syncronizer' (27#1) [/home/aokim/RockWave/HDL_SRC/Board_Common/synchronizer.v:25]
+INFO: [Synth 8-6155] done synthesizing module 'fnc_gpio' (28#1) [/home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/fnc_gpio.v:27]
+INFO: [Synth 8-6157] synthesizing module 'reg_gpio' [/home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/reg_gpio.v:22]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter BASE_MASK bound to: -16777216 - type: integer 
+	Parameter GPIO_BASE bound to: 1879048192 - type: integer 
+	Parameter ROM_BASE bound to: -2147483648 - type: integer 
+	Parameter RAM_BASE bound to: -1879048192 - type: integer 
+	Parameter OPLEN bound to: 10 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+	Parameter MUST_JUMP_BIT bound to: 9 - type: integer 
+	Parameter INNUM bound to: 13 - type: integer 
+	Parameter OUTNUM bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'reg_rw' [/home/aokim/RockWave/HDL_SRC/Board_Common/reg_rw.v:24]
+	Parameter BW bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'reg_rw' (29#1) [/home/aokim/RockWave/HDL_SRC/Board_Common/reg_rw.v:24]
+INFO: [Synth 8-6157] synthesizing module 'reg_ronly' [/home/aokim/RockWave/HDL_SRC/Board_Common/reg_ronly.v:24]
+	Parameter BW bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'reg_ronly' (30#1) [/home/aokim/RockWave/HDL_SRC/Board_Common/reg_ronly.v:24]
+INFO: [Synth 8-6157] synthesizing module 'reg_ronly__parameterized0' [/home/aokim/RockWave/HDL_SRC/Board_Common/reg_ronly.v:24]
+	Parameter BW bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'reg_ronly__parameterized0' (30#1) [/home/aokim/RockWave/HDL_SRC/Board_Common/reg_ronly.v:24]
+INFO: [Synth 8-6155] done synthesizing module 'reg_gpio' (31#1) [/home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/reg_gpio.v:22]
+INFO: [Synth 8-6155] done synthesizing module 'top_gpio' (32#1) [/home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/top_gpio.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'localbus' (33#1) [/home/aokim/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:25]
+INFO: [Synth 8-6155] done synthesizing module 'top_zedboard' (34#1) [/home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v:1]
 WARNING: [Synth 8-3301] Unused top level parameter/generic Xilinx
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port addr[11]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port addr[10]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port addr[9]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port addr[8]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port addr[1]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port addr[0]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port we[1]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port we[0]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[31]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[30]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[29]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[28]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[27]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[26]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[25]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[24]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[23]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[22]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[21]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[20]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[19]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[18]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[17]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[16]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[15]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[14]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[13]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[12]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[11]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[10]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[9]
+WARNING: [Synth 8-3331] design reg_gpio has unconnected port wdata[8]
 WARNING: [Synth 8-3331] design ram has unconnected port rst_n
 WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized2 has unconnected port SSRA
 WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized2 has unconnected port CLKB
@@ -742,41 +1034,9 @@ WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized1 has
 WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized1 has unconnected port ram_rstram_b
 WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized1 has unconnected port ram_rstreg_b
 WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port SSRA
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port CLKB
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port SSRB
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ENB
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port REGCEB
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port WEB[0]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[11]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[10]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[9]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[8]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[7]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[6]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[5]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[4]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[3]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[2]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[1]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ADDRB[0]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port DINB[8]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port DINB[7]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port DINB[6]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port DINB[5]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port DINB[4]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port DINB[3]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port DINB[2]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port DINB[1]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port DINB[0]
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port SLEEP
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port INJECTSBITERR
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port INJECTDBITERR
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ECCPIPECE
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ram_rstram_b
-WARNING: [Synth 8-3331] design blk_mem_gen_prim_wrapper_init__parameterized0 has unconnected port ram_rstreg_b
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:46 ; elapsed = 00:00:57 . Memory (MB): peak = 1610.945 ; gain = 219.840 ; free physical = 802 ; free virtual = 8262
+Finished RTL Elaboration : Time (s): cpu = 00:00:46 ; elapsed = 00:00:57 . Memory (MB): peak = 1611.637 ; gain = 221.535 ; free physical = 483 ; free virtual = 8140
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -789,10 +1049,10 @@ Report Check Netlist:
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:46 ; elapsed = 00:00:57 . Memory (MB): peak = 1610.945 ; gain = 219.840 ; free physical = 810 ; free virtual = 8270
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:46 ; elapsed = 00:00:57 . Memory (MB): peak = 1611.637 ; gain = 221.535 ; free physical = 491 ; free virtual = 8148
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:46 ; elapsed = 00:00:57 . Memory (MB): peak = 1610.945 ; gain = 219.840 ; free physical = 810 ; free virtual = 8270
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:46 ; elapsed = 00:00:57 . Memory (MB): peak = 1611.637 ; gain = 221.535 ; free physical = 491 ; free virtual = 8148
 ---------------------------------------------------------------------------------
 INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -807,31 +1067,31 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_zedboard_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Parsing XDC File [/home/aokim/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/dont_touch.xdc]
 Finished Parsing XDC File [/home/aokim/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/dont_touch.xdc]
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1808.008 ; gain = 0.000 ; free physical = 523 ; free virtual = 7983
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1816.699 ; gain = 0.000 ; free physical = 224 ; free virtual = 7882
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1808.008 ; gain = 0.000 ; free physical = 523 ; free virtual = 7983
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1816.699 ; gain = 0.000 ; free physical = 224 ; free virtual = 7882
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1808.008 ; gain = 0.000 ; free physical = 523 ; free virtual = 7983
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1808.008 ; gain = 0.000 ; free physical = 523 ; free virtual = 7983
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1816.699 ; gain = 0.000 ; free physical = 224 ; free virtual = 7882
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 1816.699 ; gain = 0.000 ; free physical = 224 ; free virtual = 7882
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:51 ; elapsed = 00:01:04 . Memory (MB): peak = 1808.008 ; gain = 416.902 ; free physical = 600 ; free virtual = 8062
+Finished Constraint Validation : Time (s): cpu = 00:00:51 ; elapsed = 00:01:04 . Memory (MB): peak = 1816.699 ; gain = 426.598 ; free physical = 305 ; free virtual = 7966
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z020clg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:51 ; elapsed = 00:01:04 . Memory (MB): peak = 1808.008 ; gain = 416.902 ; free physical = 600 ; free virtual = 8062
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:51 ; elapsed = 00:01:04 . Memory (MB): peak = 1816.699 ; gain = 426.598 ; free physical = 305 ; free virtual = 7966
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 Applied set_property DONT_TOUCH = true for u_inst_memory/U_ram. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:51 ; elapsed = 00:01:04 . Memory (MB): peak = 1808.008 ; gain = 416.902 ; free physical = 602 ; free virtual = 8064
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:51 ; elapsed = 00:01:04 . Memory (MB): peak = 1816.699 ; gain = 426.598 ; free physical = 307 ; free virtual = 7968
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'current_reg' in module 'statemachine'
 INFO: [Synth 8-5544] ROM "current" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
@@ -853,7 +1113,7 @@ INFO: [Synth 8-5546] ROM "rst_n" won't be mapped to RAM because it is too sparse
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'current_reg' using encoding 'one-hot' in module 'statemachine'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:52 ; elapsed = 00:01:04 . Memory (MB): peak = 1808.008 ; gain = 416.902 ; free physical = 594 ; free virtual = 8054
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:52 ; elapsed = 00:01:04 . Memory (MB): peak = 1816.699 ; gain = 426.598 ; free physical = 300 ; free virtual = 7959
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -868,37 +1128,38 @@ Detailed RTL Component Info :
 +---Adders : 
 	   2 Input     32 Bit       Adders := 1     
 	   3 Input     32 Bit       Adders := 1     
-	   2 Input      8 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 15    
 +---XORs : 
 	   2 Input     32 Bit         XORs := 1     
-	   2 Input      1 Bit         XORs := 4     
+	   2 Input      1 Bit         XORs := 17    
 +---Registers : 
 	              112 Bit    Registers := 1     
 	               80 Bit    Registers := 1     
 	               64 Bit    Registers := 1     
 	               32 Bit    Registers := 38    
+	               13 Bit    Registers := 2     
 	               10 Bit    Registers := 1     
-	                8 Bit    Registers := 1     
-	                5 Bit    Registers := 5     
+	                8 Bit    Registers := 19    
+	                5 Bit    Registers := 6     
 	                4 Bit    Registers := 1     
-	                1 Bit    Registers := 25    
+	                1 Bit    Registers := 51    
 +---RAMs : 
 	             128K Bit         RAMs := 1     
 +---Muxes : 
 	   4 Input     32 Bit        Muxes := 1     
-	   2 Input     32 Bit        Muxes := 10    
+	   2 Input     32 Bit        Muxes := 11    
 	   7 Input     32 Bit        Muxes := 1     
 	   9 Input     32 Bit        Muxes := 1     
-	   2 Input      8 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 46    
 	   6 Input      6 Bit        Muxes := 1     
 	   2 Input      6 Bit        Muxes := 6     
-	   2 Input      5 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 2     
 	   2 Input      4 Bit        Muxes := 1     
-	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
 	   4 Input      2 Bit        Muxes := 1     
 	   5 Input      1 Bit        Muxes := 1     
 	   3 Input      1 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 28    
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -980,7 +1241,7 @@ Module top_memoryaccess
 Detailed RTL Component Info : 
 +---Registers : 
 	               80 Bit    Registers := 1     
-Module reg_rw 
+Module register 
 Detailed RTL Component Info : 
 +---Registers : 
 	               32 Bit    Registers := 1     
@@ -1021,6 +1282,53 @@ Detailed RTL Component Info :
 +---Muxes : 
 	   2 Input     32 Bit        Muxes := 6     
 	   2 Input      8 Bit        Muxes := 1     
+Module refclk 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      8 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 1     
+Module syncronizer 
+Detailed RTL Component Info : 
++---Registers : 
+	               13 Bit    Registers := 2     
+Module dfilter 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      8 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---Registers : 
+	                8 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 2     
+Module reg_rw 
+Detailed RTL Component Info : 
++---Registers : 
+	                8 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 1     
+Module reg_ronly 
+Detailed RTL Component Info : 
++---Registers : 
+	                8 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 1     
+Module reg_ronly__parameterized0 
+Detailed RTL Component Info : 
++---Registers : 
+	                5 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      5 Bit        Muxes := 1     
+Module localbus 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Hierarchical Component Statistics
 ---------------------------------------------------------------------------------
@@ -1068,7 +1376,7 @@ INFO: [Synth 8-3886] merging instance 'u_inst_memory/U_ram/U0/inst_blk_mem_gen/g
 INFO: [Synth 8-3886] merging instance 'u_inst_memory/U_ram/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[1].ram.r/SAFETY_CKT_GEN.RSTA_BUSY_NO_REG.RSTA_BUSY_reg' (FD) to 'u_inst_memory/U_ram/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[2].ram.r/SAFETY_CKT_GEN.RSTA_BUSY_NO_REG.RSTA_BUSY_reg'
 INFO: [Synth 8-3886] merging instance 'u_inst_memory/U_ram/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[2].ram.r/SAFETY_CKT_GEN.RSTA_BUSY_NO_REG.RSTA_BUSY_reg' (FD) to 'u_inst_memory/U_ram/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[3].ram.r/SAFETY_CKT_GEN.RSTA_BUSY_NO_REG.RSTA_BUSY_reg'
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:56 ; elapsed = 00:01:08 . Memory (MB): peak = 1808.008 ; gain = 416.902 ; free physical = 544 ; free virtual = 8016
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:57 ; elapsed = 00:01:10 . Memory (MB): peak = 1816.699 ; gain = 426.598 ; free physical = 223 ; free virtual = 7889
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -1085,10 +1393,10 @@ Note: The table above is a preliminary report that shows the Block RAMs at the c
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6837] The timing for the instance i_0/u_data_memory/U_ram/genblk1[1].RAM_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
-INFO: [Synth 8-6837] The timing for the instance i_0/u_data_memory/U_ram/genblk1[1].RAM_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
-INFO: [Synth 8-6837] The timing for the instance i_0/u_data_memory/U_ram/genblk1[1].RAM_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
-INFO: [Synth 8-6837] The timing for the instance i_0/u_data_memory/U_ram/genblk1[1].RAM_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-6837] The timing for the instance i_0/U_localbus/U_data_memory/U_ram/genblk1[1].RAM_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-6837] The timing for the instance i_0/U_localbus/U_data_memory/U_ram/genblk1[1].RAM_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-6837] The timing for the instance i_0/U_localbus/U_data_memory/U_ram/genblk1[1].RAM_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-6837] The timing for the instance i_0/U_localbus/U_data_memory/U_ram/genblk1[1].RAM_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
@@ -1099,13 +1407,13 @@ Report RTL Partitions:
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:00 ; elapsed = 00:01:13 . Memory (MB): peak = 1808.008 ; gain = 416.902 ; free physical = 420 ; free virtual = 7892
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:01 ; elapsed = 00:01:14 . Memory (MB): peak = 1816.699 ; gain = 426.598 ; free physical = 174 ; free virtual = 7783
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:03 ; elapsed = 00:01:16 . Memory (MB): peak = 1855.031 ; gain = 463.926 ; free physical = 391 ; free virtual = 7863
+Finished Timing Optimization : Time (s): cpu = 00:01:05 ; elapsed = 00:01:18 . Memory (MB): peak = 1855.715 ; gain = 465.613 ; free physical = 204 ; free virtual = 7752
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -1130,12 +1438,12 @@ Report RTL Partitions:
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6837] The timing for the instance u_data_memory/U_ram/genblk1[1].RAM_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
-INFO: [Synth 8-6837] The timing for the instance u_data_memory/U_ram/genblk1[1].RAM_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
-INFO: [Synth 8-6837] The timing for the instance u_data_memory/U_ram/genblk1[1].RAM_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
-INFO: [Synth 8-6837] The timing for the instance u_data_memory/U_ram/genblk1[1].RAM_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-6837] The timing for the instance U_localbus/U_data_memory/U_ram/genblk1[1].RAM_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-6837] The timing for the instance U_localbus/U_data_memory/U_ram/genblk1[1].RAM_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-6837] The timing for the instance U_localbus/U_data_memory/U_ram/genblk1[1].RAM_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-6837] The timing for the instance U_localbus/U_data_memory/U_ram/genblk1[1].RAM_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:04 ; elapsed = 00:01:17 . Memory (MB): peak = 1855.031 ; gain = 463.926 ; free physical = 391 ; free virtual = 7863
+Finished Technology Mapping : Time (s): cpu = 00:01:06 ; elapsed = 00:01:19 . Memory (MB): peak = 1855.715 ; gain = 465.613 ; free physical = 187 ; free virtual = 7673
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1159,7 +1467,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:05 ; elapsed = 00:01:18 . Memory (MB): peak = 1855.031 ; gain = 463.926 ; free physical = 390 ; free virtual = 7862
+Finished IO Insertion : Time (s): cpu = 00:01:07 ; elapsed = 00:01:20 . Memory (MB): peak = 1855.715 ; gain = 465.613 ; free physical = 189 ; free virtual = 7673
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1172,7 +1480,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:05 ; elapsed = 00:01:18 . Memory (MB): peak = 1855.031 ; gain = 463.926 ; free physical = 390 ; free virtual = 7862
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:07 ; elapsed = 00:01:20 . Memory (MB): peak = 1855.715 ; gain = 465.613 ; free physical = 189 ; free virtual = 7673
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1184,25 +1492,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:05 ; elapsed = 00:01:18 . Memory (MB): peak = 1855.031 ; gain = 463.926 ; free physical = 390 ; free virtual = 7862
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:07 ; elapsed = 00:01:20 . Memory (MB): peak = 1855.715 ; gain = 465.613 ; free physical = 219 ; free virtual = 7675
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:05 ; elapsed = 00:01:18 . Memory (MB): peak = 1855.031 ; gain = 463.926 ; free physical = 390 ; free virtual = 7862
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:07 ; elapsed = 00:01:20 . Memory (MB): peak = 1855.715 ; gain = 465.613 ; free physical = 219 ; free virtual = 7675
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:05 ; elapsed = 00:01:18 . Memory (MB): peak = 1855.031 ; gain = 463.926 ; free physical = 390 ; free virtual = 7862
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:07 ; elapsed = 00:01:20 . Memory (MB): peak = 1855.715 ; gain = 465.613 ; free physical = 219 ; free virtual = 7675
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:05 ; elapsed = 00:01:18 . Memory (MB): peak = 1855.031 ; gain = 463.926 ; free physical = 390 ; free virtual = 7862
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:07 ; elapsed = 00:01:20 . Memory (MB): peak = 1855.715 ; gain = 465.613 ; free physical = 219 ; free virtual = 7675
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -1234,24 +1542,24 @@ Report Cell Usage:
 +------+-----------+------+
 |1     |BUFG       |     1|
 |2     |CARRY4     |    34|
-|3     |LUT1       |    14|
-|4     |LUT2       |    15|
-|5     |LUT3       |    61|
-|6     |LUT4       |    58|
-|7     |LUT5       |   269|
-|8     |LUT6       |   952|
-|9     |MUXF7      |   260|
+|3     |LUT1       |    16|
+|4     |LUT2       |    36|
+|5     |LUT3       |    79|
+|6     |LUT4       |   147|
+|7     |LUT5       |   286|
+|8     |LUT6       |  1109|
+|9     |MUXF7      |   164|
 |10    |RAMB36E1   |     1|
 |11    |RAMB36E1_1 |     1|
 |12    |RAMB36E1_2 |     1|
 |13    |RAMB36E1_3 |     1|
 |14    |RAMB36E1_4 |     4|
 |15    |SRL16E     |     1|
-|16    |FDCE       |  1451|
-|17    |FDPE       |     2|
+|16    |FDCE       |  1631|
+|17    |FDPE       |    10|
 |18    |FDRE       |     8|
 |19    |FDSE       |     7|
-|20    |IBUF       |     1|
+|20    |IBUF       |    14|
 |21    |OBUF       |     8|
 +------+-----------+------+
 
@@ -1259,94 +1567,118 @@ Report Instance Areas:
 +------+-------------------------------------------------+----------------------------------------------+------+
 |      |Instance                                         |Module                                        |Cells |
 +------+-------------------------------------------------+----------------------------------------------+------+
-|1     |top                                              |                                              |  3150|
-|2     |  u_data_memory                                  |ram                                           |     5|
-|3     |    U_ram                                        |bytewrite_ram_1b                              |     4|
-|4     |  u_inst_memory                                  |rom                                           |    81|
-|5     |    U_ram                                        |blk_mem_gen_0                                 |    14|
-|6     |      U0                                         |blk_mem_gen_v8_4_2                            |    14|
-|7     |        inst_blk_mem_gen                         |blk_mem_gen_v8_4_2_synth                      |    14|
-|8     |          \gnbram.gnativebmg.native_blk_mem_gen  |blk_mem_gen_top                               |    14|
-|9     |            \valid.cstr                          |blk_mem_gen_generic_cstr                      |    14|
-|10    |              \ramloop[0].ram.r                  |blk_mem_gen_prim_width                        |     2|
-|11    |                \prim_init.ram                   |blk_mem_gen_prim_wrapper_init                 |     1|
-|12    |              \ramloop[1].ram.r                  |blk_mem_gen_prim_width__parameterized0        |     1|
-|13    |                \prim_init.ram                   |blk_mem_gen_prim_wrapper_init__parameterized0 |     1|
-|14    |              \ramloop[2].ram.r                  |blk_mem_gen_prim_width__parameterized1        |     1|
-|15    |                \prim_init.ram                   |blk_mem_gen_prim_wrapper_init__parameterized1 |     1|
-|16    |              \ramloop[3].ram.r                  |blk_mem_gen_prim_width__parameterized2        |    10|
-|17    |                \prim_init.ram                   |blk_mem_gen_prim_wrapper_init__parameterized2 |     2|
-|18    |  u_top_core                                     |top_core                                      |  3034|
-|19    |    u_instruction_decode                         |instruction_decode                            |   764|
-|20    |      u_o1                                       |obuf                                          |    37|
-|21    |      u_o2                                       |obuf_30                                       |    31|
-|22    |      u_o3                                       |obuf_31                                       |    32|
-|23    |      u_o4                                       |obuf_32                                       |   292|
-|24    |      u_o5                                       |obuf_33                                       |   118|
-|25    |      u_o6                                       |obuf__parameterized0                          |    99|
-|26    |      u_o7                                       |obuf__parameterized1                          |     5|
-|27    |      u_o8                                       |obuf__parameterized2                          |   150|
-|28    |    u_register_file                              |register_file                                 |  1857|
-|29    |      x1                                         |reg_rw                                        |    33|
-|30    |      x10                                        |reg_rw_0                                      |    32|
-|31    |      x11                                        |reg_rw_1                                      |    32|
-|32    |      x12                                        |reg_rw_2                                      |    32|
-|33    |      x13                                        |reg_rw_3                                      |    32|
-|34    |      x14                                        |reg_rw_4                                      |    33|
-|35    |      x15                                        |reg_rw_5                                      |    32|
-|36    |      x16                                        |reg_rw_6                                      |    32|
-|37    |      x17                                        |reg_rw_7                                      |    33|
-|38    |      x18                                        |reg_rw_8                                      |    32|
-|39    |      x19                                        |reg_rw_9                                      |    32|
-|40    |      x2                                         |reg_rw_10                                     |    32|
-|41    |      x20                                        |reg_rw_11                                     |    32|
-|42    |      x21                                        |reg_rw_12                                     |    32|
-|43    |      x22                                        |reg_rw_13                                     |    33|
-|44    |      x23                                        |reg_rw_14                                     |    33|
-|45    |      x24                                        |reg_rw_15                                     |    32|
-|46    |      x25                                        |reg_rw_16                                     |    32|
-|47    |      x26                                        |reg_rw_17                                     |    32|
-|48    |      x27                                        |reg_rw_18                                     |    32|
-|49    |      x28                                        |reg_rw_19                                     |    32|
-|50    |      x29                                        |reg_rw_20                                     |    32|
-|51    |      x3                                         |reg_rw_21                                     |    32|
-|52    |      x30                                        |reg_rw_22                                     |    33|
-|53    |      x31                                        |reg_rw_23                                     |    33|
-|54    |      x4                                         |reg_rw_24                                     |    32|
-|55    |      x5                                         |reg_rw_25                                     |    32|
-|56    |      x6                                         |reg_rw_26                                     |    32|
-|57    |      x7                                         |reg_rw_27                                     |    32|
-|58    |      x8                                         |reg_rw_28                                     |    33|
-|59    |      x9                                         |reg_rw_29                                     |    33|
-|60    |    u_statemachine                               |statemachine                                  |     7|
-|61    |    u_top_execute                                |top_execute                                   |   132|
-|62    |      U_alu                                      |alu                                           |     8|
-|63    |      U_comp                                     |comp                                          |    12|
-|64    |    u_top_fetch                                  |top_fetch                                     |   105|
-|65    |    u_top_memoryaccess                           |top_memoryaccess                              |   169|
+|1     |top                                              |                                              |  3559|
+|2     |  U_localbus                                     |localbus                                      |   440|
+|3     |    U_data_memory                                |ram                                           |     9|
+|4     |      U_ram                                      |bytewrite_ram_1b                              |     9|
+|5     |    U_top_gpio                                   |top_gpio                                      |   431|
+|6     |      U_fnc_gpio                                 |fnc_gpio                                      |   373|
+|7     |        \DeigtalFilter[0].U_dfilter              |dfilter                                       |    25|
+|8     |        \DeigtalFilter[10].U_dfilter             |dfilter_36                                    |    25|
+|9     |        \DeigtalFilter[11].U_dfilter             |dfilter_37                                    |    25|
+|10    |        \DeigtalFilter[12].U_dfilter             |dfilter_38                                    |    25|
+|11    |        \DeigtalFilter[1].U_dfilter              |dfilter_39                                    |    25|
+|12    |        \DeigtalFilter[2].U_dfilter              |dfilter_40                                    |    25|
+|13    |        \DeigtalFilter[3].U_dfilter              |dfilter_41                                    |    25|
+|14    |        \DeigtalFilter[4].U_dfilter              |dfilter_42                                    |    25|
+|15    |        \DeigtalFilter[5].U_dfilter              |dfilter_43                                    |    25|
+|16    |        \DeigtalFilter[6].U_dfilter              |dfilter_44                                    |    25|
+|17    |        \DeigtalFilter[7].U_dfilter              |dfilter_45                                    |    25|
+|18    |        \DeigtalFilter[8].U_dfilter              |dfilter_46                                    |    25|
+|19    |        \DeigtalFilter[9].U_dfilter              |dfilter_47                                    |    25|
+|20    |        U_refclk                                 |refclk                                        |    21|
+|21    |        U_sync                                   |syncronizer                                   |    27|
+|22    |      U_reg_gpio                                 |reg_gpio                                      |    58|
+|23    |        U_reg00                                  |reg_rw                                        |    15|
+|24    |        U_reg04                                  |reg_rw_34                                     |     8|
+|25    |        U_reg10                                  |reg_ronly                                     |    22|
+|26    |        U_reg11                                  |reg_ronly__parameterized0                     |     5|
+|27    |        U_reg20                                  |reg_rw_35                                     |     8|
+|28    |  u_inst_memory                                  |rom                                           |    83|
+|29    |    U_ram                                        |blk_mem_gen_0                                 |    14|
+|30    |      U0                                         |blk_mem_gen_v8_4_2                            |    14|
+|31    |        inst_blk_mem_gen                         |blk_mem_gen_v8_4_2_synth                      |    14|
+|32    |          \gnbram.gnativebmg.native_blk_mem_gen  |blk_mem_gen_top                               |    14|
+|33    |            \valid.cstr                          |blk_mem_gen_generic_cstr                      |    14|
+|34    |              \ramloop[0].ram.r                  |blk_mem_gen_prim_width                        |     2|
+|35    |                \prim_init.ram                   |blk_mem_gen_prim_wrapper_init                 |     1|
+|36    |              \ramloop[1].ram.r                  |blk_mem_gen_prim_width__parameterized0        |     1|
+|37    |                \prim_init.ram                   |blk_mem_gen_prim_wrapper_init__parameterized0 |     1|
+|38    |              \ramloop[2].ram.r                  |blk_mem_gen_prim_width__parameterized1        |     1|
+|39    |                \prim_init.ram                   |blk_mem_gen_prim_wrapper_init__parameterized1 |     1|
+|40    |              \ramloop[3].ram.r                  |blk_mem_gen_prim_width__parameterized2        |    10|
+|41    |                \prim_init.ram                   |blk_mem_gen_prim_wrapper_init__parameterized2 |     2|
+|42    |  u_top_core                                     |top_core                                      |  2993|
+|43    |    u_top_fetch                                  |top_fetch                                     |   104|
+|44    |    u_instruction_decode                         |instruction_decode                            |   765|
+|45    |      u_o1                                       |obuf                                          |    36|
+|46    |      u_o2                                       |obuf_30                                       |    31|
+|47    |      u_o3                                       |obuf_31                                       |    32|
+|48    |      u_o4                                       |obuf_32                                       |   290|
+|49    |      u_o5                                       |obuf_33                                       |   121|
+|50    |      u_o6                                       |obuf__parameterized0                          |   100|
+|51    |      u_o7                                       |obuf__parameterized1                          |     5|
+|52    |      u_o8                                       |obuf__parameterized2                          |   150|
+|53    |    u_register_file                              |register_file                                 |  1792|
+|54    |      x1                                         |register                                      |    32|
+|55    |      x10                                        |register_0                                    |    32|
+|56    |      x11                                        |register_1                                    |    33|
+|57    |      x12                                        |register_2                                    |    32|
+|58    |      x13                                        |register_3                                    |    32|
+|59    |      x14                                        |register_4                                    |    33|
+|60    |      x15                                        |register_5                                    |    32|
+|61    |      x16                                        |register_6                                    |    32|
+|62    |      x17                                        |register_7                                    |    32|
+|63    |      x18                                        |register_8                                    |    32|
+|64    |      x19                                        |register_9                                    |    33|
+|65    |      x2                                         |register_10                                   |    32|
+|66    |      x20                                        |register_11                                   |    32|
+|67    |      x21                                        |register_12                                   |    32|
+|68    |      x22                                        |register_13                                   |    33|
+|69    |      x23                                        |register_14                                   |    32|
+|70    |      x24                                        |register_15                                   |    32|
+|71    |      x25                                        |register_16                                   |    32|
+|72    |      x26                                        |register_17                                   |    32|
+|73    |      x27                                        |register_18                                   |    33|
+|74    |      x28                                        |register_19                                   |    32|
+|75    |      x29                                        |register_20                                   |    32|
+|76    |      x3                                         |register_21                                   |    33|
+|77    |      x30                                        |register_22                                   |    33|
+|78    |      x31                                        |register_23                                   |    32|
+|79    |      x4                                         |register_24                                   |    32|
+|80    |      x5                                         |register_25                                   |    32|
+|81    |      x6                                         |register_26                                   |    33|
+|82    |      x7                                         |register_27                                   |    32|
+|83    |      x8                                         |register_28                                   |    32|
+|84    |      x9                                         |register_29                                   |    32|
+|85    |    u_statemachine                               |statemachine                                  |     8|
+|86    |    u_top_execute                                |top_execute                                   |   158|
+|87    |      U_alu                                      |alu                                           |     8|
+|88    |      U_comp                                     |comp                                          |    12|
+|89    |    u_top_memoryaccess                           |top_memoryaccess                              |   166|
 +------+-------------------------------------------------+----------------------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:05 ; elapsed = 00:01:18 . Memory (MB): peak = 1855.031 ; gain = 463.926 ; free physical = 390 ; free virtual = 7862
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:07 ; elapsed = 00:01:20 . Memory (MB): peak = 1855.715 ; gain = 465.613 ; free physical = 219 ; free virtual = 7675
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 206 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:01 ; elapsed = 00:01:13 . Memory (MB): peak = 1855.031 ; gain = 266.863 ; free physical = 447 ; free virtual = 7919
-Synthesis Optimization Complete : Time (s): cpu = 00:01:05 ; elapsed = 00:01:18 . Memory (MB): peak = 1855.039 ; gain = 463.926 ; free physical = 447 ; free virtual = 7919
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:03 ; elapsed = 00:01:16 . Memory (MB): peak = 1855.715 ; gain = 260.551 ; free physical = 275 ; free virtual = 7731
+Synthesis Optimization Complete : Time (s): cpu = 00:01:07 ; elapsed = 00:01:21 . Memory (MB): peak = 1855.723 ; gain = 465.613 ; free physical = 275 ; free virtual = 7731
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 302 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 206 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1871.039 ; gain = 0.000 ; free physical = 380 ; free virtual = 7855
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1871.723 ; gain = 0.000 ; free physical = 221 ; free virtual = 7673
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-106 Infos, 103 Warnings, 0 Critical Warnings and 0 Errors encountered.
+126 Infos, 103 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:07 ; elapsed = 00:01:19 . Memory (MB): peak = 1871.039 ; gain = 480.047 ; free physical = 450 ; free virtual = 7925
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 1871.039 ; gain = 0.000 ; free physical = 450 ; free virtual = 7925
+synth_design: Time (s): cpu = 00:01:09 ; elapsed = 00:01:22 . Memory (MB): peak = 1871.723 ; gain = 481.734 ; free physical = 292 ; free virtual = 7743
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1871.723 ; gain = 0.000 ; free physical = 292 ; free virtual = 7743
 WARNING: [Constraints 18-5210] No constraints selected for write.
 Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
 INFO: [Common 17-1381] The checkpoint '/home/aokim/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/top_zedboard.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file top_zedboard_utilization_synth.rpt -pb top_zedboard_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Fri Feb 22 05:08:21 2019...
+INFO: [Common 17-206] Exiting Vivado at Wed Mar  6 05:10:30 2019...

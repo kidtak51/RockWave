@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 11:09
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/03 12:15
+ * Last Modified: 2019/03/06 04:48
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -36,7 +36,7 @@ module top_gpio(
 );
     `include "core_general.vh"
 
-    parameter INNUM = 16;      // 入力端子 本数
+    parameter INNUM = 13;      // 入力端子 本数
     parameter OUTNUM = 8;      // 出力端子 本数
 
     // Connect Wire func & reg

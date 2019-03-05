@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 09:29
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/03 12:30
+ * Last Modified: 2019/03/06 05:07
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -46,7 +46,7 @@ module reg_gpio(
     wire [ 7:0]     reg00;
     wire [ 7:0]     reg04;
     wire [ 7:0]     reg10;
-    wire [ 7:0]     reg11;
+    wire [ 4:0]     reg11;
     wire [ 7:0]     reg20;
 
     // WriteEnable at Position
@@ -95,9 +95,9 @@ module reg_gpio(
         .rdata(reg10), .re(adsel10)
     );
 
-    reg_ronly #(8) U_reg11(
+    reg_ronly #(5) U_reg11(
         .clk(clk), .rst_n(rst_n),
-        .datain(gpio_in[15:8]),
+        .datain(gpio_in[12:8]),
         .rdata(reg11), .re(adsel11)
     );
 

@@ -17,7 +17,10 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
+set_param synth.incrementalSynthesisCache ./.Xil/Vivado-31917-H370HD3/incrSyn
 set_param xicom.use_bs_reader 1
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 create_project -in_memory -part xc7z020clg484-1
 
 set_param project.singleFileAddWarning.threshold 0
@@ -33,21 +36,30 @@ set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
 set_property ip_output_repo /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 set_property generic Xilinx [current_fileset]
-add_files /home/aokim/RockWave/fw/fw.coe
+add_files /home/aokim/RockWave/fw/night.coe
 read_verilog /home/aokim/RockWave/HDL_SRC/CORE/core_general.vh
 read_verilog -library xil_defaultlib {
   /home/aokim/RockWave/HDL_SRC/CORE/Execute/alu.v
   /home/aokim/RockWave/HDL_SRC/CORE/Execute/comp.v
+  /home/aokim/RockWave/HDL_SRC/Board_Common/dfilter.v
+  /home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/fnc_gpio.v
   /home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v
+  /home/aokim/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v
   /home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v
   /home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v
-  /home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v
+  /home/aokim/RockWave/HDL_SRC/Board_Common/refclk.v
+  /home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/reg_gpio.v
+  /home/aokim/RockWave/HDL_SRC/Board_Common/reg_ronly.v
+  /home/aokim/RockWave/HDL_SRC/Board_Common/reg_rw.v
+  /home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register.v
   /home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v
   /home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v
   /home/aokim/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v
+  /home/aokim/RockWave/HDL_SRC/Board_Common/synchronizer.v
   /home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v
   /home/aokim/RockWave/HDL_SRC/CORE/Execute/top_execute.v
   /home/aokim/RockWave/HDL_SRC/CORE/Fetch/top_fetch.v
+  /home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/top_gpio.v
   /home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v
   /home/aokim/RockWave/HDL_SRC/CORE/WriteBack/writeback.v
   /home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v

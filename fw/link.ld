@@ -1,17 +1,22 @@
 OUTPUT_ARCH( "riscv" )
 ENTRY(_start)
 
+_estack = 0x90000FFF;
+
+MEMORY {
+    RAM  ( rw): ORIGIN = 0x90000000, LENGTH =  4K /* Data RAM Area */
+    ROM  (xr ): ORIGIN = 0x80000000, LENGTH =  4K /* Inst ROM Area */
+}
 SECTIONS
 {
-  . = 0x80000000;
-  .text.init : { *(.text.init) }
-  . = ALIGN(0x0010);
-  .tohost : { *(.tohost) }
-  . = ALIGN(0x0010);
-  .text : { *(.text) }
-  . = ALIGN(0x0010);
-  .data : { *(.data) }
-  .bss : { *(.bss) }
+  .text.init : { *(.text.init) } > ROM
+  . = ALIGN(4);
+  .tohost : { *(.tohost) } > ROM
+  . = ALIGN(4);
+  .text : { *(.text) } > ROM
+  .data : { *(.data) }>RAM
+  __bss_start = .;
+  .bss : { *(.bss) }>RAM
   _end = .;
 }
 

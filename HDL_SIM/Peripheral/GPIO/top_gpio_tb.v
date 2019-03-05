@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 11:54
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/03 12:53
+ * Last Modified: 2019/03/03 15:41
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -164,6 +164,7 @@ initial begin
     #(`STEP)
     assert_eq(rdata,32'h00000000);
 
+    // GPIO out
     // Addr 020 Word Write
     addr = 12'h020;    sel = 1;
     wdata = 32'hAAAAAAAA;

@@ -5,8 +5,8 @@
  * File Created: 2019/01/10 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/02/20 12:15
- * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
+ * Last Modified: 2019/03/03 15:54
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -31,7 +31,7 @@ module top_core(
 
     //data memory
     input [XLEN-1:0] data_mem_out,//データメモリからのデータ出力を接続する
-    output [AWIDTH-1:0] data_mem_addr,//データメモリへのアドレスを接続する
+    output [XLEN-1:0] data_mem_addr,//データメモリへのアドレスを接続する
     output [XLEN-1:0] data_mem_wdata,//データメモリへのデータ入力を接続する
     output [2:0] data_mem_we//データメモリへのWriteEnable信号を接続する
 );
