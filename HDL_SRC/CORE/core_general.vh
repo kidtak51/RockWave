@@ -5,8 +5,8 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/02/18 07:42
- * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
+ * Last Modified: 2019/03/04 05:26
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2019/03/03	Masaru Aoki	メモリマップ用設定を作成
  * 2019/02/18 shonta      SLTIと分離するためdecoded_opにmust jumpを追加
  * 2019/01/24	Masaru Aoki	64bitの記述を追加
  * 2019/01/09	kidtak51	  各制御ブロックの出力段のFlipFlopを除去するための定義を追加した
@@ -45,6 +46,14 @@
     parameter WORDS = (2**AWIDTH);
     // Reset Vector
     parameter RESET_VECTOR = 32'h8000_0000;
+
+    /////////////////////////////////////////////
+    // Memory Map
+    /////////////////////////////////////////////]
+    parameter BASE_MASK = 32'hFF00_0000;
+    parameter GPIO_BASE = 32'h7000_0000;
+    parameter ROM_BASE  = 32'h8000_0000;
+    parameter RAM_BASE  = 32'h9000_0000;
 
     /////////////////////////////////////////////
     // Doecode

@@ -1,6 +1,8 @@
 module top_zedboard(
     input clk,
-    output [7:0] led
+
+    input [12:0] gpio_pin_in,
+    output [7:0] gpio_pin_out
 );
 `include "core_general.vh"
 
@@ -10,14 +12,14 @@ module top_zedboard(
 
     //data memory
     wire [XLEN-1:0] data_mem_out;
-    wire [AWIDTH-1:0] data_mem_addr;
+    wire [XLEN-1:0] data_mem_addr;
     wire [XLEN-1:0] data_mem_wdata;
     wire [2:0] data_mem_we;
 
 `ifdef __ICARUS__
 initial begin
     //$readmemh(`INST_ROM_FILE_NAME, u_inst_memory.mem);
-    $readmemh("rv32ui-p-add.hex", u_inst_memory.mem);
+    $readmemh("../../../fw/night.hex", u_inst_memory.U_ram.ram);
 end
 `endif
 
@@ -54,13 +56,16 @@ rom u_inst_memory
     .qout(inst_data)
 );
 
-ram u_data_memory(
+localbus U_localbus(
     .clk(clk),
     .rst_n(rst_n),
     .addr(data_mem_addr),
     .qin(data_mem_wdata),
     .we(data_mem_we),
-    .qout(data_mem_out)
+    .qout(data_mem_out),
+
+    .gpio_pin_in(gpio_pin_in),
+    .gpio_pin_out(gpio_pin_out)
 );
 
 wire [XLEN-1:0] pc = u_top_core.u_top_fetch.program_counter;
@@ -95,7 +100,5 @@ wire [XLEN-1:0] x28_t3 = u_top_core.u_register_file.x28out;
 wire [XLEN-1:0] x29_t4 = u_top_core.u_register_file.x29out;
 wire [XLEN-1:0] x30_t5 = u_top_core.u_register_file.x30out;
 wire [XLEN-1:0] x31_t6 = u_top_core.u_register_file.x31out;
-
-assign led = x10_a0[7:0];
 
 endmodule

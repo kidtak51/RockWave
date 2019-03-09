@@ -5,7 +5,7 @@
  * File Created: 2019/02/17 07:13
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: Fri Feb 22 2019
+ * Last Modified: Wed Mar 06 2019
  * Modified By: Masaru Aoki
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -21,36 +21,40 @@
  * *****************************************************************
  */
 
-void led_out(unsigned char led);
+#define GPIO_IN  (0x70000000+0x0010)
+#define GPIO_OUT (0x70000000+0x0020)
+  
+
+void wait(unsigned int wait);
 
 void main()
 {
     int i;
-    int wait;
     int led;
-    int a,b;
 
-    a=0;
-    b=0;
-
-    while(a==b){
+    while(1){
         led = 1;
         for(i=0;i<7;i++){
             led = led << 1;
-            led_out(led);
-            for(wait=0;wait<3000000;wait++);
+//            led_out(led);
+            *(volatile int *)(GPIO_OUT) = led;
+            wait(2000000);
         }
         for(i=0;i<7;i++){
             led = led >> 1;
-            led_out(led);
-            for(wait=0;wait<3000000;wait++);
+//            led_out(led);
+            *(volatile int *)(GPIO_OUT) = led;
+            wait(2000000);
         }
     }
 
 }
 
 
-void led_out(unsigned char led)
+void wait(unsigned int wait)
 {
+    for (int i = 0; i < wait;i++)
+        ;
+
     return;
 }

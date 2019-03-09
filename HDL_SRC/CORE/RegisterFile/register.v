@@ -1,17 +1,17 @@
 /*
  * *****************************************************************
- * File: reg_rw.v
+ * File: register.v
  * Category: RegisterFile
  * File Created: 2018/11/25 06:54
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2018/12/20 05:29
+ * Last Modified: 2019/01/31 05:41
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
  * Description:
- *    R/W レジスタ
+ *    R/W レジスタ for regster file
  * *****************************************************************
  * HISTORY:
  * Date      	By    	        Comments
@@ -20,7 +20,7 @@
  * *****************************************************************
  */
 
-module reg_rw (
+module register (
     clk, rst_n,
     wenble,
     datain, dataout

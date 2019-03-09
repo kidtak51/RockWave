@@ -5,7 +5,7 @@
  * File Created: 2019/01/02 05:45
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/24 04:57
+ * Last Modified: 2019/03/03 15:54
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -36,7 +36,7 @@ module top_memoryaccess(
     input [XLEN-1:0] alu_out_em,     // ALU output
     input [XLEN-1:0] rs2data_em,     // RS2data
     // For DataMemory
-    output [AWIDTH-1:0] data_mem_addr,// Address
+    output [XLEN-1:0] data_mem_addr,// Address
     output [XLEN-1:0] data_mem_wdata,// Write Data
     output [2:0] data_mem_we,        // Write Enable
     // For WriteBack

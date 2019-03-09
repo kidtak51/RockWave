@@ -5,7 +5,7 @@
  * File Created: 2019/01/14 08:26
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/22 05:12
+ * Last Modified: 2019/01/31 05:05
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -44,9 +44,10 @@ module dfilter_tb;
 
     ///////////////////////////////////////////////////////////////////
     // インスタンス
-    refclk #(.BW(3), .N(3)) 
+    refclk #(.BW(3) )
     U_refclk3 (
     .clk(clk), .rst_n(rst_n),
+    .ref_st(3'h2),
     .refclk(refclk)
     );
 
