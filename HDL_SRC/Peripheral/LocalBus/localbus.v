@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/04 05:40
+ * Last Modified: 2019/03/13 04:03
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -34,7 +34,15 @@ module localbus(
 
     // PIN output / input
     input  [ INNUM-1:0] gpio_pin_in,   // GPIO 端子 (入力)
-    output [OUTNUM-1:0] gpio_pin_out   // GPIO 端子 (出力)
+    output [OUTNUM-1:0] gpio_pin_out,  // GPIO 端子 (出力)
+
+    output    hsync,
+    output    vsync,
+    output [3:0]   rdata,
+    output [3:0]   gdata,
+    output [3:0]   bdata
+
+
 );
     parameter INNUM = 13;      // 入力端子 本数
     parameter OUTNUM = 8;      // 出力端子 本数
@@ -44,12 +52,14 @@ module localbus(
     wire [XLEN-1:0] ram_qout;                  // 常時RAM read data
     wire [XLEN-1:0] ram_qout_sel;              // Selected RAM Read data out (領域選択されていないと0出力)
     wire [XLEN-1:0] gpio_qout_sel;             // Selected GPIO Read data out
+    wire [XLEN-1:0] vga_qout_sel;              // Selected VRAM Read data out
 
     // Local BUS としてのReadData出力
-    assign qout = ram_qout_sel | gpio_qout_sel;
+    assign qout = ram_qout_sel | gpio_qout_sel | vga_qout_sel;
 
     wire  ram_sel   = ((addr & BASE_MASK) ==  RAM_BASE);
     wire  gpio_sel  = ((addr & BASE_MASK) == GPIO_BASE);
+    wire  vga_sel   = ((addr & BASE_MASK) ==  VGA_BASE);
 
 
     ////////////////////////////////////////////////////////////////
@@ -81,5 +91,25 @@ module localbus(
         .gpio_pin_in    (gpio_pin_in),
         .gpio_pin_out   (gpio_pin_out)
     );
+
+    ////////////////////////////////////////////////////////////////
+    // VGA領域
+    top_vgacontroller U_top_vgacontroller(
+        .clk            (clk),
+        .rst_n          (rst_n),
+
+        .hsync          (hsync),
+        .vsync          (vsync),
+        .rdata          (rdata),
+        .gdata          (gdata),
+        .bdata          (bdata),
+
+        .sel            (vga_sel),
+        .addr           (addr[18:0]),
+        .qin            (qin),
+        .we             (we[2]),
+        .qout           (vga_qout_sel)
+    );
+
 
 endmodule
