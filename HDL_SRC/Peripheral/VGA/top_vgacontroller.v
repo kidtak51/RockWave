@@ -1,11 +1,11 @@
 /*
  * *****************************************************************
- * File: top_vgacontroller.v
+ * File: night.c
  * Category: VGA
  * File Created: 2019/03/12 04:06
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/13 04:03
+ * Last Modified: 2019/03/15 05:33
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -44,12 +44,16 @@ module top_vgacontroller(
     wire [11:0]     datab;
 
     // Pixel Clock生成
+`ifdef __ICARUS__
+    assign pixel_clk = clk;
+`else
     pll_pixelclock U_pll_pixelclock
     (
     // Clock out ports
     .pixelclk(pixel_clk),     // output pixelclk
     // Clock in ports
     .clk(clk));      // input clk
+`endif
 
     fnc_vgacontroller U_fnc_vgacontroller(
         .clk            (pixel_clk),
@@ -68,19 +72,26 @@ module top_vgacontroller(
 
     // VRAM
     // True Dual Port RAMで生成し、PORTB側をROMとして使用
+    wire [11:0] douta;
+    assign qout = {{(XLEN-12){1'b0}},douta};
+
+`ifdef __ICARUS__
+    assign qout = 32'h00000000;
+    assign datab = addrb[11:0];
+`else
     vram U_vram (
           .clka         (clk),
           .ena          (sel),
           .wea          (we),
           .addra        (addr),
           .dina         (qin),
-          .douta        (qout),
+          .douta        (douta),
           .clkb         (pixel_clk),
           .web          (1'b0),
           .addrb        (addrb),
           .dinb         (12'h000),
           .doutb        (datab)
     );
-
+`endif
 
 endmodule

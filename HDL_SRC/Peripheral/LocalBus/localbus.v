@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/13 04:03
+ * Last Modified: 2019/03/15 05:04
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -107,7 +107,7 @@ module localbus(
         .sel            (vga_sel),
         .addr           (addr[18:0]),
         .qin            (qin),
-        .we             (we[2]),
+        .we             (we),
         .qout           (vga_qout_sel)
     );
 

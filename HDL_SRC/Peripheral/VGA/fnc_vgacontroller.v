@@ -5,7 +5,7 @@
  * File Created: 2019/03/10 06:58
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/13 05:00
+ * Last Modified: 2019/03/15 05:03
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -32,7 +32,7 @@ module fnc_vgacontroller(
     output          vbrank,         // 垂直帰線区間
 
     // VRAM
-    output [19:0]   addr,           // VRAM アドレス
+    output reg [18:0] addr,         // VRAM アドレス
     input  [11:0]   data,           // 画素データ
 
     // Display
@@ -57,7 +57,6 @@ module fnc_vgacontroller(
 
     reg [9:0]   horcount;       // 水平カウンタ
     reg [9:0]   vercount;       // 垂直カウンタ
-    reg [19:0]  addr;           // VRAMアドレス
 
 
     ////////////////////////////////////////////////////////////
@@ -143,11 +142,11 @@ module fnc_vgacontroller(
     //   画像領域でカウントアップ
     always @(posedge clk or negedge rst_n) begin
         if(~rst_n)
-            addr <= 20'h00000;
+            addr <= 19'h00000;
         else if( ~module_en )
-            addr <= 20'h00000;
+            addr <= 19'h00000;
         else if( vercount_full)
-            addr <= 20'h00000;
+            addr <= 19'h00000;
         else if( ~vbrank & ~hbrank)
             addr <= addr + 1'b1;
         else
