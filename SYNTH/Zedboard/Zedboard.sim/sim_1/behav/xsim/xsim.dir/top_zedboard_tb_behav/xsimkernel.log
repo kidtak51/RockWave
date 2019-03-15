@@ -1,7 +1,7 @@
-Running: xsim.dir/top_zedboard_tb_behav/xsimk -simmode gui -wdb top_zedboard_tb_behav.wdb -simrunnum 0 -socket 33875
+Running: xsim.dir/top_zedboard_tb_behav/xsimk -simmode gui -wdb top_zedboard_tb_behav.wdb -simrunnum 0 -socket 53493
 Design successfully loaded
-Design Loading Memory Usage: 44176 KB (Peak: 44184 KB)
-Design Loading CPU Usage: 40 ms
+Design Loading Memory Usage: 47268 KB (Peak: 47276 KB)
+Design Loading CPU Usage: 0 ms
 Simulation completed
-Simulation Memory Usage: 130524 KB (Peak: 191448 KB)
-Simulation CPU Usage: 28840 ms
+Simulation Memory Usage: 134020 KB (Peak: 194540 KB)
+Simulation CPU Usage: 16910 ms

@@ -1,19 +1,33 @@
 # compile verilog/system verilog design source files
-verilog xil_defaultlib  --include "../../../../../../HDL_SRC/CORE" \
+verilog xil_defaultlib  --include "../../../../Zedboard.srcs/sources_1/ip/pll_pixelclock_1" --include "../../../../../../HDL_SRC/CORE" \
+"../../../../Zedboard.srcs/sources_1/ip/vram_1/sim/vram.v" \
+"../../../../Zedboard.srcs/sources_1/ip/pll_pixelclock_1/pll_pixelclock_clk_wiz.v" \
+"../../../../Zedboard.srcs/sources_1/ip/pll_pixelclock_1/pll_pixelclock.v" \
 "../../../../Zedboard.srcs/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v" \
 "../../../../../../HDL_SRC/CORE/Execute/alu.v" \
 "../../../../../../HDL_SRC/CORE/Execute/comp.v" \
+"../../../../../../HDL_SRC/Board_Common/dfilter.v" \
+"../../../../../../HDL_SRC/Peripheral/GPIO/fnc_gpio.v" \
+"../../../../../../HDL_SRC/Peripheral/VGA/fnc_vgacontroller.v" \
 "../../../../../../HDL_SRC/CORE/instruction_decode/instruction_decode.v" \
+"../../../../../../HDL_SRC/Peripheral/LocalBus/localbus.v" \
 "../../../../../../HDL_SRC/CORE/instruction_decode/obuf.v" \
 "../../../../../../HDL_SRC/CORE/MemoryAccess/ram.v" \
-"../../../../../../HDL_SRC/CORE/RegisterFile/reg_rw.v" \
+"../../../../../../HDL_SRC/Board_Common/refclk.v" \
+"../../../../../../HDL_SRC/Peripheral/GPIO/reg_gpio.v" \
+"../../../../../../HDL_SRC/Board_Common/reg_ronly.v" \
+"../../../../../../HDL_SRC/Board_Common/reg_rw.v" \
+"../../../../../../HDL_SRC/CORE/RegisterFile/register.v" \
 "../../../../../../HDL_SRC/CORE/RegisterFile/register_file.v" \
 "../../../../../../HDL_SRC/CORE/Fetch/rom.v" \
 "../../../../../../HDL_SRC/CORE/StateMachine/statemachine.v" \
+"../../../../../../HDL_SRC/Board_Common/synchronizer.v" \
 "../../../../../../HDL_SRC/CORE/_top/top_core.v" \
 "../../../../../../HDL_SRC/CORE/Execute/top_execute.v" \
 "../../../../../../HDL_SRC/CORE/Fetch/top_fetch.v" \
+"../../../../../../HDL_SRC/Peripheral/GPIO/top_gpio.v" \
 "../../../../../../HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v" \
+"../../../../../../HDL_SRC/Peripheral/VGA/top_vgacontroller.v" \
 "../../../../top_zedboard.v" \
 "../../../../../../HDL_SRC/CORE/WriteBack/writeback.v" \
 "../../../../../../HDL_SIM/CORE/_top/top_zedboard_tb.v" \

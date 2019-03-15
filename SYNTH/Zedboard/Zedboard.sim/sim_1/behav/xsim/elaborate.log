@@ -3,6 +3,8 @@ Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
 Running: /opt/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto a933adacb9d34f55b154d07169588e63 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot top_zedboard_tb_behav xil_defaultlib.top_zedboard_tb xil_defaultlib.glbl -log elaborate.log 
 Using 8 slave threads.
 Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 3 differs from formal bit length 1 for port 'wea' [/home/aokim/RockWave/HDL_SRC/Peripheral/VGA/top_vgacontroller.v:85]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 12 for port 'dina' [/home/aokim/RockWave/HDL_SRC/Peripheral/VGA/top_vgacontroller.v:87]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis
@@ -19,7 +21,7 @@ Compiling module xil_defaultlib.alu_default
 Compiling module xil_defaultlib.comp_default
 Compiling module xil_defaultlib.top_execute_default
 Compiling module xil_defaultlib.top_memoryaccess_default
-Compiling module xil_defaultlib.reg_rw_default
+Compiling module xil_defaultlib.register_default
 Compiling module xil_defaultlib.register_file_default
 Compiling module xil_defaultlib.top_core_default
 Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
@@ -31,6 +33,29 @@ Compiling module xil_defaultlib.blk_mem_gen_0
 Compiling module xil_defaultlib.rom_default
 Compiling module xil_defaultlib.bytewrite_ram_1b_default
 Compiling module xil_defaultlib.ram_default
+Compiling module xil_defaultlib.refclk(BW=8)
+Compiling module xil_defaultlib.syncronizer(WIDTH=13,INIVAL=0)
+Compiling module xil_defaultlib.dfilter
+Compiling module xil_defaultlib.fnc_gpio(INNUM=13)
+Compiling module xil_defaultlib.reg_rw(BW=8)
+Compiling module xil_defaultlib.reg_ronly(BW=8)
+Compiling module xil_defaultlib.reg_ronly(BW=5)
+Compiling module xil_defaultlib.reg_gpio(INNUM=13)
+Compiling module xil_defaultlib.top_gpio_default
+Compiling module unisims_ver.IBUF
+Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=49.87...
+Compiling module unisims_ver.BUFG
+Compiling module xil_defaultlib.pll_pixelclock_clk_wiz
+Compiling module xil_defaultlib.pll_pixelclock
+Compiling module xil_defaultlib.fnc_vgacontroller
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="zyn...
+Compiling module xil_defaultlib.vram
+Compiling module xil_defaultlib.top_vgacontroller_default
+Compiling module xil_defaultlib.localbus_default
 Compiling module xil_defaultlib.top_zedboard_default
 Compiling module xil_defaultlib.top_zedboard_tb
 Compiling module xil_defaultlib.glbl

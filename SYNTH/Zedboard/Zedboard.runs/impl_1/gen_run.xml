@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7z020clg484-1" LaunchTime="1551816540">
+<GenRun Id="impl_1" LaunchPart="xc7z020clg484-1" LaunchTime="1552595653">
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
   <File Type="BG-DRC" Name="top_zedboard.drc"/>
   <File Type="BG-BGN" Name="top_zedboard.bgn"/>
@@ -71,6 +71,13 @@
   <File Type="PA-TCL" Name="top_zedboard.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/ip/pll_pixelclock_1/pll_pixelclock.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -106,6 +113,13 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../../HDL_SRC/Peripheral/GPIO/fnc_gpio.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/VGA/fnc_vgacontroller.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -238,6 +252,13 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/VGA/top_vgacontroller.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PPRDIR/../../HDL_SRC/CORE/WriteBack/writeback.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -253,6 +274,12 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../../fw/night.coe">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/VGA/vga.coe">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -295,4 +322,5 @@
     <Step Id="post_route_phys_opt_design"/>
     <Step Id="write_bitstream"/>
   </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="vram"/>
 </GenRun>
