@@ -5,7 +5,7 @@
  * File Created: 2019/03/10 06:58
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/15 05:03
+ * Last Modified: 2019/03/17 06:59
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -28,8 +28,8 @@ module fnc_vgacontroller(
 
     // reg
     input           module_en,      // Module Enable
-    output          hbrank,         // 水平帰線区間
-    output          vbrank,         // 垂直帰線区間
+    output          hblank,         // 水平帰線区間
+    output          vblank,         // 垂直帰線区間
 
     // VRAM
     output reg [18:0] addr,         // VRAM アドレス
@@ -49,7 +49,7 @@ module fnc_vgacontroller(
     parameter   H_SYNC          = 64;
     parameter   H_BACK_PORCH    = 80;
 
-    // V TOTAL 640lines
+    // V TOTAL 500lines
     parameter   V_PIXELS        = 480;
     parameter   V_FRONT_PORCH   = 3;
     parameter   V_SYNC          = 4;
@@ -95,7 +95,7 @@ module fnc_vgacontroller(
 
     // 水平帰線区間
     //     regブロックでクロック乗り換えを行うので、wireで良い
-    assign hbrank = (horcount < (H_FRONT_PORCH + H_SYNC + H_BACK_PORCH));
+    assign hblank = (horcount < (H_FRONT_PORCH + H_SYNC + H_BACK_PORCH));
 
     ////////////////////////////////////////////////////////////
     // 垂直カウンタ
@@ -147,7 +147,7 @@ module fnc_vgacontroller(
             addr <= 19'h00000;
         else if( vercount_full)
             addr <= 19'h00000;
-        else if( ~vbrank & ~hbrank)
+        else if( ~vblank & ~hblank)
             addr <= addr + 1'b1;
         else
             addr <= addr;

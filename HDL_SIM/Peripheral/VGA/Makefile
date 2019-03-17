@@ -3,7 +3,7 @@
 # File Created: 2019/03/11 04:21
 # Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
-# Last Modified: 2019/03/11 04:47
+# Last Modified: 2019/03/18 05:09
 # Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2019  Project GPIO
@@ -12,7 +12,7 @@
 # 
 ######################################################################
 
-testbench = fnc_vgacontroller_tb
+testbench = reg_vga_tb
 
 SRCDIR = ../../../HDL_SRC/
 INCDIR = ../../../HDL_SRC/CORE/
@@ -30,4 +30,4 @@ iverilog:
 	rm $(testbench).test
 
 wave:
-	gtkwave *.vcd $(testbench).test.gtkw -a $(testbench).test.gtkw 
+	gtkwave $(testbench).vcd $(testbench).test.gtkw -a $(testbench).test.gtkw 

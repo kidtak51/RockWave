@@ -1,11 +1,11 @@
 /*
  * *****************************************************************
- * File: night.c
+ * File: top_vgacontroller.v
  * Category: VGA
  * File Created: 2019/03/12 04:06
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/15 05:33
+ * Last Modified: 2019/03/18 05:33
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -32,16 +32,23 @@ module top_vgacontroller(
 
     // Local BUS
     input               sel,        // Select this Memory Block
-    input [18:0]        addr,       // Address
+    input [XLEN-1:0]    addr,       // Address
     input [2:0]         we,         // Write Enable
-    input [XLEN-1:0]    qin,      // Write Data
-    output [XLEN-1:0]   qout       // Read Data
+    input [XLEN-1:0]    qin,        // Write Data
+    output [XLEN-1:0]   qout        // Read Data
 );
     `include "core_general.vh"
 
     wire            pixel_clk;
     wire [18:0]     addrb;
     wire [11:0]     datab;
+
+    wire            vga_en;     // VGAモジュールイネーブル
+    wire            vblank;     // 垂直ブランク 
+    wire            hblank;     // 水平ブランク
+
+    wire   reg_sel  = sel & ((addr & 32'h00F0_0000) == 32'h0000_0000);
+    wire   vram_sel = sel & ((addr & 32'h00F0_0000) == 32'h0010_0000);
 
     // Pixel Clock生成
 `ifdef __ICARUS__
@@ -58,9 +65,9 @@ module top_vgacontroller(
     fnc_vgacontroller U_fnc_vgacontroller(
         .clk            (pixel_clk),
         .rst_n          (rst_n),
-        .module_en      (1'b1),
-        .hbrank         (),
-        .vbrank         (),
+        .module_en      (vga_en),
+        .hblank         (hblank),
+        .vblank         (vblank),
         .addr           (addrb),
         .data           (datab),
         .hsync          (hsync),
@@ -70,20 +77,30 @@ module top_vgacontroller(
         .bdata          (bdata)
     );
 
+    // reg Block
+    reg_vga  U_reg_vga(
+        .clk(clk), .rst_n(rst_n),
+        .sel(reg_sel), .addr(addr),
+        .we(we), .wdata(qin),
+        .rdata(qout),
+        .vblank(vblank), .hblank(hblank),
+        .vga_en(vga_en)
+    );
+
     // VRAM
     // True Dual Port RAMで生成し、PORTB側をROMとして使用
     wire [11:0] douta;
     assign qout = {{(XLEN-12){1'b0}},douta};
 
 `ifdef __ICARUS__
-    assign qout = 32'h00000000;
+    assign douta = 12'h000;
     assign datab = addrb[11:0];
 `else
     vram U_vram (
           .clka         (clk),
-          .ena          (sel),
+          .ena          (vram_sel),
           .wea          (we),
-          .addra        (addr),
+          .addra        (addr[18:0]),
           .dina         (qin),
           .douta        (douta),
           .clkb         (pixel_clk),
