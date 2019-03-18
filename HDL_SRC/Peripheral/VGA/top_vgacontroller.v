@@ -109,6 +109,5 @@ module top_vgacontroller(
           .dinb         (12'h000),
           .doutb        (datab)
     );
-`endif
 
 endmodule

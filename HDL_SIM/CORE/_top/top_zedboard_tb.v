@@ -5,7 +5,7 @@
  * File Created: 2019/01/21 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/03/15 05:02
+ * Last Modified: 2019/03/16 10:20
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -60,7 +60,7 @@ initial begin
     gpio_pin_in = 13'h0000;
 
     ////Core simulation start
-    #5000;
+    #500000;
     $finish;
 end
 
