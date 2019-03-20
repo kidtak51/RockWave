@@ -5,7 +5,7 @@
  * File Created: 2019/03/16 08:39
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/16 08:55
+ * Last Modified: 2019/03/19 04:41
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -40,7 +40,10 @@ always @(posedge clka)
     begin
         if(wea)
             ram[addra] <= dina;
-        douta <= ram[addra];
+        if(ena)
+            douta <= ram[addra];
+        else
+            douta <= 12'h000;
     end
 
 always @(posedge clkb)

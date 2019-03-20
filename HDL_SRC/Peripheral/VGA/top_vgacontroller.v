@@ -5,7 +5,7 @@
  * File Created: 2019/03/12 04:06
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/18 05:33
+ * Last Modified: 2019/03/20 05:29
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -50,6 +50,8 @@ module top_vgacontroller(
     wire   reg_sel  = sel & ((addr & 32'h00F0_0000) == 32'h0000_0000);
     wire   vram_sel = sel & ((addr & 32'h00F0_0000) == 32'h0010_0000);
 
+    assign qout = qout_reg | qout_vram;
+
     // Pixel Clock生成
 `ifdef __ICARUS__
     assign pixel_clk = clk;
@@ -77,12 +79,13 @@ module top_vgacontroller(
         .bdata          (bdata)
     );
 
+    wire [XLEN-1:0] qout_reg;
     // reg Block
     reg_vga  U_reg_vga(
         .clk(clk), .rst_n(rst_n),
         .sel(reg_sel), .addr(addr),
         .we(we), .wdata(qin),
-        .rdata(qout),
+        .rdata(qout_reg),
         .vblank(vblank), .hblank(hblank),
         .vga_en(vga_en)
     );
@@ -90,18 +93,14 @@ module top_vgacontroller(
     // VRAM
     // True Dual Port RAMで生成し、PORTB側をROMとして使用
     wire [11:0] douta;
-    assign qout = {{(XLEN-12){1'b0}},douta};
+    wire [XLEN-1:0] qout_vram = {{(XLEN-12){1'b0}},douta};
 
-`ifdef __ICARUS__
-    assign douta = 12'h000;
-    assign datab = addrb[11:0];
-`else
     vram U_vram (
           .clka         (clk),
           .ena          (vram_sel),
-          .wea          (we),
+          .wea          (we[2]),
           .addra        (addr[18:0]),
-          .dina         (qin),
+          .dina         (qin[11:0]),
           .douta        (douta),
           .clkb         (pixel_clk),
           .web          (1'b0),
@@ -109,5 +108,4 @@ module top_vgacontroller(
           .dinb         (12'h000),
           .doutb        (datab)
     );
-
 endmodule

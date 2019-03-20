@@ -5,7 +5,7 @@
  * File Created: 2019/01/21 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/03/16 10:20
+ * Last Modified: 2019/03/20 05:41
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -32,6 +32,8 @@ wire         vsync;
 wire [3:0]   rdata;
 wire [3:0]   gdata;
 wire [3:0]   bdata;
+
+wire [11:0] pc = u_top_zedboard.u_top_core.u_top_fetch.program_counter;
 
 top_zedboard u_top_zedboard(
 	.clk            (clk            ),
@@ -60,7 +62,10 @@ initial begin
     gpio_pin_in = 13'h0000;
 
     ////Core simulation start
-    #500000;
+    #500;
+    gpio_pin_in = 13'h0200;
+
+    #50000;
     $finish;
 end
 

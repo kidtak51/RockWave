@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/18 05:07
+ * Last Modified: 2019/03/19 04:48
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -94,6 +94,7 @@ module localbus(
 
     ////////////////////////////////////////////////////////////////
     // VGA領域
+    wire [2:0] vga_we = vga_sel ? we : 3'b000;
     top_vgacontroller U_top_vgacontroller(
         .clk            (clk),
         .rst_n          (rst_n),
@@ -107,7 +108,7 @@ module localbus(
         .sel            (vga_sel),
         .addr           (addr),
         .qin            (qin),
-        .we             (we),
+        .we             (vga_we),
         .qout           (vga_qout_sel)
     );
 

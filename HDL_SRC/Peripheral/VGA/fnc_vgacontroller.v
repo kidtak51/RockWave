@@ -5,7 +5,7 @@
  * File Created: 2019/03/10 06:58
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/17 06:59
+ * Last Modified: 2019/03/20 05:04
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -135,7 +135,7 @@ module fnc_vgacontroller(
 
     // 垂直帰線区間
     //     regブロックでクロック乗り換えを行うので、wireで良い
-    assign vbrank = (vercount < (V_FRONT_PORCH + V_SYNC + V_BACK_PORCH));
+    assign vblank = (vercount < (V_FRONT_PORCH + V_SYNC + V_BACK_PORCH));
 
     ////////////////////////////////////////////////////////////
     // VRAMアドレスカウンタ
