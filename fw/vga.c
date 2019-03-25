@@ -5,7 +5,7 @@
  * File Created: 2019/02/17 07:13
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: Wed Mar 20 2019
+ * Last Modified: Tue Mar 26 2019
  * Modified By: Masaru Aoki
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -39,15 +39,18 @@ void main()
     *(volatile int *)(GPIO_DFLT) = 5;
     *(volatile int *)(GPIO_REFCLK) = 5;
 
+    *(volatile int *)(VGA_EN) = 0x01; // vga_en
+
     // Wait CButton
     while ((*(volatile int *)(GPIO_IN) & 0x0200) == 0);
     *(volatile int *)GPIO_OUT = 0x000A;
 
     for(int y=0;y<480;y++)
-        for(int x=0;x<640;x++)
-        *(volatile int *)(VRAM+y*480+x) = 
-                    ((y>>4)&0x0f) + (((x>>4)&0x0f)<<4) + ((((x+y)>>4)&0x0f)<<8);
-    *(volatile int *)(VGA_EN) = 0x01; // vga_en
+        for(int x=0;x<640;x++){
+            *(volatile int *)(VRAM + y * 640 + y) =
+                0xFFF;
+            //                    ((y>>4)&0x0f) + (((x>>4)&0x0f)<<4) + ((((x+y)>>4)&0x0f)<<8);
+        }
     while (1)
         ;
 }

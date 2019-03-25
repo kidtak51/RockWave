@@ -5,7 +5,7 @@
  * File Created: 2019/01/21 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/03/20 05:41
+ * Last Modified: 2019/03/25 05:29
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -65,7 +65,7 @@ initial begin
     #500;
     gpio_pin_in = 13'h0200;
 
-    #50000;
+    #500000;
     $finish;
 end
 

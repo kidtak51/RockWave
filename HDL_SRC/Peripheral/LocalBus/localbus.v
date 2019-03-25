@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/19 04:48
+ * Last Modified: 2019/03/26 04:43
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -52,6 +52,7 @@ module localbus(
     wire [XLEN-1:0] ram_qout;                  // 常時RAM read data
     wire [XLEN-1:0] ram_qout_sel;              // Selected RAM Read data out (領域選択されていないと0出力)
     wire [XLEN-1:0] gpio_qout_sel;             // Selected GPIO Read data out
+    wire [XLEN-1:0] vga_qout;                  // 常時 VRAM Read data out
     wire [XLEN-1:0] vga_qout_sel;              // Selected VRAM Read data out
 
     // Local BUS としてのReadData出力
@@ -95,6 +96,7 @@ module localbus(
     ////////////////////////////////////////////////////////////////
     // VGA領域
     wire [2:0] vga_we = vga_sel ? we : 3'b000;
+    assign vga_qout_sel = vga_sel ? vga_qout : {XLEN{1'b0}};
     top_vgacontroller U_top_vgacontroller(
         .clk            (clk),
         .rst_n          (rst_n),
@@ -109,7 +111,7 @@ module localbus(
         .addr           (addr),
         .qin            (qin),
         .we             (vga_we),
-        .qout           (vga_qout_sel)
+        .qout           (vga_qout)
     );
 
 

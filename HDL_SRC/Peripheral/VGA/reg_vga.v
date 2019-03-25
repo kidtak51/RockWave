@@ -5,7 +5,7 @@
  * File Created: 2019/03/17 05:51
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/18 05:34
+ * Last Modified: 2019/03/20 05:38
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -28,7 +28,7 @@ module reg_vga(
     input [XLEN-1:0]    addr,       // Address
     input [2:0]         we,         // Write Enable
     input [XLEN-1:0]    wdata,      // Write Data
-    output [XLEN-1:0]   rdata,      // Read Data
+    output [31:0]   rdata,      // Read Data
 
     // for func block
     output              vga_en,     // VGAモジュールイネーブル
