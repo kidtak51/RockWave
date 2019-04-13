@@ -1,8 +1,14 @@
 module top_zedboard(
     input clk,
 
-    input [12:0] gpio_pin_in,
-    output [7:0] gpio_pin_out
+    input [12:0]   gpio_pin_in,
+    output [7:0]   gpio_pin_out,
+
+    output         hsync,
+    output         vsync,
+    output [3:0]   rdata,
+    output [3:0]   gdata,
+    output [3:0]   bdata
 );
 `include "core_general.vh"
 
@@ -65,7 +71,12 @@ localbus U_localbus(
     .qout(data_mem_out),
 
     .gpio_pin_in(gpio_pin_in),
-    .gpio_pin_out(gpio_pin_out)
+    .gpio_pin_out(gpio_pin_out),
+    .hsync(hsync),
+    .vsync(vsync),
+    .rdata(rdata),
+    .gdata(gdata),
+    .bdata(bdata)
 );
 
 wire [XLEN-1:0] pc = u_top_core.u_top_fetch.program_counter;

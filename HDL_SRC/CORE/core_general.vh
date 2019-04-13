@@ -5,7 +5,7 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/04 05:26
+ * Last Modified: 2019/03/13 03:49
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -51,6 +51,7 @@
     // Memory Map
     /////////////////////////////////////////////]
     parameter BASE_MASK = 32'hFF00_0000;
+    parameter VGA_BASE  = 32'h6000_0000;
     parameter GPIO_BASE = 32'h7000_0000;
     parameter ROM_BASE  = 32'h8000_0000;
     parameter RAM_BASE  = 32'h9000_0000;
